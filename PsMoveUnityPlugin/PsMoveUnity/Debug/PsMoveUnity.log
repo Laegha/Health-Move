@@ -1,0 +1,121 @@
+﻿  psmove_wrapper.cpp
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(8,25): error C2065: 'PSMOVE_CURRENT_VERSION': identificador no declarado
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(8,13): error C3861: 'psmove_init': no se encontró el identificador
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(9,13): error C3861: 'printf': no se encontró el identificador
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(13,33): error C2143: error de sintaxis: falta ';' delante de '*'
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(13,33): error C4430: falta el especificador de tipo; se presupone int. Nota: C++ no admite default-int
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(13,65): error C4430: falta el especificador de tipo; se presupone int. Nota: C++ no admite default-int
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(13,65): error C2059: error de sintaxis: '{'
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(13,65): error C2143: error de sintaxis: falta ';' delante de '{'
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(13,65): error C2447: '{': falta el encabezado de función (¿lista formal de estilo anterior?)
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(17,32): error C2182: 'CleanupPSMove': este uso de 'void' no es válido
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(17,54): error C2065: 'move': identificador no declarado
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(17,60): error C2143: error de sintaxis: falta ';' delante de '{'
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(17,60): error C2447: '{': falta el encabezado de función (¿lista formal de estilo anterior?)
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(22,16): error C3861: 'psmove_count_connected': no se encontró el identificador
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(25,65): error C2065: 'move': identificador no declarado
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(25,71): error C2143: error de sintaxis: falta ';' delante de '{'
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(25,71): error C2447: '{': falta el encabezado de función (¿lista formal de estilo anterior?)
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(29,56): error C2065: 'move': identificador no declarado
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(29,62): error C2062: tipo 'int' inesperado
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(29,83): error C2143: error de sintaxis: falta ';' delante de '{'
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(29,83): error C2447: '{': falta el encabezado de función (¿lista formal de estilo anterior?)
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(43,48): error C2065: 'move': identificador no declarado
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(43,54): error C2062: tipo 'int' inesperado
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(43,75): error C2143: error de sintaxis: falta ';' delante de '{'
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(43,75): error C2447: '{': falta el encabezado de función (¿lista formal de estilo anterior?)
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(57,32): error C2182: 'SetLeds': este uso de 'void' no es válido
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(57,48): error C2065: 'move': identificador no declarado
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(57,54): error C2062: tipo 'int' inesperado
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(57,75): error C2143: error de sintaxis: falta ';' delante de '{'
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(57,75): error C2447: '{': falta el encabezado de función (¿lista formal de estilo anterior?)
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(61,32): error C2182: 'PairController': este uso de 'void' no es válido
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(61,55): error C2065: 'move': identificador no declarado
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(61,61): error C2143: error de sintaxis: falta ';' delante de '{'
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(61,61): error C2447: '{': falta el encabezado de función (¿lista formal de estilo anterior?)
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(65,50): error C2065: 'move': identificador no declarado
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(65,56): error C2143: error de sintaxis: falta ';' delante de '{'
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(65,56): error C2447: '{': falta el encabezado de función (¿lista formal de estilo anterior?)
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(69,59): error C2065: 'move': identificador no declarado
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(69,65): error C2143: error de sintaxis: falta ';' delante de '{'
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  
+D:\GitHub\Proyecto-2024\PsMoveUnityPlugin\PsMoveUnity\psmove_wrapper.cpp(69,65): error C2447: '{': falta el encabezado de función (¿lista formal de estilo anterior?)
+  (compilando archivo de origen "/psmove_wrapper.cpp")
+  

@@ -1,7 +1,9 @@
 #include "psmove.h"
 #include <stdio.h>
+#include "pch.h"
 
 extern "C" {
+
     __declspec(dllexport) void InitializePSMove() {
         if (psmove_init(PSMOVE_CURRENT_VERSION) == 0) {
             printf("Could not initialize PSMove API\n");
@@ -12,7 +14,7 @@ extern "C" {
         return psmove_connect_by_id(id);
     }
 
-    __declspec(dllexport) void CleanupPSMove(PSMove* move) {
+    __declspec(dllexport) void DisconnectController(PSMove* move) {
         psmove_disconnect(move);
     }
 
