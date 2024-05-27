@@ -25,7 +25,7 @@ namespace PsMoveAPI
              *  3.0.1 = 0x030001
              *  4.2.11 = 0x04020B
              **/
-            PSMOVE_CURRENT_VERSION = 0x030001, /*!< Current version, see psmove_init() */
+            PSMOVE_CURRENT_VERSION = 0x04000C, /*!< Current version, see psmove_init() 4.0.12 */
         }
 
         // Not entirely sure why some of these buttons (R3/L3) are exposed...
