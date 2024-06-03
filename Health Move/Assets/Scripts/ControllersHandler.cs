@@ -2,10 +2,16 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using PsMoveAPI;
+using System.Linq;
 
 public class ControllersHandler : MonoBehaviour
 {
-    List<IntPtr> _controllers = new List<IntPtr>();
+    //List<IntPtr> _controllers = new List<IntPtr>();
+    Dictionary<IntPtr, Controller> _controllers = new Dictionary<IntPtr, Controller>();
+    [SerializeField] Color _leds;
+    Color _prevLeds;
+
+    public Dictionary<IntPtr, Controller> Controllers {  get { return _controllers; } }
 
     void Start()
     {
@@ -17,8 +23,11 @@ public class ControllersHandler : MonoBehaviour
         int connectedControllers = ControllerHelper.psmove_count_connected();
         for(int i = 0; i < connectedControllers; i++)
         {
-            _controllers.Add(ControllerHelper.psmove_connect_by_id(i));
+            _controllers.Add(ControllerHelper.psmove_connect_by_id(i), new Controller());
         }
+
+        //foreach(var controller in _controllers)
+            //ControllerHelper.psmove_set_leds(controller, 255, 255, 255);
     }
 
 
@@ -29,24 +38,33 @@ public class ControllersHandler : MonoBehaviour
 
         foreach(var controller in _controllers)
         {
-            if (ControllerHelper.psmove_poll(controller) == 0)
+            if (ControllerHelper.psmove_poll(controller.Key) == 0)
                 continue;
 
             //Debug.Log(controller + " has pressed buttons: " + ControllerHelper.psmove_get_buttons(controller));
 
-            int x = 0;
-            int y = 0;
-            int z = 0;
+            if (_leds != _prevLeds)
+            {
+                ControllerHelper.psmove_set_leds(controller.Key, (byte)(_leds.r * 255), (byte)(_leds.g * 255), (byte)(_leds.b * 255));
+                _prevLeds = _leds;
+            }
+
+            ControllerHelper.psmove_update_leds(controller.Key);
 
             
-            ControllerHelper.psmove_get_accelerometer(controller, ref x, ref y, ref z);
-            Vector3 accel = new Vector3(MapValue(x), MapValue(y), MapValue(z));
+            //ControllerHelper.psmove_get_accelerometer(controller, ref x, ref y, ref z);
+            ControllerHelper.psmove_get_accelerometer(controller.Key, ref controller.Value.accelX, ref controller.Value.accelY, ref controller.Value.accelZ);
+            controller.Value.accel = new Vector3(MapValue(controller.Value.accelX), MapValue(controller.Value.accelY), MapValue(controller.Value.accelZ));
 
 
 
             //ControllerHelper.psmove_get_accelerometer_frame(controller, 1, ref x, ref y, ref z);
 
-            Debug.Log(controller + " has accel: " + TruncateDecimals(4, accel.magnitude));
+
+            float xAccel = TruncateDecimals(4, controller.Value.accel.x);
+
+            if (xAccel > 0.1)
+                Debug.Log(controller + " has accel: " + xAccel);
         }
     }
 
@@ -60,5 +78,11 @@ public class ControllersHandler : MonoBehaviour
         int decimals = (int)(input * MathF.Pow(10, numberOfDecimals));
         float returned = decimals / MathF.Pow(10, numberOfDecimals);
         return returned;
+    }
+
+    public IntPtr GetControllerByIndex(int index)
+    {
+        List<IntPtr> list = _controllers.Keys.ToList();
+        return list[index];
     }
 }
