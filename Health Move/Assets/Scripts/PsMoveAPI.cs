@@ -94,7 +94,7 @@ namespace PsMoveAPI
 
         //leds
         [DllImport("psmoveapi.dll")]
-        public static extern void psmove_set_leds(IntPtr move, char r, char g, char b);
+        public static extern void psmove_set_leds(IntPtr move, byte r, byte g, byte b);
 
         [DllImport("psmoveapi.dll")]
         public static extern int psmove_update_leds(IntPtr move);
