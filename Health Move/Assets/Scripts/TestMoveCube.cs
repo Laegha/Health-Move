@@ -19,14 +19,17 @@ public class TestMoveCube : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
+        {
             PsMoveAPI.ControllerHelper.psmove_reset_orientation(assignedController);
+            transform.position = Vector3.zero;
+        }
         //cambiar la posicion segun controllersHandler.Controllers[assignedController].accel
-        //Vector3 accel = controllersHandler.Controllers[assignedController].accel * Time.deltaTime * speed;
-        //movement = accel;
+        Vector3 accel = controllersHandler.Controllers[assignedController].accel * Time.deltaTime * speed;
+        movement = accel;
 
-        //transform.position = new Vector3(transform.position.x + accel.x , transform.position.y + accel.y, transform.position.z + accel.z);
+        transform.position = new Vector3(transform.position.x + accel.x, transform.position.y + accel.y, transform.position.z + accel.z);
 
-        Quaternion orientation = controllersHandler.Controllers[assignedController].orientation;
-        transform.rotation = orientation;
+        //Quaternion orientation = controllersHandler.Controllers[assignedController].orientation;
+        //transform.rotation = orientation;
     }
 }
