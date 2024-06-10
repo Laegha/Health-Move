@@ -34,8 +34,9 @@ public class ControllersHandler : MonoBehaviour
 
         foreach (var controller in _controllers)
         {
-            assignedController = controller.Key;
-            StartCoroutine(Rainbow());
+            ControllerHelper.psmove_enable_orientation(controller.Key, true);
+            //assignedController = controller.Key;
+            //StartCoroutine(Rainbow());
         }
             //ControllerHelper.psmove_set_leds(controller, 255, 255, 255);
     }
@@ -63,36 +64,74 @@ public class ControllersHandler : MonoBehaviour
             ControllerHelper.psmove_update_leds(controller.Key);
 
 
+            #region Setting Accel
             //ControllerHelper.psmove_get_accelerometer(controller, ref x, ref y, ref z);
-            int x = 0;
-            int y = 0;
-            int z = 0;
+            int accelXRaw = 0;
+            int accelYRaw = 0;
+            int accelZRaw = 0;
 
-            ControllerHelper.psmove_get_accelerometer(controller.Key, ref x, ref y, ref z);
+            ControllerHelper.psmove_get_accelerometer(controller.Key, ref accelXRaw, ref accelYRaw, ref accelZRaw);
 
-            float accelX = TruncateDecimals(_accelDecimals, MapValue(x));
-            float accelY = TruncateDecimals(_accelDecimals, MapValue(y));
-            float accelZ = TruncateDecimals(_accelDecimals, MapValue(z));
+            float accelX = TruncateDecimals(_accelDecimals, MapValue(accelXRaw));
+            float accelY = TruncateDecimals(_accelDecimals, MapValue(accelYRaw));
+            float accelZ = TruncateDecimals(_accelDecimals, MapValue(accelZRaw));
 
             if(accelX > 0 && accelX < _sensitivityMin || accelX < 0 && accelX > -_sensitivityMin)
+            {
                 accelX = 0;
+                //print("x < 0: " + accelX);
+
+            }
             
             if(accelY > 0 && accelY < _sensitivityMin || accelY < 0 && accelY > -_sensitivityMin)
+            {
+                //print("y < 0: " + accelY );
                 accelY = 0;
+
+            }    
             
             if(accelZ > 0 && accelZ < _sensitivityMin || accelZ < 0 && accelZ > -_sensitivityMin)
+            {
+                //print("z < 0: " + accelZ);
                 accelZ = 0;
+            }
+            //print("z: " + accelZ);
+            print(accelZ + " > 0 AND " + accelZ + " < " +  _sensitivityMin);
 
             controller.Value.accel = new Vector3(accelX, accelY, accelZ);
+            #endregion
 
+            #region Setting Gyroscope
+
+            int gyroXRaw = 0;
+            int gyroYRaw = 0;
+            int gyroZRaw = 0;
+
+            ControllerHelper.psmove_get_gyroscope(controller.Key, ref gyroXRaw, ref gyroYRaw, ref gyroZRaw);
+
+            controller.Value.gyro = new Vector3(gyroXRaw, gyroYRaw, gyroZRaw);
+            #endregion
+
+            #region Setting orientation
+
+            float orientationW = 0;
+            float orientationX = 0;
+            float orientationY = 0;
+            float orientationZ = 0;
+
+            ControllerHelper.psmove_get_orientation(controller.Key, ref orientationW, ref orientationX, ref orientationY, ref orientationZ);
+
+            controller.Value.orientation = new Quaternion(orientationX, orientationY, orientationZ, orientationW);
+
+            #endregion
 
             //ControllerHelper.psmove_get_accelerometer_frame(controller, 1, ref x, ref y, ref z);
 
 
-            float xAccel = TruncateDecimals(4, controller.Value.accel.x);
+            float xAccel = controller.Value.accel.x;
 
             //if (xAccel > 0.1)
-                Debug.Log(controller + " has accel: " + xAccel);
+                //Debug.Log(controller + " has accel: " + xAccel);
         }
     }
 
@@ -121,35 +160,35 @@ public class ControllersHandler : MonoBehaviour
 
 
 
-    IntPtr assignedController;
-    IEnumerator Rainbow()
-    {
-        int red = 255;
-        int green = 0;
-        int blue = 0;
-        bool isRedGrowing = false;
-        bool isGreenGrowing = true;
-        bool isBlueGrowing = true;
+    //IntPtr assignedController;
+    //IEnumerator Rainbow()
+    //{
+    //    int red = 255;
+    //    int green = 0;
+    //    int blue = 0;
+    //    bool isRedGrowing = false;
+    //    bool isGreenGrowing = true;
+    //    bool isBlueGrowing = true;
 
-        int speed = 10;
+    //    int speed = 10;
 
-        while (true)
-        {
-            yield return new WaitForEndOfFrame();
-            red += isRedGrowing ? speed : -speed;
-            green += isGreenGrowing ? speed : -speed;
-            blue += isBlueGrowing ? speed : -speed;
+    //    while (true)
+    //    {
+    //        yield return new WaitForEndOfFrame();
+    //        red += isRedGrowing ? speed : -speed;
+    //        green += isGreenGrowing ? speed : -speed;
+    //        blue += isBlueGrowing ? speed : -speed;
 
-            if (isRedGrowing && red > 255 || !isRedGrowing && red < 0)
-                isRedGrowing = !isRedGrowing;
+    //        if (isRedGrowing && red > 255 || !isRedGrowing && red < 0)
+    //            isRedGrowing = !isRedGrowing;
 
-            if (isGreenGrowing && green > 255 || !isGreenGrowing && green < 0)
-                isGreenGrowing = !isGreenGrowing;
+    //        if (isGreenGrowing && green > 255 || !isGreenGrowing && green < 0)
+    //            isGreenGrowing = !isGreenGrowing;
 
-            if (isBlueGrowing && blue > 255 || !isBlueGrowing && blue < 0)
-                isBlueGrowing = !isBlueGrowing;
+    //        if (isBlueGrowing && blue > 255 || !isBlueGrowing && blue < 0)
+    //            isBlueGrowing = !isBlueGrowing;
 
-            SetLeds(assignedController, red, green, blue);
-        }
-    }
+    //        SetLeds(assignedController, red, green, blue);
+    //    }
+    //}
 }

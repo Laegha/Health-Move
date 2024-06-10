@@ -5,5 +5,7 @@ using UnityEngine;
 public class Controller
 {
     public Vector3 accel;
+    public Vector3 gyro;
+    public Quaternion orientation;
 
 }

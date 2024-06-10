@@ -24,6 +24,8 @@ extern "C" {
 
     __declspec(dllexport) int ControllerHasChangedState(PSMove *move) {
         return psmove_poll(move);
+        psmove_get_orientation
+            psmove_e
     }
 
     __declspec(dllexport) int* GetAcceleration(PSMove* move, int x, int y, int z) {

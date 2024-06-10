@@ -116,6 +116,12 @@ namespace PsMoveAPI
         public static extern void psmove_get_accelerometer_frame(IntPtr move, int frame, ref int ax, ref int ay, ref int az);
 
         [DllImport("psmoveapi.dll")]
+        public static extern void psmove_enable_orientation(IntPtr move, bool enabled);
+
+        [DllImport("psmoveapi.dll")]
         public static extern void psmove_reset_orientation(IntPtr move);
+
+        [DllImport("psmoveapi.dll")]
+        public static extern void psmove_get_orientation(IntPtr move, ref float w, ref float x, ref float y, ref float z);
     }
 }
