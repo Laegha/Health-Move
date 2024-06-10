@@ -112,7 +112,7 @@ public class ControllersHandler : MonoBehaviour
             controller.Value.gyro = new Vector3(gyroXRaw, gyroYRaw, gyroZRaw);
             #endregion
 
-            #region Setting orientation
+            #region Setting Orientation
 
             float orientationW = 0;
             float orientationX = 0;
@@ -121,7 +121,7 @@ public class ControllersHandler : MonoBehaviour
 
             ControllerHelper.psmove_get_orientation(controller.Key, ref orientationW, ref orientationX, ref orientationY, ref orientationZ);
 
-            controller.Value.orientation = new Quaternion(orientationX, orientationY, orientationZ, orientationW);
+            controller.Value.orientation = new Quaternion(-orientationX, orientationZ, orientationY, orientationW);
 
             #endregion
 
