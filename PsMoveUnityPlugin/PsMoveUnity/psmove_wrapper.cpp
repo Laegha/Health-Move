@@ -1,4 +1,7 @@
 #include "psmove.h"
+#include "psmoveapi.h"
+#include "psmove_tracker.h"
+
 #include <stdio.h>
 #include "pch.h"
 
@@ -12,6 +15,7 @@ extern "C" {
 
     __declspec(dllexport) PSMove* ConnectControllerByID(int id) {
         return psmove_connect_by_id(id);
+        
     }
 
     __declspec(dllexport) void DisconnectController(PSMove* move) {
@@ -24,15 +28,18 @@ extern "C" {
 
     __declspec(dllexport) int ControllerHasChangedState(PSMove *move) {
         return psmove_poll(move);
-        psmove_get_orientation
-            psmove_e
     }
 
     __declspec(dllexport) int* GetAcceleration(PSMove* move, int x, int y, int z) {
         int ax = x;
         int ay = y;
         int az = z;
-        psmove_get_accelerometer(move, &ax, &ay, &az);
+        psmove_tracker_get_position();
+        psmove_tracker_update();
+        psmove_tracker_update_image();
+        psmove_tracker_distance_from_radius();
+
+        psmove_get_accelerometer_frame(move, &ax, &ay, &az);
 
         int* returnedValues = new int[3];
         returnedValues[0] = ax;
@@ -47,6 +54,7 @@ extern "C" {
         int ay = y;
         int az = z;
         psmove_get_gyroscope(move, &ax, &ay, &az);
+        psmove_
 
         int* returnedValues = new int[3];
         returnedValues[0] = ax;

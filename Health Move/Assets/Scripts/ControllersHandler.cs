@@ -17,6 +17,8 @@ public class ControllersHandler : MonoBehaviour
 
     public Dictionary<IntPtr, Controller> Controllers {  get { return _controllers; } }
 
+    IntPtr _camera;
+
     void Awake()
     {
         if(ControllerHelper.psmove_init(ControllerHelper.PSMove_Version.PSMOVE_CURRENT_VERSION) == ControllerHelper.PSMove_Bool.PSMove_False)
@@ -27,18 +29,21 @@ public class ControllersHandler : MonoBehaviour
 
         int connectedControllers = ControllerHelper.psmove_count_connected();
 
+        _camera = ControllerHelper.psmove_tracker_new();
         for(int i = 0; i < connectedControllers; i++)
         {
             _controllers.Add(ControllerHelper.psmove_connect_by_id(i), new Controller());
+            Debug.Log("controller");
         }
 
         foreach (var controller in _controllers)
         {
             ControllerHelper.psmove_enable_orientation(controller.Key, true);
+            ControllerHelper.psmove_tracker_enable(_camera, controller.Key);
             //assignedController = controller.Key;
             //StartCoroutine(Rainbow());
-        }
             //ControllerHelper.psmove_set_leds(controller, 255, 255, 255);
+        }
     }
 
 
@@ -47,8 +52,11 @@ public class ControllersHandler : MonoBehaviour
         if (_controllers.Count < 0)
             return;
 
+        ControllerHelper.psmove_tracker_update_image(_camera);
+
         foreach(var controller in _controllers)
         {
+
             if (ControllerHelper.psmove_poll(controller.Key) == 0)
                 continue;
 
@@ -57,12 +65,25 @@ public class ControllersHandler : MonoBehaviour
             if (_leds != _prevLeds)
             {
                 //ControllerHelper.psmove_set_leds(controller.Key, (byte)(_leds.r * 255), (byte)(_leds.g * 255), (byte)(_leds.b * 255));
-                //SetLeds(controller.Key, (byte)(_leds.r * 255), (byte)(_leds.g * 255), (byte)(_leds.b * 255));
+                SetLeds(controller.Key, (byte)(_leds.r * 255), (byte)(_leds.g * 255), (byte)(_leds.b * 255));
                 _prevLeds = _leds;
             }
 
             ControllerHelper.psmove_update_leds(controller.Key);
 
+            ControllerHelper.psmove_tracker_update(_camera, controller.Key);
+
+            #region Position Tracking
+            float posX = 0;
+            float posY = 0;
+            float radius = 0;
+
+            ControllerHelper.psmove_tracker_get_position(_camera, controller.Key, ref posX, ref posY, ref radius);
+            float posZ = ControllerHelper.psmove_tracker_distance_from_radius(_camera, radius);
+
+            controller.Value.position = new Vector3(posX, posY, posZ);
+
+            #endregion
 
             #region Setting Accel
             //ControllerHelper.psmove_get_accelerometer(controller, ref x, ref y, ref z);
@@ -76,28 +97,26 @@ public class ControllersHandler : MonoBehaviour
             float accelY = TruncateDecimals(_accelDecimals, MapValue(accelYRaw));
             float accelZ = TruncateDecimals(_accelDecimals, MapValue(accelZRaw));
 
-            if(accelX > 0 && accelX < _sensitivityMin || accelX < 0 && accelX > -_sensitivityMin)
-            {
-                accelX = 0;
-                //print("x < 0: " + accelX);
+            //if(accelX > 0 && accelX < _sensitivityMin || accelX < 0 && accelX > -_sensitivityMin)
+            //{
+            //    accelX = 0;
+            //    //print("x < 0: " + accelX);
 
-            }
-            
-            if(accelY > 0 && accelY < _sensitivityMin || accelY < 0 && accelY > -_sensitivityMin)
-            {
-                //print("y < 0: " + accelY );
-                accelY = 0;
+            //}
 
-            }    
-            
-            if(accelZ > 0 && accelZ < _sensitivityMin || accelZ < 0 && accelZ > -_sensitivityMin)
-            {
-                //print("z < 0: " + accelZ);
-                accelZ = 0;
-            }
-            //print("z: " + accelZ);
-            print(accelZ + " > 0 AND " + accelZ + " < " +  _sensitivityMin);
+            //if(accelY > 0 && accelY < _sensitivityMin || accelY < 0 && accelY > -_sensitivityMin)
+            //{
+            //    //print("y < 0: " + accelY );
+            //    accelY = 0;
 
+            //}    
+
+            //if(accelZ > 0 && accelZ < _sensitivityMin || accelZ < 0 && accelZ > -_sensitivityMin)
+            //{
+            //    //print("z < 0: " + accelZ);
+            //    accelZ = 0;
+            //}
+            Debug.Log(ControllerHelper.psmove_has_calibration(controller.Key));
             controller.Value.accel = new Vector3(accelX, accelY, accelZ);
             #endregion
 

@@ -6,6 +6,7 @@ public class TestMoveCube : MonoBehaviour
 {
     [SerializeField] ControllersHandler controllersHandler;
     [SerializeField] Vector3 movement;
+    [SerializeField] Vector3 position;
     IntPtr assignedController;
 
     float speed = 10;
@@ -27,7 +28,9 @@ public class TestMoveCube : MonoBehaviour
         Vector3 accel = controllersHandler.Controllers[assignedController].accel * Time.deltaTime * speed;
         movement = accel;
 
-        transform.position = new Vector3(transform.position.x + accel.x, transform.position.y + accel.y, transform.position.z + accel.z);
+        //transform.position = new Vector3(transform.position.x + accel.x, transform.position.y + accel.y, transform.position.z + accel.z);
+        position = controllersHandler.Controllers[assignedController].position;
+        transform.position = position;
 
         //Quaternion orientation = controllersHandler.Controllers[assignedController].orientation;
         //transform.rotation = orientation;
