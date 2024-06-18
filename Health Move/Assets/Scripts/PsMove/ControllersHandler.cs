@@ -29,17 +29,16 @@ public class ControllersHandler : MonoBehaviour
 
         int connectedControllers = ControllerHelper.psmove_count_connected();
 
-        _camera = ControllerHelper.psmove_tracker_new();
+        //_camera = ControllerHelper.psmove_tracker_new();
         for(int i = 0; i < connectedControllers; i++)
         {
             _controllers.Add(ControllerHelper.psmove_connect_by_id(i), new Controller());
-            Debug.Log("controller");
         }
 
         foreach (var controller in _controllers)
         {
             ControllerHelper.psmove_enable_orientation(controller.Key, true);
-            ControllerHelper.psmove_tracker_enable(_camera, controller.Key);
+            //ControllerHelper.psmove_tracker_enable(_camera, controller.Key);
             //assignedController = controller.Key;
             //StartCoroutine(Rainbow());
             //ControllerHelper.psmove_set_leds(controller, 255, 255, 255);
@@ -49,6 +48,8 @@ public class ControllersHandler : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("Cameras:" + ControllerHelper.psmove_tracker_count_connected());
+
         if (_controllers.Count < 0)
             return;
 

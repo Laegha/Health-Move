@@ -142,5 +142,8 @@ namespace PsMoveAPI
         [DllImport("psmoveapi.dll")]
         public static extern bool psmove_tracker_update_image(IntPtr tracker);
 
+        [DllImport("psmoveapi.dll")]
+        public static extern int psmove_tracker_count_connected();
+
     }
 }
