@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasquetScored : PointScore
+public class BasquetScored : PointScoredReciever
 {
     // Start is called before the first frame update
     void Start()
