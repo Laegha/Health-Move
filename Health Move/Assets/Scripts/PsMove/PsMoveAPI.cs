@@ -124,25 +124,28 @@ namespace PsMoveAPI
         public static extern bool psmove_has_calibration(IntPtr move);
 
         //tracker related
-        [DllImport("psmoveapi.dll")]
+        [DllImport("psmoveapi_tracker.dll")]
         public static extern IntPtr psmove_tracker_new();
 
-        [DllImport("psmoveapi.dll")]
+        [DllImport("psmoveapi_tracker.dll")]
+        public static extern IntPtr psmove_tracker_new_with_camera(int cameraIndex);
+
+        [DllImport("psmoveapi_tracker.dll")]
         public static extern bool psmove_tracker_enable(IntPtr tracker, IntPtr move);
 
-        [DllImport("psmoveapi.dll")]
+        [DllImport("psmoveapi_tracker.dll")]
         public static extern int psmove_tracker_get_position(IntPtr tracker, IntPtr move, ref float x, ref float y, ref float radius);
 
-        [DllImport("psmoveapi.dll")]
+        [DllImport("psmoveapi_tracker.dll")]
         public static extern float psmove_tracker_distance_from_radius(IntPtr tracker, float radius);
 
-        [DllImport("psmoveapi.dll")]
-        public static extern bool psmove_tracker_update(IntPtr tracker, IntPtr move);
+        [DllImport("psmoveapi_tracker.dll")]
+        public static extern int psmove_tracker_update(IntPtr tracker, IntPtr move);
 
-        [DllImport("psmoveapi.dll")]
-        public static extern bool psmove_tracker_update_image(IntPtr tracker);
+        [DllImport("psmoveapi_tracker.dll")]
+        public static extern void psmove_tracker_update_image(IntPtr tracker);
 
-        [DllImport("psmoveapi.dll")]
+        [DllImport("psmoveapi_tracker.dll")]
         public static extern int psmove_tracker_count_connected();
 
     }
