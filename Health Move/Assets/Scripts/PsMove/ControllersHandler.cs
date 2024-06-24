@@ -29,8 +29,8 @@ public class ControllersHandler : MonoBehaviour
 
         int connectedControllers = ControllerHelper.psmove_count_connected();
 
-        //_camera = ControllerHelper.psmove_tracker_new();
-        for(int i = 0; i < connectedControllers; i++)
+        _camera = ControllerHelper.psmove_tracker_new();
+        for (int i = 0; i < connectedControllers; i++)
         {
             _controllers.Add(ControllerHelper.psmove_connect_by_id(i), new Controller());
         }
@@ -38,7 +38,7 @@ public class ControllersHandler : MonoBehaviour
         foreach (var controller in _controllers)
         {
             ControllerHelper.psmove_enable_orientation(controller.Key, true);
-            //ControllerHelper.psmove_tracker_enable(_camera, controller.Key);
+            ControllerHelper.psmove_tracker_enable(_camera, controller.Key);
             //assignedController = controller.Key;
             //StartCoroutine(Rainbow());
             //ControllerHelper.psmove_set_leds(controller, 255, 255, 255);
@@ -48,7 +48,6 @@ public class ControllersHandler : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Cameras:" + ControllerHelper.psmove_tracker_count_connected());
 
         if (_controllers.Count < 0)
             return;
@@ -72,7 +71,7 @@ public class ControllersHandler : MonoBehaviour
 
             ControllerHelper.psmove_update_leds(controller.Key);
 
-            ControllerHelper.psmove_tracker_update(_camera, controller.Key);
+            print(ControllerHelper.psmove_tracker_update(_camera, controller.Key));
 
             #region Position Tracking
             float posX = 0;
@@ -117,7 +116,7 @@ public class ControllersHandler : MonoBehaviour
             //    //print("z < 0: " + accelZ);
             //    accelZ = 0;
             //}
-            Debug.Log(ControllerHelper.psmove_has_calibration(controller.Key));
+            ControllerHelper.psmove_has_calibration(controller.Key);
             controller.Value.accel = new Vector3(accelX, accelY, accelZ);
             #endregion
 
@@ -211,4 +210,9 @@ public class ControllersHandler : MonoBehaviour
     //        SetLeds(assignedController, red, green, blue);
     //    }
     //}
+    private void OnDestroy()
+    {
+        print("Destroyed");
+        ControllerHelper.psmove_tracker_free(_camera);
+    }
 }
