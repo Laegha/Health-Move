@@ -19,26 +19,30 @@ public class ControllersHandler : MonoBehaviour
 
     IntPtr _camera;
 
-    void Awake()
+    private void Awake()
     {
-        if(ControllerHelper.psmove_init(ControllerHelper.PSMove_Version.PSMOVE_CURRENT_VERSION) == ControllerHelper.PSMove_Bool.PSMove_False)
+
+        if (ControllerHelper.psmove_init(ControllerHelper.PSMove_Version.PSMOVE_CURRENT_VERSION) == ControllerHelper.PSMove_Bool.PSMove_False)
         {
             Debug.Log("Failed to initialize PSMoveAPI. Probably using a wrong version");
             return;
         }
+    }
 
+    void Calibrate()
+    {
         int connectedControllers = ControllerHelper.psmove_count_connected();
 
-        _camera = ControllerHelper.psmove_tracker_new();
         for (int i = 0; i < connectedControllers; i++)
         {
             _controllers.Add(ControllerHelper.psmove_connect_by_id(i), new Controller());
         }
+        _camera = ControllerHelper.psmove_tracker_new();
 
         foreach (var controller in _controllers)
         {
             ControllerHelper.psmove_enable_orientation(controller.Key, true);
-            ControllerHelper.psmove_tracker_enable(_camera, controller.Key);
+            print("Enabled: " + ControllerHelper.psmove_tracker_enable(_camera, controller.Key));
             //assignedController = controller.Key;
             //StartCoroutine(Rainbow());
             //ControllerHelper.psmove_set_leds(controller, 255, 255, 255);
@@ -48,13 +52,15 @@ public class ControllersHandler : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.C))
+            Calibrate();
 
-        if (_controllers.Count < 0)
+        if (_controllers.Count <= 0)
             return;
 
-        ControllerHelper.psmove_tracker_update_image(_camera);
+        ControllerHelper.psmove_tracker_update_image(ref _camera);
 
-        foreach(var controller in _controllers)
+        foreach (var controller in _controllers)
         {
 
             if (ControllerHelper.psmove_poll(controller.Key) == 0)
@@ -71,7 +77,7 @@ public class ControllersHandler : MonoBehaviour
 
             ControllerHelper.psmove_update_leds(controller.Key);
 
-            print(ControllerHelper.psmove_tracker_update(_camera, controller.Key));
+            //print("Update succesfull: " + ControllerHelper.psmove_tracker_update(ref _camera, ref controller.Key));
 
             #region Position Tracking
             float posX = 0;
@@ -84,6 +90,13 @@ public class ControllersHandler : MonoBehaviour
             controller.Value.position = new Vector3(posX, posY, posZ);
 
             #endregion
+
+            byte red = 0;
+            byte green = 0;
+            byte blue = 0;
+
+            //print("Color Tracking: " + ControllerHelper.psmove_tracker_get_camera_color(ref _camera, controller.Key, ref red, ref green, ref blue));
+            print("Color: " + red + ":" + green + ":" + blue);
 
             #region Setting Accel
             //ControllerHelper.psmove_get_accelerometer(controller, ref x, ref y, ref z);
@@ -170,8 +183,8 @@ public class ControllersHandler : MonoBehaviour
     public IntPtr GetControllerByIndex(int index)
     {
         List<IntPtr> list = _controllers.Keys.ToList();
-
-        return list[index];
+        
+        return index < list.Count ? list[index] : (IntPtr)0;
     }
 
     public void SetLeds(IntPtr move, int red, int green, int blue) => ControllerHelper.psmove_set_leds(move, (byte)(red), (byte)(green), (byte)(blue));

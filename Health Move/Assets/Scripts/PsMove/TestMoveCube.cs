@@ -19,6 +19,9 @@ public class TestMoveCube : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (assignedController.ToInt32() == 0)
+            return;
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             PsMoveAPI.ControllerHelper.psmove_reset_orientation(assignedController);

@@ -140,16 +140,21 @@ namespace PsMoveAPI
         public static extern float psmove_tracker_distance_from_radius(IntPtr tracker, float radius);
 
         [DllImport("psmoveapi_tracker.dll")]
-        public static extern int psmove_tracker_update(IntPtr tracker, IntPtr move);
+        public static extern int psmove_tracker_update(ref IntPtr tracker, ref IntPtr move);
 
         [DllImport("psmoveapi_tracker.dll")]
-        public static extern void psmove_tracker_update_image(IntPtr tracker);
+        public static extern void psmove_tracker_update_image(ref IntPtr tracker);
 
         [DllImport("psmoveapi_tracker.dll")]
         public static extern int psmove_tracker_count_connected();
 
         [DllImport("psmoveapi_tracker.dll")]
-        public static extern void psmove_tracker_free(IntPtr tracker);
+        public static extern void psmove_tracker_free(ref IntPtr tracker);
+
+        [DllImport("psmoveapi_tracker.dll")]
+        public static extern int psmove_tracker_get_camera_color(ref IntPtr tracker, ref IntPtr move, ref byte r, ref byte g, ref byte b );
+
+
 
     }
 }
