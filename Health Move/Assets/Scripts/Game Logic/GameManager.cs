@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     List<PointScoredReciever> scoredRecievers = new List<PointScoredReciever>();
     MinigameManager currMinigameManager;
 
-    void OnScored()
+    public void OnScored()
     {
         foreach (PointScoredReciever reciever in scoredRecievers)
             reciever.OnScored();
