@@ -303,7 +303,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -341,9 +341,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ea713be595597c499debf9c2cf1f821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllersHandler: {fileID: 1957583734}
   movement: {x: 0, y: 0, z: 0}
+  controllersHandler: {fileID: 1957583734}
   position: {x: 0, y: 0, z: 0}
+  positionZero: {x: 0, y: 0, z: 0}
 --- !u!65 &1060716321
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -460,7 +461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _leds: {r: 1, g: 0, b: 0, a: 1}
-  _sensitivityMin: 0.13
+  _sensitivity: 0.1
 --- !u!4 &1957583735
 Transform:
   m_ObjectHideFlags: 0

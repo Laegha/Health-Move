@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class TestMoveCube : MonoBehaviour
 {
-    [SerializeField] ControllersHandler controllersHandler;
     [SerializeField] Vector3 movement;
-    [SerializeField] Vector3 position;
+
+    [SerializeField] ControllersHandler controllersHandler;
     IntPtr assignedController;
+
+    [SerializeField] Vector3 position;
+    [SerializeField] Vector3 positionZero = Vector3.zero;
 
     float speed = 10;
 
@@ -20,20 +23,23 @@ public class TestMoveCube : MonoBehaviour
     void Update()
     {
         if (assignedController.ToInt32() == 0)
+        {
+            assignedController = controllersHandler.GetControllerByIndex(0);
             return;
+        }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
             PsMoveAPI.ControllerHelper.psmove_reset_orientation(assignedController);
-            transform.position = Vector3.zero;
+            positionZero = controllersHandler.Controllers[assignedController].position;
         }
+
         //cambiar la posicion segun controllersHandler.Controllers[assignedController].accel
         Vector3 accel = controllersHandler.Controllers[assignedController].accel * Time.deltaTime * speed;
         movement = accel;
 
-        //transform.position = new Vector3(transform.position.x + accel.x, transform.position.y + accel.y, transform.position.z + accel.z);
         position = controllersHandler.Controllers[assignedController].position;
-        transform.position = position;
+        transform.position = new Vector3(position.x - positionZero.x, position.y - positionZero.y, position.z - positionZero.z);
 
         //Quaternion orientation = controllersHandler.Controllers[assignedController].orientation;
         //transform.rotation = orientation;
