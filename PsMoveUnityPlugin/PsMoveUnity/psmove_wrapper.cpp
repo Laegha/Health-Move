@@ -35,8 +35,9 @@ extern "C" {
         int ay = y;
         int az = z;
         psmove_tracker_get_position();
-        psmove_tracker_enable
+        psmove_tracker_enable();
         psmove_tracker_update();
+        psmove_tracker_enable_deinterlace();
         psmove_tracker_update_image();
         psmove_tracker_distance_from_radius();
 

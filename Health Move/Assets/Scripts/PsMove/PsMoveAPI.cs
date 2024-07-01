@@ -153,6 +153,11 @@ namespace PsMoveAPI
 
         [DllImport("psmoveapi_tracker.dll")]
         public static extern int psmove_tracker_get_camera_color(IntPtr tracker, IntPtr move, ref byte r, ref byte g, ref byte b );
+        
+        [DllImport("psmoveapi_tracker.dll")]
+        public static extern int psmove_tracker_enable_deinterlace(IntPtr tracker, bool enabled);
+
+        
 
 
 
