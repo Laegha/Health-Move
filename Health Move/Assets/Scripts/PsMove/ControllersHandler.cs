@@ -13,7 +13,7 @@ public class ControllersHandler : MonoBehaviour
     Color _prevLeds;
 
     int _accelDecimals = 4;
-    [SerializeField]float _sensitivityMin = 0.1f;
+    [SerializeField]float _sensitivity = 0.1f;
 
     public Dictionary<IntPtr, Controller> Controllers {  get { return _controllers; } }
 
@@ -38,7 +38,7 @@ public class ControllersHandler : MonoBehaviour
             _controllers.Add(ControllerHelper.psmove_connect_by_id(i), new Controller());
         }
         _camera = ControllerHelper.psmove_tracker_new();
-
+        ControllerHelper.psmove_tracker_enable_deinterlace(_camera, true);
         foreach (var controller in _controllers)
         {
             ControllerHelper.psmove_enable_orientation(controller.Key, true);
@@ -58,13 +58,15 @@ public class ControllersHandler : MonoBehaviour
         if (_controllers.Count <= 0)
             return;
 
-        ControllerHelper.psmove_tracker_update_image(ref _camera);
+        ControllerHelper.psmove_tracker_update_image(_camera);
 
         foreach (var controller in _controllers)
         {
 
             if (ControllerHelper.psmove_poll(controller.Key) == 0)
                 continue;
+
+            print("Update succesfull: " + ControllerHelper.psmove_tracker_update(_camera, controller.Key));
 
             //Debug.Log(controller + " has pressed buttons: " + ControllerHelper.psmove_get_buttons(controller));
 
@@ -77,7 +79,6 @@ public class ControllersHandler : MonoBehaviour
 
             ControllerHelper.psmove_update_leds(controller.Key);
 
-            //print("Update succesfull: " + ControllerHelper.psmove_tracker_update(ref _camera, ref controller.Key));
 
             #region Position Tracking
             float posX = 0;
@@ -86,17 +87,18 @@ public class ControllersHandler : MonoBehaviour
 
             ControllerHelper.psmove_tracker_get_position(_camera, controller.Key, ref posX, ref posY, ref radius);
             float posZ = ControllerHelper.psmove_tracker_distance_from_radius(_camera, radius);
+            posZ = TruncateDecimals(0, posZ);
 
-            controller.Value.position = new Vector3(posX, posY, posZ);
+            controller.Value.position = new Vector3(-posX * _sensitivity, -posY * _sensitivity, posZ * _sensitivity);
 
             #endregion
 
-            byte red = 0;
-            byte green = 0;
-            byte blue = 0;
+            //byte red = 0;
+            //byte green = 0;
+            //byte blue = 0;
 
             //print("Color Tracking: " + ControllerHelper.psmove_tracker_get_camera_color(ref _camera, controller.Key, ref red, ref green, ref blue));
-            print("Color: " + red + ":" + green + ":" + blue);
+            //print("Color: " + red + ":" + green + ":" + blue);
 
             #region Setting Accel
             //ControllerHelper.psmove_get_accelerometer(controller, ref x, ref y, ref z);
