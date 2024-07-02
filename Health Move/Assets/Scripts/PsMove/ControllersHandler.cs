@@ -37,8 +37,10 @@ public class ControllersHandler : MonoBehaviour
         {
             _controllers.Add(ControllerHelper.psmove_connect_by_id(i), new Controller());
         }
+
         _camera = ControllerHelper.psmove_tracker_new();
         ControllerHelper.psmove_tracker_enable_deinterlace(_camera, true);
+       
         foreach (var controller in _controllers)
         {
             ControllerHelper.psmove_enable_orientation(controller.Key, true);
@@ -47,6 +49,7 @@ public class ControllersHandler : MonoBehaviour
             //StartCoroutine(Rainbow());
             //ControllerHelper.psmove_set_leds(controller, 255, 255, 255);
         }
+
     }
 
 
@@ -72,7 +75,6 @@ public class ControllersHandler : MonoBehaviour
 
             if (_leds != _prevLeds)
             {
-                //ControllerHelper.psmove_set_leds(controller.Key, (byte)(_leds.r * 255), (byte)(_leds.g * 255), (byte)(_leds.b * 255));
                 SetLeds(controller.Key, (byte)(_leds.r * 255), (byte)(_leds.g * 255), (byte)(_leds.b * 255));
                 _prevLeds = _leds;
             }
