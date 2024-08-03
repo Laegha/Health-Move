@@ -45,4 +45,11 @@ public class GameManager : MonoBehaviour
         Type type = Type.GetType(minigameManagerType);
         currMinigameManager = (MinigameManager) Activator.CreateInstance(type);
     }
+
+    public void ControllersUpdated()
+    {
+        //Add behaviour for menu cursors
+        foreach(HandMovement hand in FindObjectsOfType<HandMovement>())
+            hand.ControllerUpdate();
+    }
 }
