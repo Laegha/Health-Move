@@ -131,7 +131,7 @@ namespace PsMoveAPI
         public static extern IntPtr psmove_tracker_new_with_camera(int cameraIndex);
 
         [DllImport("psmoveapi_tracker.dll")]
-        public static extern bool psmove_tracker_enable(IntPtr tracker, IntPtr move);
+        public static extern int psmove_tracker_enable(IntPtr tracker, IntPtr move);
 
         [DllImport("psmoveapi_tracker.dll")]
         public static extern int psmove_tracker_get_position(IntPtr tracker, IntPtr move, ref float x, ref float y, ref float radius);
