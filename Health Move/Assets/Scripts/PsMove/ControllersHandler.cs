@@ -8,19 +8,27 @@ using System.Collections;
 public class ControllersHandler : MonoBehaviour
 {
     //List<IntPtr> _controllers = new List<IntPtr>();
-    Dictionary<IntPtr, Controller> _controllers = new Dictionary<IntPtr, Controller>();
+    Dictionary<IntPtr, ControllerData> _controllers = new Dictionary<IntPtr, ControllerData>();
     [SerializeField] Color _leds;
     Color _prevLeds;
 
     int _accelDecimals = 4;
     [SerializeField]float _sensitivity = 0.1f;
 
-    public Dictionary<IntPtr, Controller> Controllers {  get { return _controllers; } }
+    public Dictionary<IntPtr, ControllerData> Controllers {  get { return _controllers; } }
 
     IntPtr _camera;
 
+    static ControllersHandler instance;
+    public static ControllersHandler controllersHandler { get { return instance; } }
+
     private void Awake()
     {
+        if(instance != null)
+            Destroy(gameObject);
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
 
         if (ControllerHelper.psmove_init(ControllerHelper.PSMove_Version.PSMOVE_CURRENT_VERSION) == ControllerHelper.PSMove_Bool.PSMove_False)
         {
@@ -31,15 +39,15 @@ public class ControllersHandler : MonoBehaviour
 
     void Calibrate()
     {
+
         int connectedControllers = ControllerHelper.psmove_count_connected();
 
         for (int i = 0; i < connectedControllers; i++)
         {
-            _controllers.Add(ControllerHelper.psmove_connect_by_id(i), new Controller());
+            _controllers.Add(ControllerHelper.psmove_connect_by_id(i), new ControllerData());
         }
 
         _camera = ControllerHelper.psmove_tracker_new();
-        ControllerHelper.psmove_tracker_enable_deinterlace(_camera, true);
        
         foreach (var controller in _controllers)
         {
@@ -50,6 +58,7 @@ public class ControllersHandler : MonoBehaviour
             //ControllerHelper.psmove_set_leds(controller, 255, 255, 255);
         }
 
+        ControllerHelper.psmove_tracker_enable_deinterlace(_camera, true);
     }
 
 
@@ -69,17 +78,22 @@ public class ControllersHandler : MonoBehaviour
             if (ControllerHelper.psmove_poll(controller.Key) == 0)
                 continue;
 
-            print("Update succesfull: " + ControllerHelper.psmove_tracker_update(_camera, controller.Key));
+            //if (_leds != _prevLeds)
+            //{
+            //    SetLeds(controller.Key, (byte)(_leds.r * 255), (byte)(_leds.g * 255), (byte)(_leds.b * 255));
+            //    _prevLeds = _leds;
+            //}
+
+            //ControllerHelper.psmove_update_leds(controller.Key);
+
+            if(ControllerHelper.psmove_tracker_update(_camera, controller.Key) == 0)
+            {
+                print("Update failed");
+                return;
+            }
+            print("Update succesfull");
 
             //Debug.Log(controller + " has pressed buttons: " + ControllerHelper.psmove_get_buttons(controller));
-
-            if (_leds != _prevLeds)
-            {
-                SetLeds(controller.Key, (byte)(_leds.r * 255), (byte)(_leds.g * 255), (byte)(_leds.b * 255));
-                _prevLeds = _leds;
-            }
-
-            ControllerHelper.psmove_update_leds(controller.Key);
 
 
             #region Position Tracking
@@ -91,7 +105,10 @@ public class ControllersHandler : MonoBehaviour
             float posZ = ControllerHelper.psmove_tracker_distance_from_radius(_camera, radius);
             posZ = TruncateDecimals(0, posZ);
 
-            controller.Value.position = new Vector3(-posX * _sensitivity, -posY * _sensitivity, posZ * _sensitivity);
+            Vector3 newControllerPosition = new Vector3(posX, posY, posZ);
+
+            controller.Value.movement = newControllerPosition - controller.Value.position;
+            controller.Value.position = newControllerPosition;
 
             #endregion
 
@@ -169,6 +186,8 @@ public class ControllersHandler : MonoBehaviour
             //if (xAccel > 0.1)
                 //Debug.Log(controller + " has accel: " + xAccel);
         }
+
+        GameManager.gm.ControllersUpdated();
     }
 
     float MapValue(float input)
