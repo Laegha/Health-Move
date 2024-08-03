@@ -37,6 +37,8 @@ extern "C" {
         psmove_tracker_get_position();
         psmove_tracker_enable();
         psmove_tracker_update();
+        psmove_tracker_distance_from_radius();
+        psmove_tracker_set_dista
         psmove_tracker_enable_deinterlace();
         psmove_tracker_update_image();
         psmove_tracker_distance_from_radius();
