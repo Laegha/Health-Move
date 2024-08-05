@@ -39,7 +39,6 @@ public class ControllersHandler : MonoBehaviour
 
     void Calibrate()
     {
-
         int connectedControllers = ControllerHelper.psmove_count_connected();
 
         for (int i = 0; i < connectedControllers; i++)
@@ -48,7 +47,7 @@ public class ControllersHandler : MonoBehaviour
         }
 
         _camera = ControllerHelper.psmove_tracker_new();
-       
+
         foreach (var controller in _controllers)
         {
             ControllerHelper.psmove_enable_orientation(controller.Key, true);
@@ -60,7 +59,6 @@ public class ControllersHandler : MonoBehaviour
 
         ControllerHelper.psmove_tracker_enable_deinterlace(_camera, true);
     }
-
 
     void Update()
     {
