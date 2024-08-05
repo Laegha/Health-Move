@@ -5,20 +5,19 @@ using UnityEngine;
 public class BallThrowTest : MonoBehaviour
 {
     [SerializeField] Transform directionObject;
-    // Start is called before the first frame update
-    void Start()
+    Rigidbody rb;
+    private void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.T))
         {
-            //GetComponent<Rigidbody>().useGravity = true;
-            transform.rotation = directionObject.transform.rotation;
-            //GetComponent<Rigidbody>().AddForce(transform.forward * 100, ForceMode.Impulse);
+            rb.useGravity = true;
+            rb.AddForce(directionObject.up * 10, ForceMode.Impulse);
+            transform.parent = null;
         }
     }
 }
