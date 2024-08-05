@@ -51,7 +51,10 @@ public class ControllersHandler : MonoBehaviour
         foreach (var controller in _controllers)
         {
             ControllerHelper.psmove_enable_orientation(controller.Key, true);
-            print("Enabled: " + ControllerHelper.psmove_tracker_enable(_camera, controller.Key));
+            int enableError = 1;
+            while (enableError != 0)
+                enableError = ControllerHelper.psmove_tracker_enable(_camera, controller.Key);
+            print("Enabled: " + enableError);
             //assignedController = controller.Key;
             //StartCoroutine(Rainbow());
             //ControllerHelper.psmove_set_leds(controller, 255, 255, 255);
