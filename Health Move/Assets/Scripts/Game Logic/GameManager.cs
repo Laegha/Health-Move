@@ -49,9 +49,10 @@ public class GameManager : MonoBehaviour
     public void ControllersUpdated()
     {
         //Add behaviour for menu cursors
+
         foreach(HandMovement hand in FindObjectsOfType<HandMovement>())
             hand.MovementUpdate();
-        foreach(HandRotation hand in FindObjectsOfType<HandRotation>())
+        foreach (HandRotation hand in FindObjectsOfType<HandRotation>())
             hand.RotationUpdate();
     }
 }

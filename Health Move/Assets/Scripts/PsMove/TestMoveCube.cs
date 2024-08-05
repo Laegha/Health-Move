@@ -35,13 +35,13 @@ public class TestMoveCube : MonoBehaviour
         }
 
         //cambiar la posicion segun controllersHandler.Controllers[assignedController].accel
-        Vector3 accel = controllersHandler.Controllers[assignedController].accel * Time.deltaTime * speed;
-        movement = accel;
+        //Vector3 accel = controllersHandler.Controllers[assignedController].accel * Time.deltaTime * speed;
+        //movement = accel;
 
-        position = controllersHandler.Controllers[assignedController].position;
-        transform.position = new Vector3(position.x - positionZero.x, position.y - positionZero.y, position.z - positionZero.z);
+        //position = controllersHandler.Controllers[assignedController].position;
+        //transform.position = new Vector3(position.x - positionZero.x, position.y - positionZero.y, position.z - positionZero.z);
 
-        //Quaternion orientation = controllersHandler.Controllers[assignedController].orientation;
-        //transform.rotation = orientation;
+        Quaternion orientation = controllersHandler.Controllers[assignedController].orientation;
+        transform.rotation = orientation;
     }
 }

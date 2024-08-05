@@ -74,7 +74,6 @@ public class ControllersHandler : MonoBehaviour
 
         foreach (var controller in _controllers)
         {
-
             if (ControllerHelper.psmove_poll(controller.Key) == 0)
                 continue;
 
@@ -83,41 +82,6 @@ public class ControllersHandler : MonoBehaviour
             //    SetLeds(controller.Key, (byte)(_leds.r * 255), (byte)(_leds.g * 255), (byte)(_leds.b * 255));
             //    _prevLeds = _leds;
             //}
-
-            //ControllerHelper.psmove_update_leds(controller.Key);
-
-            if(ControllerHelper.psmove_tracker_update(_camera, controller.Key) == 0)
-            {
-                print("Update failed");
-                return;
-            }
-            print("Update succesfull");
-
-            //Debug.Log(controller + " has pressed buttons: " + ControllerHelper.psmove_get_buttons(controller));
-
-
-            #region Position Tracking
-            float posX = 0;
-            float posY = 0;
-            float radius = 0;
-
-            ControllerHelper.psmove_tracker_get_position(_camera, controller.Key, ref posX, ref posY, ref radius);
-            float posZ = ControllerHelper.psmove_tracker_distance_from_radius(_camera, radius);
-            posZ = TruncateDecimals(0, posZ);
-
-            Vector3 newControllerPosition = new Vector3(posX, posY, posZ);
-
-            controller.Value.movement = newControllerPosition - controller.Value.position;
-            controller.Value.position = newControllerPosition;
-
-            #endregion
-
-            //byte red = 0;
-            //byte green = 0;
-            //byte blue = 0;
-
-            //print("Color Tracking: " + ControllerHelper.psmove_tracker_get_camera_color(ref _camera, controller.Key, ref red, ref green, ref blue));
-            //print("Color: " + red + ":" + green + ":" + blue);
 
             #region Setting Accel
             //ControllerHelper.psmove_get_accelerometer(controller, ref x, ref y, ref z);
@@ -177,6 +141,30 @@ public class ControllersHandler : MonoBehaviour
             controller.Value.orientation = new Quaternion(-orientationX, orientationZ, orientationY, orientationW);
 
             #endregion
+
+            if(ControllerHelper.psmove_tracker_update(_camera, controller.Key) == 0)
+            {
+                print("Update failed");
+                return;
+            }
+            print("Update succesfull");
+
+            #region Position Tracking
+            float posX = 0;
+            float posY = 0;
+            float radius = 0;
+
+            ControllerHelper.psmove_tracker_get_position(_camera, controller.Key, ref posX, ref posY, ref radius);
+            float posZ = ControllerHelper.psmove_tracker_distance_from_radius(_camera, radius);
+            posZ = TruncateDecimals(0, posZ);
+
+            Vector3 newControllerPosition = new Vector3(posX, posY, posZ);
+
+            controller.Value.movement = newControllerPosition - controller.Value.position;
+            controller.Value.position = newControllerPosition;
+
+            #endregion
+
 
             //ControllerHelper.psmove_get_accelerometer_frame(controller, 1, ref x, ref y, ref z);
 
