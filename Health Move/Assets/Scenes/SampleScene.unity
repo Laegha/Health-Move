@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -425,10 +425,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1060716319}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f1554dd6067f1c478e946ae0af6b991, type: 3}
+  m_Script: {fileID: 11500000, guid: 072bc37b23f62464b8167328fb6b20df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllerRotationGetter: {fileID: 1957583736}
 --- !u!1 &1312440876
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,7 +566,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1957583735}
   - component: {fileID: 1957583734}
-  - component: {fileID: 1957583736}
   m_Layer: 0
   m_Name: ControllersHandler
   m_TagString: Untagged
@@ -582,7 +580,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1957583733}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d16bd45b057cf0247a8622d8752ed53d, type: 3}
   m_Name: 
@@ -604,20 +602,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1957583736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1957583733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdce99e6df274004889f0805578aa0f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _leds: {r: 0, g: 0, b: 0, a: 0}
-  _sensitivity: 0.1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
