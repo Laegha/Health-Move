@@ -39,6 +39,7 @@ public class ControllersHandler : MonoBehaviour
 
     void Calibrate()
     {
+        print("Calibrating..."); 
         int connectedControllers = ControllerHelper.psmove_count_connected();
 
         for (int i = 0; i < connectedControllers; i++)
@@ -47,20 +48,19 @@ public class ControllersHandler : MonoBehaviour
         }
 
         _camera = ControllerHelper.psmove_tracker_new();
+        ControllerHelper.psmove_tracker_enable_deinterlace(_camera, true);
 
         foreach (var controller in _controllers)
         {
             ControllerHelper.psmove_enable_orientation(controller.Key, true);
             int enableError = 1;
-            while (enableError != 0)
-                enableError = ControllerHelper.psmove_tracker_enable(_camera, controller.Key);
+            enableError = ControllerHelper.psmove_tracker_enable(_camera, controller.Key);
             print("Enabled: " + enableError);
             //assignedController = controller.Key;
             //StartCoroutine(Rainbow());
             //ControllerHelper.psmove_set_leds(controller, 255, 255, 255);
         }
 
-        ControllerHelper.psmove_tracker_enable_deinterlace(_camera, true);
     }
 
     void Update()
