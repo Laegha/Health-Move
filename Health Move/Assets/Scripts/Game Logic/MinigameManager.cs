@@ -7,6 +7,6 @@ public class MinigameManager
 {
     public bool hasEnded = false;
 
-    public virtual void OnScored() { } //Is called by GM OnScored
+    public virtual void OnScored(PlayerIdentifier scorer) { } //Is called by GM OnScored
     public virtual void OnRecieved() { }
 }

@@ -22,12 +22,12 @@ public class GameManager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
     }
-    List<PointScoredReciever> scoredRecievers = new List<PointScoredReciever>();
+    List<PointScoreReciever> scoredRecievers = new List<PointScoreReciever>();
     MinigameManager currMinigameManager;
 
     public void OnScored() //Is called by elements on scene
     {
-        foreach (PointScoredReciever reciever in scoredRecievers)
+        foreach (PointScoreReciever reciever in scoredRecievers)
             reciever.OnScored();
 
         currMinigameManager.OnScored();
