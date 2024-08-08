@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         foreach (PointScoreReciever reciever in scoredRecievers)
             reciever.OnScored();
 
-        currMinigameManager.OnScored();
+        currMinigameManager.OnScored(new PlayerIdentifier());
         //if(currMinigameManager.hasEnded)
         //end minigame
     }
@@ -46,13 +46,18 @@ public class GameManager : MonoBehaviour
         currMinigameManager = (MinigameManager) Activator.CreateInstance(type);
     }
 
-    public void ControllersUpdated()
+    public void UpdateHandsRotation()
+    {
+        foreach (HandRotation hand in FindObjectsOfType<HandRotation>())
+            hand.RotationUpdate();
+    }
+
+    public void UpdateHandsPosition()
     {
         //Add behaviour for menu cursors
 
         foreach(HandMovement hand in FindObjectsOfType<HandMovement>())
             hand.MovementUpdate();
-        foreach (HandRotation hand in FindObjectsOfType<HandRotation>())
-            hand.RotationUpdate();
+        
     }
 }
