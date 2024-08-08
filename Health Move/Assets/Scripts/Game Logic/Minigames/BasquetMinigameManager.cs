@@ -15,7 +15,7 @@ public class BasquetMinigameManager : MinigameManager
         Debug.Log("Score = " + _scored);
         _scored[scorer.playerID]++;
         GameObject.FindGameObjectsWithTag("Counter").ToList().Where(x => x.GetComponent<PlayerIdentifier>().playerID == scorer.playerID).ToList()[0].GetComponent<Text>().text = _scored[scorer.playerID].ToString();
-        if(_scored == _neededScore)
+        if (_scored[scorer.playerID] == _neededScore)
             GameManager.gm.EndMinigame();
     }
 }
