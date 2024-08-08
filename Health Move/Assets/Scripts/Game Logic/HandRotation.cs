@@ -13,14 +13,14 @@ public class HandRotation : MonoBehaviour
     public void RotationUpdate()
     {
         if (_assignedController == IntPtr.Zero)
-            _assignedController = ControllersHandler.controllersHandler.Controllers.Keys.ToArray()[0];
+            _assignedController = ControllersManager.controllersManager.Controllers.Keys.ToArray()[0];
 
         if (Input.GetKeyDown(KeyCode.R))
         {
             PsMoveAPI.ControllerHelper.psmove_reset_orientation(AssignedController);
         }
 
-        Quaternion orientation = ControllersHandler.controllersHandler.Controllers[AssignedController].orientation;
+        Quaternion orientation = ControllersManager.controllersManager.Controllers[AssignedController].orientation;
         transform.rotation = orientation;
     }
 }
