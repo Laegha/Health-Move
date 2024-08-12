@@ -1,3 +1,4 @@
+using PsMoveAPI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,21 +7,22 @@ using UnityEngine;
 
 public class HandRotation : MonoBehaviour
 {
-    IntPtr _assignedController;
+    PlayerIdentifier _playerIdentifier;
 
-    public IntPtr AssignedController { get { return _assignedController; } set { _assignedController = value; } }
+    public PlayerIdentifier PlayerIdentifier { get { return _playerIdentifier; } set { _playerIdentifier = value; } }
 
     public void RotationUpdate()
     {
-        if (_assignedController == IntPtr.Zero)
-            _assignedController = ControllersManager.controllersManager.Controllers.Keys.ToArray()[0];
+        if (_playerIdentifier == null)
+            return;
 
-        if (Input.GetKeyDown(KeyCode.R))
+        ControllerHelper.PSMoveButton requiredButtons = ControllerHelper.PSMoveButton.Cross | ControllerHelper.PSMoveButton.Trigger;
+        if (PlayerIdentifier.ControllerData.pressedButtons == requiredButtons && PlayerIdentifier.ControllerData.prevPressedButtons != PlayerIdentifier.ControllerData.pressedButtons)
         {
-            PsMoveAPI.ControllerHelper.psmove_reset_orientation(AssignedController);
+            ControllerHelper.psmove_reset_orientation(PlayerIdentifier.AssignedController);
         }
 
-        Quaternion orientation = ControllersManager.controllersManager.Controllers[AssignedController].orientation;
+        Quaternion orientation = PlayerIdentifier.ControllerData.orientation;
         transform.rotation = orientation;
     }
 }

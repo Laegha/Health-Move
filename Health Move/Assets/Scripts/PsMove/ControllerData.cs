@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static PsMoveAPI.ControllerHelper;
 
 public class ControllerData
 {
@@ -9,6 +10,6 @@ public class ControllerData
     public Vector3 movement;
     public Vector3 gyro;
     public Quaternion orientation;
-
-    public Vector3 positionZero;
+    public PSMoveButton pressedButtons = 0;
+    public PSMoveButton prevPressedButtons;
 }

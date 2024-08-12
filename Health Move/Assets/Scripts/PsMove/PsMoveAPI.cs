@@ -86,7 +86,7 @@ namespace PsMoveAPI
 
         //buttons
         [DllImport("psmoveapi.dll")]
-        public static extern uint psmove_get_buttons(IntPtr move);
+        public static extern PSMoveButton psmove_get_buttons(IntPtr move);
 
         //leds
         [DllImport("psmoveapi.dll")]

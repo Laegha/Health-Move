@@ -57,6 +57,9 @@ public class ControllersManager : MonoBehaviour
             while (ControllerHelper.psmove_tracker_enable(_camera, controller.Key) != 2) ;
         }
 
+        if (_controllers.Count <= 0)
+            return;
+
         StartCoroutine(UpdateHandler());
         StartCoroutine(UpdateTracker());
     }

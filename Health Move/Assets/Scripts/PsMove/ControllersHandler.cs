@@ -20,6 +20,9 @@ public class ControllersHandler
             if (ControllerHelper.psmove_poll(controller.Key) == 0)
                 continue;
 
+            controller.Value.prevPressedButtons = controller.Value.pressedButtons;
+            controller.Value.pressedButtons = ControllerHelper.psmove_get_buttons(controller.Key);
+
             #region Setting Accel
             //ControllerHelper.psmove_get_accelerometer(controller, ref x, ref y, ref z);
             int accelXRaw = 0;

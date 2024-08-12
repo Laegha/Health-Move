@@ -4,27 +4,25 @@ using UnityEngine;
 
 public class HandMovement : MonoBehaviour
 {
-    IntPtr _assignedController;
-
     static readonly float pixelToUnit = 0.005f;
     static readonly float cmToPixel = 200f;
 
     [SerializeField] float handSpeed;
 
-    public IntPtr AssignedController { get { return _assignedController; } set { _assignedController = value; } }
+    PlayerIdentifier _playerIdentifier;
+
+    public PlayerIdentifier PlayerIdentifier { get { return _playerIdentifier; } set { _playerIdentifier = value; } }
 
     public void MovementUpdate()
     {
-        if(_assignedController == IntPtr.Zero) 
-            _assignedController = ControllersManager.controllersManager.Controllers.Keys.ToArray()[0];
+        if (_playerIdentifier == null)
+            return;
 
-        Vector3 position = ControllersManager.controllersManager.Controllers[AssignedController].position;
-        Vector3 pixelMovement = ControllersManager.controllersManager.Controllers[AssignedController].movement;
-        pixelMovement = new Vector3(pixelMovement.x * position.z * pixelToUnit, pixelMovement.y * position.z * pixelToUnit, pixelMovement.z * cmToPixel * pixelToUnit);
-        print(pixelMovement);
+        float positionZ = PlayerIdentifier.ControllerData.position.z;
+        Vector3 pixelMovement = PlayerIdentifier.ControllerData.movement;
+        pixelMovement = new Vector3(pixelMovement.x * positionZ * pixelToUnit, pixelMovement.y * positionZ * pixelToUnit, pixelMovement.z * cmToPixel * pixelToUnit);
+
         Vector3 processedMovement = pixelMovement * Time.deltaTime * handSpeed /** sensitivity */;
-
-        //print(position.z);
 
         transform.position -= processedMovement;
     }
