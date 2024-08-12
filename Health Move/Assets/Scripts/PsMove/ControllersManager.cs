@@ -34,6 +34,7 @@ public class ControllersManager : MonoBehaviour
             return;
         }
         _camera = ControllerHelper.psmove_tracker_new();
+        ControllerHelper.psmove_tracker_enable_deinterlace(_camera, true);
 
         _controllersHandler = new ControllersHandler(this);
         _controllersTracker = new ControllersTracker(this);
@@ -49,8 +50,6 @@ public class ControllersManager : MonoBehaviour
             _controllers.Add(ControllerHelper.psmove_connect_by_id(i), new ControllerData());
         }
 
-        ControllerHelper.psmove_tracker_enable_deinterlace(_camera, true);
-
         foreach (var controller in _controllers)
         {
             ControllerHelper.psmove_enable_orientation(controller.Key, true);
@@ -64,13 +63,19 @@ public class ControllersManager : MonoBehaviour
         StartCoroutine(UpdateTracker());
     }
 
+    public void CalibrateController(IntPtr controller)
+    {
+        ControllerHelper.psmove_enable_orientation(controller, true);
+        while (ControllerHelper.psmove_tracker_enable(_camera, controller) != 2) ;
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.C))
             Calibrate();
     }
 
-    IEnumerator UpdateHandler()
+    public IEnumerator UpdateHandler()
     {
         while (true)
         {
@@ -83,7 +88,7 @@ public class ControllersManager : MonoBehaviour
         }
     }
 
-    IEnumerator UpdateTracker()
+    public IEnumerator UpdateTracker()
     {
         while (true)
         {
