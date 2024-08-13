@@ -33,11 +33,14 @@ public class ControllersManager : MonoBehaviour
             Debug.Log("Failed to initialize PSMoveAPI. Probably using a wrong version");
             return;
         }
+
         _camera = ControllerHelper.psmove_tracker_new();
         ControllerHelper.psmove_tracker_enable_deinterlace(_camera, true);
 
-        _controllersHandler = new ControllersHandler(this);
-        _controllersTracker = new ControllersTracker(this);
+        _controllersHandler = new ControllersHandler();
+        _controllersTracker = new ControllersTracker();
+
+        StartCoroutine(GetComponent<ControllerCalibration>().StartCalibration());
     }
 
     void Calibrate()
@@ -79,7 +82,7 @@ public class ControllersManager : MonoBehaviour
     {
         while (true)
         {
-            if (controllersManager.Controllers.Count <= 0)
+            if (Controllers.Count <= 0)
                 continue;
 
             _controllersHandler.Update();
@@ -92,7 +95,7 @@ public class ControllersManager : MonoBehaviour
     {
         while (true)
         {
-            if (controllersManager.Controllers.Count <= 0)
+            if (Controllers.Count <= 0)
                 continue;
 
             _controllersTracker.Update();
@@ -101,5 +104,5 @@ public class ControllersManager : MonoBehaviour
         }
     }
 
-    private void OnDestroy() => ControllerHelper.psmove_tracker_free(controllersManager.Camera);
+    private void OnDestroy() => ControllerHelper.psmove_tracker_free(Camera);
 }
