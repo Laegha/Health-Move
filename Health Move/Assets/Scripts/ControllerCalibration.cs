@@ -9,23 +9,28 @@ public class ControllerCalibration : MonoBehaviour
     [SerializeField] ControllerHelper.PSMoveButton calibrationButton;
     [SerializeField] ControllerHelper.PSMoveButton endCalibrationButton;
 
-    //private void Awake()
-    //{
-    //    if (ControllerHelper.psmove_init(ControllerHelper.PSMove_Version.PSMOVE_CURRENT_VERSION) == ControllerHelper.PSMove_Bool.PSMove_False)
-    //    {
-    //        Debug.Log("Failed to initialize PSMoveAPI. Probably using a wrong version");
-    //        return;
-    //    }
-    //}
+    static ControllerCalibration instance;
+    public static ControllerCalibration controllerCalibration { get { return instance; } }
 
-    void StartCalibration()
+    private void Awake()
     {
-        foreach(var controller in ControllersManager.controllersManager.Controllers) //disconnect all controllers from hardware
-        {
-            ControllerHelper.psmove_disconnect(controller.Key);
-            ControllerHelper.psmove_tracker_disable(ControllersManager.controllersManager.Camera, controller.Key);
-        }
+        if (instance != null)
+            Destroy(gameObject);
 
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public IEnumerator StartCalibration()
+    {
+        if (ControllersManager.controllersManager.Controllers.Count > 0)
+            foreach(var controller in ControllersManager.controllersManager.Controllers) //disconnect all controllers from hardware
+            {
+                ControllerHelper.psmove_disconnect(controller.Key);
+                ControllerHelper.psmove_tracker_disable(ControllersManager.controllersManager.Camera, controller.Key);
+            }
+
+        print("Calibrating");
         ControllersManager.controllersManager.Controllers.Clear(); //clear controllers dictionary
 
         int connectedControllers = ControllerHelper.psmove_count_connected();
@@ -43,17 +48,22 @@ public class ControllerCalibration : MonoBehaviour
         {
             foreach(var controller in ControllersManager.controllersManager.Controllers)
             {
-                if(controller.Value.pressedButtons == calibrationButton)//if willing to connect, call CalibrateController and keep track of it
+                if(controller.Value.pressedButtons == (calibrationButton | ControllerHelper.PSMoveButton.Trigger))//if willing to connect, call CalibrateController and keep track of it
                 {
                     ControllersManager.controllersManager.CalibrateController(controller.Key);
                     calibratedControllers.Add(controller.Key);
+                    ControllerHelper.psmove_tracker_update_image(ControllersManager.controllersManager.Camera);
+                    ControllerHelper.psmove_tracker_update(ControllersManager.controllersManager.Camera, controller.Key);
                 }
-                
-                if(controller.Value.pressedButtons == endCalibrationButton && calibratedControllers.Contains(controller.Key))//if connection was ended, end loop
-                    stillCalibrating = false; 
+
+                if (controller.Value.pressedButtons == (endCalibrationButton | ControllerHelper.PSMoveButton.Trigger) && calibratedControllers.Contains(controller.Key))//if connection was ended, end loop
+                {
+                    stillCalibrating = false;
+                    print("Ended calibration");
+                }
 
             }
-
+            yield return new WaitForEndOfFrame();
         }
 
         foreach(var controller in ControllersManager.controllersManager.Controllers)//remove from dictionary all controllers that weren't enabled with camera
@@ -65,6 +75,7 @@ public class ControllerCalibration : MonoBehaviour
             }
         }
 
-        StartCoroutine(ControllersManager.controllersManager.UpdateTracker());
+        //StartCoroutine(ControllersManager.controllersManager.UpdateTracker());
+
     }
 }
