@@ -6,20 +6,13 @@ using UnityEngine;
 
 public class ControllersTracker
 {
-    ControllersManager controllersManager;
-
-    public ControllersTracker(ControllersManager controllersManager)
-    {
-        this.controllersManager = controllersManager;
-    }
-
     public void Update()
     {
-        ControllerHelper.psmove_tracker_update_image(controllersManager.Camera);
+        ControllerHelper.psmove_tracker_update_image(ControllersManager.controllersManager.Camera);
 
-        foreach (var controller in controllersManager.Controllers)
+        foreach (var controller in ControllersManager.controllersManager.Controllers)
         {
-            if (ControllerHelper.psmove_tracker_update(controllersManager.Camera, controller.Key) == 0)
+            if (ControllerHelper.psmove_tracker_update(ControllersManager.controllersManager.Camera, controller.Key) == 0)
             {
                 Debug.Log("Tracking Update failed");
                 return;
@@ -31,8 +24,8 @@ public class ControllersTracker
             float posY = 0;
             float radius = 0;
 
-            ControllerHelper.psmove_tracker_get_position(controllersManager.Camera, controller.Key, ref posX, ref posY, ref radius);
-            float posZ = ControllerHelper.psmove_tracker_distance_from_radius(controllersManager.Camera, radius);
+            ControllerHelper.psmove_tracker_get_position(ControllersManager.controllersManager.Camera, controller.Key, ref posX, ref posY, ref radius);
+            float posZ = ControllerHelper.psmove_tracker_distance_from_radius(ControllersManager.controllersManager.Camera, radius);
             posZ = TruncateDecimals(0, posZ);
 
             Vector3 newControllerPosition = new Vector3(posX, posY, posZ);

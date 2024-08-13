@@ -7,15 +7,10 @@ using System.Linq;
 public class ControllersHandler
 {
     int _accelDecimals = 4;
-    ControllersManager controllersManager;
 
-    public ControllersHandler(ControllersManager controllersManager)
-    {
-        this.controllersManager = controllersManager;
-    }
     public void Update()
     {
-        foreach (var controller in controllersManager.Controllers)
+        foreach (var controller in ControllersManager.controllersManager.Controllers)
         {
             if (ControllerHelper.psmove_poll(controller.Key) == 0)
                 continue;
@@ -101,7 +96,7 @@ public class ControllersHandler
 
     public IntPtr GetControllerByIndex(int index)
     {
-        List<IntPtr> list = controllersManager.Controllers.Keys.ToList();
+        List<IntPtr> list = ControllersManager.controllersManager.Controllers.Keys.ToList();
         
         return index < list.Count ? list[index] : (IntPtr)0;
     }
