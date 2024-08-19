@@ -8,7 +8,7 @@ public class ControllersManager : MonoBehaviour
 {
     Dictionary<IntPtr, ControllerData> _controllers = new Dictionary<IntPtr, ControllerData>();
     IntPtr _camera;
-    
+
     [SerializeField] Color _leds;
 
     ControllersHandler _controllersHandler;
@@ -16,7 +16,7 @@ public class ControllersManager : MonoBehaviour
 
     public Dictionary<IntPtr, ControllerData> Controllers { get { return _controllers; } }
     public IntPtr Camera { get { return _camera; } }
-    
+
     static ControllersManager instance;
     public static ControllersManager controllersManager { get { return instance; } }
 
@@ -40,7 +40,12 @@ public class ControllersManager : MonoBehaviour
         _controllersHandler = new ControllersHandler();
         _controllersTracker = new ControllersTracker();
 
+    }
+
+    private void Start()
+    {
         StartCoroutine(GetComponent<ControllerCalibration>().StartCalibration());
+        
     }
 
     void Calibrate()
