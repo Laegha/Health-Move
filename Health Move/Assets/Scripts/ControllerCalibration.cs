@@ -23,8 +23,6 @@ public class ControllerCalibration : MonoBehaviour
 
     public IEnumerator StartCalibration()
     {
-
-
         if (ControllersManager.controllersManager.Controllers.Count > 0)
             foreach(var controller in ControllersManager.controllersManager.Controllers) //disconnect all controllers from hardware
             {
