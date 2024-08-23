@@ -9,7 +9,7 @@ public class BallThrowTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        PlayerIdentifier player = other.GetComponent<PlayerIdentifier>();
+        PlayerIdentifier player = other.transform.root.GetComponent<PlayerIdentifier>();
 
         if(player == null || ball == null)
             return;
