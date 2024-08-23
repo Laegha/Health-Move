@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class PsmoveButton : MonoBehaviour
 {
-    public bool isInteractable;
+    [HideInInspector] public bool isInteractable = true;
 
     [SerializeField] PsMoveAPI.ControllerHelper.PSMoveButton interactButton = PsMoveAPI.ControllerHelper.PSMoveButton.Cross;
 
@@ -16,11 +16,14 @@ public class PsmoveButton : MonoBehaviour
         if(!isInteractable)
             return;
 
-        PlayerIdentifier playerIdentifier = other.transform.root.GetComponent<PlayerIdentifier>();
-        if(playerIdentifier == null)
+            print("Triggered Button");
+        PlayerCollisionIdentifier playerCollisionIdentifier = other.GetComponent<PlayerCollisionIdentifier>();
+        if(playerCollisionIdentifier == null)
             return;
 
-        if(playerIdentifier.ControllerData.pressedButtons == interactButton)
+        if(playerCollisionIdentifier.PlayerIdentifier.ControllerData.pressedButtons == (interactButton | PsMoveAPI.ControllerHelper.PSMoveButton.Trigger))
+        {
             onInteractedEvents.Invoke();
+        }
     }
 }

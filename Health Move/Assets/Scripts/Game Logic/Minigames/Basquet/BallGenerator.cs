@@ -9,11 +9,11 @@ public class BallGenerator : MonoBehaviour
     [SerializeField] GameObject ballPrefab;
     private void OnTriggerStay(Collider other)
     {
-        PlayerIdentifier player = other.transform.root.GetComponent<PlayerIdentifier>();
+        PlayerCollisionIdentifier player = other.GetComponent<PlayerCollisionIdentifier>();
         if (player == null)
             return;
 
-        ControllerData controllerData = ControllersManager.controllersManager.Controllers[player.AssignedController];
+        ControllerData controllerData = ControllersManager.controllersManager.Controllers[player.PlayerIdentifier.AssignedController];
         if (controllerData.pressedButtons == (ControllerHelper.PSMoveButton.Start | ControllerHelper.PSMoveButton.Trigger) && controllerData.pressedButtons != controllerData.prevPressedButtons)
         {
             Transform ballHolder = GameObject.Find("BallHolder").transform;

@@ -27,7 +27,7 @@ public class HandMovement : MonoBehaviour
         var rectTransform = GetComponent<RectTransform>();
 
         if(rectTransform != null )
-            rectTransform.position -= processedMovement;
+            rectTransform.position -= new Vector3(processedMovement.x, processedMovement.y, 0);
         else
             transform.position -= processedMovement;
     }

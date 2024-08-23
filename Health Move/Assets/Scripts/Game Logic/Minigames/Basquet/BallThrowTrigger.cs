@@ -9,12 +9,12 @@ public class BallThrowTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        PlayerIdentifier player = other.transform.root.GetComponent<PlayerIdentifier>();
+        PlayerCollisionIdentifier player = other.GetComponent<PlayerCollisionIdentifier>();
 
         if(player == null || ball == null)
             return;
 
-        if (ControllersManager.controllersManager.Controllers[player.AssignedController].accel.magnitude < speedThreshold)
+        if (ControllersManager.controllersManager.Controllers[player.PlayerIdentifier.AssignedController].accel.magnitude < speedThreshold)
             return;
 
         Rigidbody rb = ball.GetComponent<Rigidbody>();

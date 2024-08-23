@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerIdentifier : MonoBehaviour
@@ -20,7 +21,7 @@ public class PlayerIdentifier : MonoBehaviour
 
         HandRotation handRotation = GetComponent<HandRotation>();
         HandMovement handMovement = GetComponent<HandMovement>();
-        CursorMovement cursorMovement = GetComponent<CursorMovement>();
+        CursorMovement cursorMovement = FindObjectsOfType<CursorMovement>().Where(x => x.transform.root == transform).First();
 
         if(handRotation != null )
             handRotation.PlayerIdentifier = this;

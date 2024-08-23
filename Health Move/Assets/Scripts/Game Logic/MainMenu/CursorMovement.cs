@@ -25,7 +25,7 @@ public class CursorMovement : MonoBehaviour
     public void CursorUpdate()
     {
         Vector3 eulers = PlayerIdentifier.ControllerData.orientation.eulerAngles;
-        Vector3 positionByRotation = new Vector3(eulers.x, eulers.y, eulers.z + 90) * rotationToUnits;
+        Vector3 positionByRotation = new Vector3(eulers.x, eulers.y, 0) * rotationToUnits;
 
         _rectTransform.localPosition = positionByRotation;
     }
