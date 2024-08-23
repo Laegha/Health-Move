@@ -8,13 +8,25 @@ public class CursorMovement : MonoBehaviour
 
     PlayerIdentifier _playerIdentifier;
 
+    RectTransform _rectTransform;
+
     public PlayerIdentifier PlayerIdentifier { get { return _playerIdentifier; } set { _playerIdentifier = value; } }
 
-    private void Update()
+    private void Awake()
+    {
+        _rectTransform = GetComponent<RectTransform>();
+    }
+
+    private void Start()
+    {
+        transform.root.SetParent(GameObject.Find("Canvas").transform);
+    }
+
+    public void CursorUpdate()
     {
         Vector3 eulers = PlayerIdentifier.ControllerData.orientation.eulerAngles;
         Vector3 positionByRotation = new Vector3(eulers.x, eulers.y, eulers.z + 90) * rotationToUnits;
 
-        transform.localPosition = positionByRotation;
+        _rectTransform.localPosition = positionByRotation;
     }
 }
