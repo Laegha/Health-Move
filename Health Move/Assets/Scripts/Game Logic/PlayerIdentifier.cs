@@ -17,7 +17,18 @@ public class PlayerIdentifier : MonoBehaviour
         while(AssignedController == null) { }
 
         ControllerData = ControllersManager.controllersManager.Controllers[AssignedController];
-        GetComponent<HandRotation>().PlayerIdentifier = this;
-        GetComponent<HandMovement>().PlayerIdentifier = this;
+
+        HandRotation handRotation = GetComponent<HandRotation>();
+        HandMovement handMovement = GetComponent<HandMovement>();
+        CursorMovement cursorMovement = GetComponent<CursorMovement>();
+
+        if(handRotation != null )
+            handRotation.PlayerIdentifier = this;
+
+        if(handMovement != null )
+            handMovement.PlayerIdentifier = this;
+        
+        if(cursorMovement != null )
+            cursorMovement.PlayerIdentifier = this;
     }
 }
