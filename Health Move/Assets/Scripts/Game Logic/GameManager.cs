@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -24,6 +25,8 @@ public class GameManager : MonoBehaviour
     }
     List<PointScoreReciever> scoredRecievers = new List<PointScoreReciever>();
     MinigameManager currMinigameManager;
+
+    [SerializeField] GameObject cursorPrefab;
 
     public void OnScored() //Is called by elements on scene
     {
@@ -50,14 +53,25 @@ public class GameManager : MonoBehaviour
     {
         foreach (HandRotation hand in FindObjectsOfType<HandRotation>())
             hand.RotationUpdate();
+        
+        foreach (CursorMovement cursor in FindObjectsOfType<CursorMovement>())
+            cursor.CursorUpdate();
+
     }
 
     public void UpdateHandsPosition()
     {
-        //Add behaviour for menu cursors
-
         foreach(HandMovement hand in FindObjectsOfType<HandMovement>())
             hand.MovementUpdate();
         
+    }
+
+    public void EndCalibration()
+    {
+        foreach(var controller in ControllersManager.controllersManager.Controllers)
+        {
+            GameObject hand = Instantiate(currMinigameManager != null ? currMinigameManager.minigameHandPrefab : cursorPrefab, transform.position, Quaternion.identity);
+            hand.GetComponent<PlayerIdentifier>().AssignedController = controller.Key;
+        }
     }
 }
