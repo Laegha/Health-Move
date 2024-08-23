@@ -44,7 +44,7 @@ public class ControllersManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(GetComponent<ControllerCalibration>().StartCalibration());
+        StartCoroutine(ControllerCalibration.controllerCalibration.StartCalibration());
         
     }
 
