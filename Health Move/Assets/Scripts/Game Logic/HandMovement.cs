@@ -24,6 +24,11 @@ public class HandMovement : MonoBehaviour
 
         Vector3 processedMovement = pixelMovement * Time.deltaTime * handSpeed /** sensitivity */;
 
-        transform.position -= processedMovement;
+        var rectTransform = GetComponent<RectTransform>();
+
+        if(rectTransform != null )
+            rectTransform.position -= processedMovement;
+        else
+            transform.position -= processedMovement;
     }
 }
