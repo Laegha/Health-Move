@@ -72,6 +72,9 @@ public class GameManager : MonoBehaviour
         {
             GameObject hand = Instantiate(currMinigameManager != null ? currMinigameManager.minigameHandPrefab : cursorPrefab, transform.position, Quaternion.identity);
             hand.GetComponent<PlayerIdentifier>().AssignedController = controller.Key;
+            if(currMinigameManager == null)
+                hand.GetComponent<RectTransform>().position = Vector3.zero;
+            //what happens on a minigame
         }
     }
 }
