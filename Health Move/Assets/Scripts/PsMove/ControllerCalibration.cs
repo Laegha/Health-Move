@@ -2,12 +2,16 @@ using PsMoveAPI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ControllerCalibration : MonoBehaviour
 {
     [SerializeField] ControllerHelper.PSMoveButton calibrationButton;
     [SerializeField] ControllerHelper.PSMoveButton endCalibrationButton;
+
+    [SerializeField] GameObject calibrationScreen;
 
     static ControllerCalibration instance;
     public static ControllerCalibration controllerCalibration { get { return instance; } }
@@ -23,6 +27,9 @@ public class ControllerCalibration : MonoBehaviour
 
     public IEnumerator StartCalibration()
     {
+        FindObjectsOfType<PsmoveButton>().ToList().ForEach(button => { button.isInteractable = false; });
+        calibrationScreen.SetActive(true);
+
         if (ControllersManager.controllersManager.Controllers.Count > 0)
             foreach(var controller in ControllersManager.controllersManager.Controllers) //disconnect all controllers from hardware
             {
@@ -75,7 +82,11 @@ public class ControllerCalibration : MonoBehaviour
             }
         }
 
-        //StartCoroutine(ControllersManager.controllersManager.UpdateTracker());
+        StartCoroutine(ControllersManager.controllersManager.UpdateTracker());
 
+        print("Ended Calibration");
+        calibrationScreen.SetActive(false);
+        FindObjectsOfType<PsmoveButton>().ToList().ForEach(button => { button.isInteractable = true; });
+        GameManager.gm.EndCalibration();
     }
 }
