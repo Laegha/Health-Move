@@ -15,6 +15,9 @@ public class HandRotation : MonoBehaviour
     {
         if (_playerIdentifier == null)
             return;
+        
+        if (!PlayerIdentifier.ControllerData.trackingSuccesful)
+            return;
 
         ControllerHelper.PSMoveButton requiredButtons = ControllerHelper.PSMoveButton.Cross | ControllerHelper.PSMoveButton.Trigger;
         if (PlayerIdentifier.ControllerData.pressedButtons == requiredButtons && PlayerIdentifier.ControllerData.prevPressedButtons != PlayerIdentifier.ControllerData.pressedButtons)
