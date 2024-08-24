@@ -21,7 +21,7 @@ public class PlayerIdentifier : MonoBehaviour
 
         HandRotation handRotation = GetComponent<HandRotation>();
         HandMovement handMovement = GetComponent<HandMovement>();
-        CursorMovement cursorMovement = FindObjectsOfType<CursorMovement>().Where(x => x.transform.root == transform).First();
+        CursorMovement cursorMovement = GetCursorMovement();
 
         if(handRotation != null )
             handRotation.PlayerIdentifier = this;
@@ -31,5 +31,14 @@ public class PlayerIdentifier : MonoBehaviour
         
         if(cursorMovement != null )
             cursorMovement.PlayerIdentifier = this;
+    }
+
+    CursorMovement GetCursorMovement()
+    {
+        List<CursorMovement> cursorMovements = FindObjectsOfType<CursorMovement>().Where(x => x.transform.root == transform).ToList();
+        if(cursorMovements.Count > 0)
+            return cursorMovements[0];
+        else 
+            return null;
     }
 }
