@@ -14,7 +14,7 @@ public class BallThrowTrigger : MonoBehaviour
         if(player == null || ball == null)
             return;
 
-        if (ControllersManager.controllersManager.Controllers[player.PlayerIdentifier.AssignedController].accel.magnitude < speedThreshold)
+        if (player.PlayerIdentifier.ControllerData.accel.magnitude < speedThreshold)
             return;
 
         Rigidbody rb = ball.GetComponent<Rigidbody>();

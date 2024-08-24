@@ -7,15 +7,17 @@ using System.Linq;
 public class BallGenerator : MonoBehaviour
 {
     [SerializeField] GameObject ballPrefab;
+    [SerializeField] ControllerHelper.PSMoveButton interactButton;
     private void OnTriggerStay(Collider other)
     {
         PlayerCollisionIdentifier player = other.GetComponent<PlayerCollisionIdentifier>();
         if (player == null)
             return;
 
-        ControllerData controllerData = ControllersManager.controllersManager.Controllers[player.PlayerIdentifier.AssignedController];
-        if (controllerData.pressedButtons == (ControllerHelper.PSMoveButton.Start | ControllerHelper.PSMoveButton.Trigger) && controllerData.pressedButtons != controllerData.prevPressedButtons)
+        ControllerData controllerData = player.PlayerIdentifier.ControllerData;
+        if (controllerData.pressedButtons == (interactButton | ControllerHelper.PSMoveButton.Trigger) && controllerData.pressedButtons != controllerData.prevPressedButtons)
         {
+            print("Pickeado pelota");
             Transform ballHolder = GameObject.Find("BallHolder").transform;
             GameObject ball = Instantiate(ballPrefab, ballHolder.position, Quaternion.identity);
             ball.transform.parent = ballHolder;
