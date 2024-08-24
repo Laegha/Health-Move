@@ -12,4 +12,5 @@ public class ControllerData
     public Quaternion orientation;
     public PSMoveButton pressedButtons = 0;
     public PSMoveButton prevPressedButtons;
+    public bool trackingSuccesful;
 }
