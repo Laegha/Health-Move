@@ -35,7 +35,7 @@ public class PlayerIdentifier : MonoBehaviour
 
     CursorMovement GetCursorMovement()
     {
-        List<CursorMovement> cursorMovements = FindObjectsOfType<CursorMovement>().Where(x => x.transform.root == transform).ToList();
+        List<CursorMovement> cursorMovements = FindObjectsOfType<CursorMovement>().Where(x => x.transform.parent == transform).ToList();
         if(cursorMovements.Count > 0)
             return cursorMovements[0];
         else 
