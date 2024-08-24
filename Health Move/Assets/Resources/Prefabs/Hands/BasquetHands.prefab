@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3121695668228249939}
   - component: {fileID: 6672347164464890516}
   m_Layer: 0
-  m_Name: Hands
+  m_Name: BasquetHands
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2629232457137101490}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.875, y: 1.24, z: 0.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 388357724446891291}
   - component: {fileID: 22181147662116836}
   - component: {fileID: 8911844265397970447}
+  - component: {fileID: 7682902949181303184}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -209,6 +210,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7682902949181303184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3631359551263720995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 483b86441b033474b9feffc08529a60d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerIdentifier: {fileID: 3121695668228249939}
 --- !u!1 &4728068347137317616
 GameObject:
   m_ObjectHideFlags: 0
