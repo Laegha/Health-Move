@@ -17,11 +17,6 @@ public class CursorMovement : MonoBehaviour
         _rectTransform = GetComponent<RectTransform>();
     }
 
-    private void Start()
-    {
-        transform.root.SetParent(GameObject.Find("Canvas").transform);
-    }
-
     public void CursorUpdate()
     {
         Vector3 eulers = PlayerIdentifier.ControllerData.orientation.eulerAngles;

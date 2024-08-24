@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class GameManager : MonoBehaviour
 
         instance = this;
         DontDestroyOnLoad(gameObject);
+
+        SceneManager.sceneLoaded += GenerateHands;
     }
     List<PointScoreReciever> scoredRecievers = new List<PointScoreReciever>();
     MinigameManager currMinigameManager;
@@ -45,7 +48,7 @@ public class GameManager : MonoBehaviour
 
     public void StartMinigame(string minigameManagerType)
     {
-        Type type = Type.GetType(minigameManagerType);
+        Type type = Type.GetType(minigameManagerType, false, true);
         currMinigameManager = (MinigameManager) Activator.CreateInstance(type);
     }
 
@@ -66,15 +69,20 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void EndCalibration()
+    public void GenerateHands(Scene scene, LoadSceneMode mode)
     {
         foreach(var controller in ControllersManager.controllersManager.Controllers)
         {
             GameObject hand = Instantiate(currMinigameManager != null ? currMinigameManager.minigameHandPrefab : cursorPrefab, transform.position, Quaternion.identity);
             hand.GetComponent<PlayerIdentifier>().AssignedController = controller.Key;
             if(currMinigameManager == null)
-                hand.GetComponent<RectTransform>().position = Vector3.zero;
-            //what happens on a minigame
+            {
+                hand.transform.SetParent(GameObject.Find("Canvas").transform);
+                hand.GetComponent<RectTransform>().localPosition = Vector3.zero;
+            }
+            else
+                hand.transform.position = GameObject.Find("HandSpawner").transform.position;
+
         }
     }
 }
