@@ -18,6 +18,9 @@ public class HandMovement : MonoBehaviour
         if (_playerIdentifier == null)
             return;
 
+        if (!PlayerIdentifier.ControllerData.trackingSuccesful)
+            return;
+
         float positionZ = PlayerIdentifier.ControllerData.position.z;
         Vector3 pixelMovement = PlayerIdentifier.ControllerData.movement;
         pixelMovement = new Vector3(pixelMovement.x * positionZ * pixelToUnit, pixelMovement.y * positionZ * pixelToUnit, pixelMovement.z * cmToPixel * pixelToUnit);
