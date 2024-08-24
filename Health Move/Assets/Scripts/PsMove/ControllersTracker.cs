@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class ControllersTracker
 {
+    bool _firstExecution = true;
     public void Update()
     {
         ControllerHelper.psmove_tracker_update_image(ControllersManager.controllersManager.Camera);
@@ -30,6 +31,12 @@ public class ControllersTracker
 
             Vector3 newControllerPosition = new Vector3(posX, posY, posZ);
 
+            if(_firstExecution)
+            {
+                _firstExecution = false;
+                controller.Value.position = newControllerPosition;
+
+            }
             controller.Value.movement = newControllerPosition - controller.Value.position;
             controller.Value.position = newControllerPosition;
 
