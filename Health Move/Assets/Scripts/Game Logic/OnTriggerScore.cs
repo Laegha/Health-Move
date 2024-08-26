@@ -6,7 +6,9 @@ public class OnTriggerScore : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("PointScorer"))
-            GameManager.gm.OnScored();
+        PlayerCollisionIdentifier player = other.GetComponent<PlayerCollisionIdentifier>();
+
+        if (player != null)
+            GameManager.gm.OnScored(player.PlayerIdentifier);
     }
 }

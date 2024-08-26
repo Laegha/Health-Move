@@ -6,6 +6,7 @@ public class BallThrowTrigger : MonoBehaviour
 {
     [HideInInspector] public GameObject ball;
     [SerializeField] float speedThreshold;
+    [SerializeField] float throwForce;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -19,7 +20,8 @@ public class BallThrowTrigger : MonoBehaviour
 
         Rigidbody rb = ball.GetComponent<Rigidbody>();
         rb.useGravity = true;
-        rb.AddForce(other.transform.up * 10, ForceMode.Impulse);
+        ball.GetComponent<Collider>().isTrigger = false;
+        rb.AddForce(player.PlayerIdentifier.transform.forward * throwForce, ForceMode.Impulse);
         ball.transform.parent = null;
     }
 }

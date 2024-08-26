@@ -26,24 +26,25 @@ public class GameManager : MonoBehaviour
 
         SceneManager.sceneLoaded += GenerateHands;
     }
-    List<PointScoreReciever> scoredRecievers = new List<PointScoreReciever>();
+    
     MinigameManager currMinigameManager;
 
     [SerializeField] GameObject cursorPrefab;
 
-    public void OnScored() //Is called by elements on scene
+    public void OnScored(PlayerIdentifier scorer) //Is called by elements on scene
     {
-        foreach (PointScoreReciever reciever in scoredRecievers)
-            reciever.OnScored();
+        currMinigameManager.OnScored(scorer);
 
-        currMinigameManager.OnScored(new PlayerIdentifier());
-        //if(currMinigameManager.hasEnded)
-        //end minigame
+        List<PointScoreReciever> scoredRecievers = FindObjectsOfType<PointScoreReciever>().ToList();
+        foreach (PointScoreReciever reciever in scoredRecievers)
+            reciever.OnScored(currMinigameManager);
     }
 
     public void EndMinigame()
     {
         Debug.Log("Minigame Ended");
+        SceneManager.LoadScene("MainMenu");
+        currMinigameManager = null;
     }
 
     public void StartMinigame(string minigameManagerType)
