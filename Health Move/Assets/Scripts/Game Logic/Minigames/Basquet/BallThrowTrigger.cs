@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class BallThrowTrigger : MonoBehaviour
 {
-    [HideInInspector] public GameObject ball;
+    /*[HideInInspector]*/ public GameObject ball;
     [SerializeField] float speedThreshold;
     [SerializeField] float throwForce;
+    [SerializeField] Transform optimalHitPoint;
+    [SerializeField] LayerMask layerMask;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -21,7 +23,18 @@ public class BallThrowTrigger : MonoBehaviour
         Rigidbody rb = ball.GetComponent<Rigidbody>();
         rb.useGravity = true;
         ball.GetComponent<Collider>().isTrigger = false;
-        rb.AddForce(player.PlayerIdentifier.transform.forward * throwForce, ForceMode.Impulse);
+
+        rb.AddForce(CalculateThrowDirection(player.transform) * throwForce, ForceMode.Impulse);
+
         ball.transform.parent = null;
+    }
+
+    Vector3 CalculateThrowDirection(Transform player)
+    {
+        if(!Physics.Raycast(player.position, player.forward, layerMask))
+            return player.forward;
+        
+        Vector3 direction = player.position - optimalHitPoint.position;
+        return direction;
     }
 }

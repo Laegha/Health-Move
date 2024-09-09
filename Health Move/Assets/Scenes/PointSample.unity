@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 650935713}
   - component: {fileID: 650935712}
   - component: {fileID: 650935711}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.153, y: 3.4652, z: -0.011}
-  m_LocalScale: {x: 0.3535654, y: 1.9300871, z: 3.3922963}
+  m_LocalScale: {x: 0.3535654, y: 2.6077406, z: 6.797483}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1605006058}
@@ -826,7 +826,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9428909506958df458ab48ab1b257a47, type: 3}
       propertyPath: m_Name
-      value: entorno nuevo
+      value: Enviroment
       objectReference: {fileID: 0}
     - target: {fileID: 1290268953411352940, guid: 9428909506958df458ab48ab1b257a47, type: 3}
       propertyPath: m_LocalPosition.x
@@ -907,7 +907,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b3794b68663e4c47b9dca8c7353d863, type: 3}
       propertyPath: m_Name
-      value: Ball_Stand
+      value: BallGenerator
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1330,7 +1330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 81af9f3cdf7a00b45b97e21cd4066ed7, type: 3}
       propertyPath: m_Name
-      value: 'aroo '
+      value: Aro
       objectReference: {fileID: 0}
     - target: {fileID: 6745302439343835087, guid: 81af9f3cdf7a00b45b97e21cd4066ed7, type: 3}
       propertyPath: m_Enabled
@@ -1556,6 +1556,10 @@ MonoBehaviour:
   ball: {fileID: 0}
   speedThreshold: 0
   throwForce: 10
+  optimalHitPoint: {fileID: 650935710}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!65 &1698381419
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1813,13 +1817,13 @@ SceneRoots:
   m_Roots:
   - {fileID: 693407594}
   - {fileID: 452027304}
-  - {fileID: 1605006057}
-  - {fileID: 849755321}
-  - {fileID: 1962616493}
-  - {fileID: 1698381422}
   - {fileID: 491631407}
+  - {fileID: 1605006057}
+  - {fileID: 1698381422}
   - {fileID: 1068333815}
   - {fileID: 740346193}
-  - {fileID: 222894464}
   - {fileID: 1407245554}
   - {fileID: 1849065756}
+  - {fileID: 222894464}
+  - {fileID: 849755321}
+  - {fileID: 1962616493}
