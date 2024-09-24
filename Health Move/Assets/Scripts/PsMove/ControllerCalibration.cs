@@ -83,7 +83,9 @@ public class ControllerCalibration : MonoBehaviour
             {
                 ControllerHelper.psmove_disconnect(controller.Key);
                 ControllersManager.controllersManager.Controllers.Remove(controller.Key);
+                continue;
             }
+            ControllerHelper.psmove_reset_orientation(controller.Key);
         }
 
         StartCoroutine(ControllersManager.controllersManager.UpdateTracker());
