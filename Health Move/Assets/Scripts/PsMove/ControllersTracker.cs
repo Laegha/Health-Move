@@ -7,6 +7,7 @@ using UnityEngine;
 public class ControllersTracker
 {
     bool _firstExecution = true;
+    float minMovement = .5f;
 
     public void Update()
     {
@@ -41,6 +42,13 @@ public class ControllersTracker
 
             }
             Vector3 movement = newControllerPosition - controller.Value.position;
+            
+            if (Math.Abs(movement.x) < minMovement)
+                movement.x = 0;
+            if (Math.Abs(movement.y) < minMovement)
+                movement.y = 0;
+            if (Math.Abs(movement.z) < minMovement)
+                movement.z = 0;
 
             controller.Value.movement = movement;
             Debug.Log(controller.Value.movement);
