@@ -22,7 +22,7 @@ public class BallGenerator : MonoBehaviour
             return;
 
         ControllerData controllerData = player.PlayerIdentifier.ControllerData;
-        if (controllerData.pressedButtons == (interactButton | ControllerHelper.PSMoveButton.Trigger) && controllerData.pressedButtons != controllerData.prevPressedButtons && ballThrowTrigger == null)
+        if (controllerData.pressedButtons == (interactButton | ControllerHelper.PSMoveButton.Trigger) && controllerData.pressedButtons != controllerData.prevPressedButtons && ballThrowTrigger.ball == null)
         {
             Transform ballHolder = GameObject.Find("BallHolder").transform;
             GameObject ball = Instantiate(ballPrefab, ballHolder.position, Quaternion.identity);
