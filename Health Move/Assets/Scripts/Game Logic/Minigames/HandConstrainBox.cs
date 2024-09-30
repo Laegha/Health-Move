@@ -11,7 +11,7 @@ public class HandConstrainBox : NeedsPlayerReference
 
     private void Update()
     {
-        if (players[0] == null)
+        if (players.Count == 0)
             return;
         Vector3 newPlayerPosition = players[0].transform.position;
         

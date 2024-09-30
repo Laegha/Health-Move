@@ -52,6 +52,6 @@ public class BallThrowTrigger : MonoBehaviour
         }
         
         Vector3 accurateDirection = optimalHitPoint.position - player.position;
-        return accurateDirection;
+        return accurateDirection.normalized;
     }
 }

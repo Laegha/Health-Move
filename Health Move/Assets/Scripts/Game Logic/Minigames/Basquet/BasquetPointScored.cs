@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -14,5 +12,6 @@ public class BasquetPointScored : PointScoreReciever
 
         text.text = basquetMinigameManager.scored.ToString();
 
+        Debug.Log("Scored");
     }
 }

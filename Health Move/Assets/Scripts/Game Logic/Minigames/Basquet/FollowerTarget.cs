@@ -6,7 +6,7 @@ public class FollowerTarget : NeedsPlayerReference
 {
     void Update()
     {
-        if (players[0] == null )
+        if (players.Count == 0)
             return;
 
         Vector3 position = transform.position;
