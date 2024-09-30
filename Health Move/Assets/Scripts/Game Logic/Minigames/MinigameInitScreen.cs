@@ -8,7 +8,6 @@ using TMPro;
 public class MinigameInitScreen : MonoBehaviour
 {
     Dictionary<ControllerData, bool> readyControllers = new Dictionary<ControllerData, bool>();
-    ControllerHelper.PSMoveButton confirmButton = ControllerHelper.PSMoveButton.Triangle;
 
     int readyControllersCount = 0;
 
@@ -21,7 +20,7 @@ public class MinigameInitScreen : MonoBehaviour
             readyControllers.Add(controllerData, false);
         }
         readyPlayers = transform.Find("ReadyPlayers").GetComponent<TextMeshProUGUI>();
-        readyPlayers.text = "Jugadores listos: 0/" + readyControllersCount;
+        readyPlayers.text = "Jugadores listos: 0/" + readyControllers.Count;
     }
 
     void Update()
@@ -31,7 +30,7 @@ public class MinigameInitScreen : MonoBehaviour
             if (readyControllers[controller])
                 continue;
 
-            if(controller.pressedButtons == (confirmButton | ControllerHelper.PSMoveButton.Trigger))
+            if(controller.pressedButtons != ((ControllerHelper.PSMoveButton.Up - ControllerHelper.PSMoveButton.Up) | ControllerHelper.PSMoveButton.Trigger))
             {
                 readyControllers[controller] = true;
                 readyControllersCount ++;

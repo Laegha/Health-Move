@@ -9,9 +9,6 @@ using UnityEngine.SceneManagement;
 
 public class ControllerCalibration : MonoBehaviour
 {
-    [SerializeField] ControllerHelper.PSMoveButton calibrationButton;
-    [SerializeField] ControllerHelper.PSMoveButton endCalibrationButton;
-
     [SerializeField] GameObject calibrationScreen;
 
     static ControllerCalibration instance;
@@ -59,15 +56,15 @@ public class ControllerCalibration : MonoBehaviour
         {
             foreach(var controller in ControllersManager.controllersManager.Controllers)
             {
-                if(controller.Value.pressedButtons == (calibrationButton | ControllerHelper.PSMoveButton.Trigger))//if willing to connect, call CalibrateController and keep track of it
+                if(controller.Value.pressedButtons != ((ControllerHelper.PSMoveButton.Up - ControllerHelper.PSMoveButton.Up) | ControllerHelper.PSMoveButton.Trigger))//if willing to connect, call CalibrateController and keep track of it
                 {
                     ControllersManager.controllersManager.CalibrateController(controller.Key);
                     calibratedControllers.Add(controller.Key);
                     ControllerHelper.psmove_tracker_update_image(ControllersManager.controllersManager.Camera);
                     ControllerHelper.psmove_tracker_update(ControllersManager.controllersManager.Camera, controller.Key);
                 }
-
-                if (controller.Value.pressedButtons == (endCalibrationButton | ControllerHelper.PSMoveButton.Trigger) && calibratedControllers.Contains(controller.Key))//if connection was ended, end loop
+                
+                if (controller.Value.pressedButtons != ((ControllerHelper.PSMoveButton.Up - ControllerHelper.PSMoveButton.Up) | ControllerHelper.PSMoveButton.Trigger) && calibratedControllers.Contains(controller.Key))//if connection was ended, end loop
                 {
                     stillCalibrating = false;
                     print("Ended calibration");
