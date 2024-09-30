@@ -4,12 +4,22 @@ using UnityEngine;
 
 public class BallThrowTrigger : MonoBehaviour
 {
-    /*[HideInInspector]*/ public GameObject ball;
+    [HideInInspector] public GameObject ball;
+
     [SerializeField] float speedThreshold;
     [SerializeField] float throwForce;
     [SerializeField] Transform optimalHitPoint;
-    [SerializeField] LayerMask layerMask;
 
+    [SerializeField] Transform playerFollowerTarget;
+    [SerializeField] LayerMask raycastIncludeLayerMask;
+
+    BallCounter ballCounter;
+    
+    private void Start()
+    {
+        ballCounter = FindObjectOfType<BallCounter>();    
+    }
+    
     private void OnTriggerEnter(Collider other)
     {
         PlayerCollisionIdentifier player = other.GetComponent<PlayerCollisionIdentifier>();
@@ -27,14 +37,21 @@ public class BallThrowTrigger : MonoBehaviour
         rb.AddForce(CalculateThrowDirection(player.transform) * throwForce, ForceMode.Impulse);
 
         ball.transform.parent = null;
+
+        ballCounter.BallThrown(ball);
+        ball = null;
     }
 
     Vector3 CalculateThrowDirection(Transform player)
     {
-        if(!Physics.Raycast(player.position, player.forward, layerMask))
-            return player.forward;
+        Vector3 throwDirection = playerFollowerTarget.position - player.position;
+        if (!Physics.Raycast(player.position, throwDirection, ~raycastIncludeLayerMask))
+        {
+            print("Tiro acertado");
+            return throwDirection;
+        }
         
-        Vector3 direction = player.position - optimalHitPoint.position;
-        return direction;
+        Vector3 accurateDirection = optimalHitPoint.position - player.position;
+        return accurateDirection;
     }
 }

@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
 
-        SceneManager.sceneLoaded += GenerateHands;
     }
     
     MinigameManager currMinigameManager;
@@ -70,9 +69,10 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void GenerateHands(Scene scene, LoadSceneMode mode)
+    public void GenerateHands()
     {
-        foreach(var controller in ControllersManager.controllersManager.Controllers)
+        List<NeedsPlayerReference> needsPlayerReferences = FindObjectsOfType<NeedsPlayerReference>().ToList();
+        foreach (var controller in ControllersManager.controllersManager.Controllers)
         {
             GameObject hand = Instantiate(currMinigameManager != null ? currMinigameManager.minigameHandPrefab : cursorPrefab, transform.position, Quaternion.identity);
             hand.GetComponent<PlayerIdentifier>().AssignedController = controller.Key;
@@ -83,7 +83,9 @@ public class GameManager : MonoBehaviour
             }
             else
                 hand.transform.position = GameObject.Find("HandSpawner").transform.position;
+            needsPlayerReferences.ForEach(x => x.players.Add(hand));
 
         }
+
     }
 }

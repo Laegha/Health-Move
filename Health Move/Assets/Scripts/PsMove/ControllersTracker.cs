@@ -51,7 +51,6 @@ public class ControllersTracker
                 movement.z = 0;
 
             controller.Value.movement = movement;
-            Debug.Log(controller.Value.movement);
             controller.Value.position = newControllerPosition;
 
             #endregion

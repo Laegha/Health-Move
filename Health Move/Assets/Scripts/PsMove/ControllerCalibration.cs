@@ -93,6 +93,6 @@ public class ControllerCalibration : MonoBehaviour
         print("Ended Calibration");
         calibrationScreen.SetActive(false);
         FindObjectsOfType<PsmoveButton>().ToList().ForEach(button => { button.isInteractable = true; });
-        GameManager.gm.GenerateHands(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+        GameManager.gm.GenerateHands();
     }
 }
