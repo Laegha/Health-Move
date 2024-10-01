@@ -30,7 +30,7 @@ public class MinigameInitScreen : MonoBehaviour
             if (readyControllers[controller])
                 continue;
 
-            if(controller.pressedButtons != ((ControllerHelper.PSMoveButton.Up - ControllerHelper.PSMoveButton.Up) | ControllerHelper.PSMoveButton.Trigger))
+            if(controller.pressedButtons != ((ControllerHelper.PSMoveButton.Up - ControllerHelper.PSMoveButton.Up) | ControllerHelper.PSMoveButton.Trigger) && controller.pressedButtons != controller.prevPressedButtons)
             {
                 readyControllers[controller] = true;
                 readyControllersCount ++;

@@ -1,7 +1,6 @@
 using PsMoveAPI;
 using System;
 using System.Linq;
-using UnityEditor.Experimental.RestService;
 using UnityEngine;
 
 public class HandInstantiator : MonoBehaviour

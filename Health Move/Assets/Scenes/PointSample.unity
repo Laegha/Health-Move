@@ -925,7 +925,7 @@ GameObject:
   - component: {fileID: 650935712}
   - component: {fileID: 650935711}
   m_Layer: 6
-  m_Name: Collider
+  m_Name: RayCastReciever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -941,7 +941,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.153, y: 3.4652, z: -0.011}
-  m_LocalScale: {x: 0.3535654, y: 2.6077406, z: 6.797483}
+  m_LocalScale: {x: 0.3535654, y: 2.1101837, z: 4.2178383}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1605006058}
@@ -1046,7 +1046,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -6.7085, z: -8.1844}
-  m_LocalScale: {x: 27.1898, y: -1.0225463, z: 17.368504}
+  m_LocalScale: {x: 27.1898, y: 1.022546, z: 17.368504}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 740346193}
@@ -1442,7 +1442,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.08318676, w: 0.996534}
   m_LocalPosition: {x: 0, y: 3.37, z: -8.1844}
-  m_LocalScale: {x: 27.1898, y: -1.0225463, z: 17.368504}
+  m_LocalScale: {x: 27.1898, y: 1.022546, z: 17.368504}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 740346193}
@@ -3289,8 +3289,8 @@ Transform:
   m_GameObject: {fileID: 1785807234}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.072, z: 0}
-  m_LocalScale: {x: 0.4656, y: 2.0196, z: 2.0426}
+  m_LocalPosition: {x: 0, y: 1.4017, z: -0.7361}
+  m_LocalScale: {x: 0.4656, y: 1.4341025, z: 0.5703415}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1068333816}
@@ -3577,7 +3577,7 @@ GameObject:
   - component: {fileID: 2044315435}
   - component: {fileID: 2044315434}
   m_Layer: 0
-  m_Name: Collider (1)
+  m_Name: BallKeeper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

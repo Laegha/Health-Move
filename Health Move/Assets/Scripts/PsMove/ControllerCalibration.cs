@@ -56,20 +56,24 @@ public class ControllerCalibration : MonoBehaviour
         {
             foreach(var controller in ControllersManager.controllersManager.Controllers)
             {
-                if(controller.Value.pressedButtons != ((ControllerHelper.PSMoveButton.Up - ControllerHelper.PSMoveButton.Up) | ControllerHelper.PSMoveButton.Trigger))//if willing to connect, call CalibrateController and keep track of it
+                if (controller.Value.pressedButtons != ((ControllerHelper.PSMoveButton.Up - ControllerHelper.PSMoveButton.Up) | ControllerHelper.PSMoveButton.Trigger) && controller.Value.pressedButtons != controller.Value.prevPressedButtons)//if willing to connect, call CalibrateController and keep track of it
                 {
-                    ControllersManager.controllersManager.CalibrateController(controller.Key);
-                    calibratedControllers.Add(controller.Key);
-                    ControllerHelper.psmove_tracker_update_image(ControllersManager.controllersManager.Camera);
-                    ControllerHelper.psmove_tracker_update(ControllersManager.controllersManager.Camera, controller.Key);
-                }
-                
-                if (controller.Value.pressedButtons != ((ControllerHelper.PSMoveButton.Up - ControllerHelper.PSMoveButton.Up) | ControllerHelper.PSMoveButton.Trigger) && calibratedControllers.Contains(controller.Key))//if connection was ended, end loop
-                {
-                    stillCalibrating = false;
-                    print("Ended calibration");
-                }
+                    if (calibratedControllers.Contains(controller.Key))//if connection was ended, end loop
+                    {
+                        stillCalibrating = false;
+                        print("Ended calibration");
+                    }
 
+                    else
+                    {
+                        ControllersManager.controllersManager.CalibrateController(controller.Key);
+                        calibratedControllers.Add(controller.Key);
+                        ControllerHelper.psmove_tracker_update_image(ControllersManager.controllersManager.Camera);
+                        ControllerHelper.psmove_tracker_update(ControllersManager.controllersManager.Camera, controller.Key);
+
+                    }
+
+                }
             }
             yield return new WaitForEndOfFrame();
         }
@@ -89,7 +93,10 @@ public class ControllerCalibration : MonoBehaviour
 
         print("Ended Calibration");
         calibrationScreen.SetActive(false);
-        FindObjectsOfType<PsmoveButton>().ToList().ForEach(button => { button.isInteractable = true; });
         GameManager.gm.GenerateHands();
+
+        yield return new WaitForEndOfFrame();
+
+        FindObjectsOfType<PsmoveButton>().ToList().ForEach(button => { button.isInteractable = true; });
     }
 }
