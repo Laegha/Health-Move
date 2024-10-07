@@ -215,7 +215,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &297653494
 RectTransform:
   m_ObjectHideFlags: 0
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 2f165a9b26e6ecb4ab633bd5dfa7ea00, type: 2}
+  m_Material: {fileID: 2100000, guid: 2362cd9fdd1f4fc469dfc8bd31411fb1, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -382,8 +382,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 545.9375, y: 212.57031}
-  m_SizeDelta: {x: 211, y: 425}
+  m_AnchoredPosition: {x: 545.9375, y: 98.25438}
+  m_SizeDelta: {x: 211, y: 196.3682}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &359686147
 MonoBehaviour:
@@ -452,7 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8b77c914dc719544a996a89b6621f67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorPrefab: {fileID: 2267094655724580731, guid: 3b51341d890ff2a48b3c3c66964e89d8, type: 3}
+  cursorPrefab: {fileID: 7433744028843613440, guid: 3b51341d890ff2a48b3c3c66964e89d8, type: 3}
 --- !u!4 &389794566
 Transform:
   m_ObjectHideFlags: 0
@@ -504,8 +504,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 105.9375, y: 212.57031}
-  m_SizeDelta: {x: 211, y: 425}
+  m_AnchoredPosition: {x: 105.9375, y: 98.25438}
+  m_SizeDelta: {x: 211, y: 196.3682}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!65 &438616170
 BoxCollider:
@@ -526,7 +526,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 211, y: 358, z: 113.5}
+  m_Size: {x: 211, y: 202.66147, z: 113.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &438616171
 MonoBehaviour:
@@ -568,6 +568,7 @@ MonoBehaviour:
           m_StringArgument: PointSample
           m_BoolArgument: 0
         m_CallState: 2
+  timeToInteract: 4
 --- !u!114 &438616172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -914,8 +915,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 325.9375, y: 212.57031}
-  m_SizeDelta: {x: 211, y: 425}
+  m_AnchoredPosition: {x: 325.9375, y: 98.25438}
+  m_SizeDelta: {x: 211, y: 196.3682}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &938627898
 MonoBehaviour:
@@ -1497,8 +1498,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 767, y: 212.57031}
-  m_SizeDelta: {x: 211, y: 425}
+  m_AnchoredPosition: {x: 767, y: 98.25438}
+  m_SizeDelta: {x: 211, y: 196.3682}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1744780591
 MonoBehaviour:
