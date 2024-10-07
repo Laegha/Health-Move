@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System.Linq;
 
 public class PsmoveButton : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class PsmoveButton : MonoBehaviour
 
     float fillAmount = 0;
 
-    [SerializeField] float speed;
+    [SerializeField] float timeToInteract;
 
     private void OnTriggerStay(Collider other)
     {
@@ -25,8 +26,8 @@ public class PsmoveButton : MonoBehaviour
         if(playerCollisionIdentifier == null)
             return;
 
-        fillAmount += Time.deltaTime * speed;
-        other.GetComponentInChildren<Image>().fillAmount = fillAmount;
+        fillAmount += Time.deltaTime / timeToInteract;
+        other.transform.parent.Find("Elipse").GetComponent<Image>().fillAmount = fillAmount;
 
         if(fillAmount >= 1)
         {
@@ -45,6 +46,6 @@ public class PsmoveButton : MonoBehaviour
             return;
 
         fillAmount = 0;
-        other.GetComponentInChildren<Image>().fillAmount = fillAmount;
+        other.transform.parent.Find("Elipse").GetComponent<Image>().fillAmount = fillAmount;
     }
 }
