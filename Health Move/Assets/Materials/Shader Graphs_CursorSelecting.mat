@@ -35,7 +35,7 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _FillAmount: 290.8
+    - _FillAmount: 264.9
     - _MainTex: 0
     m_Colors: []
   m_BuildTextureStacks: []
