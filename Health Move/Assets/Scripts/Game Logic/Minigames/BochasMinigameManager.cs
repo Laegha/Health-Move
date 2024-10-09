@@ -9,7 +9,8 @@ public class BochasMinigameManager : MinigameManager
     int _player1Points;
     int _player2Points;
 
-    public Transform Bochin {  get { return _bochin; } set { _bochin = value; }
+    public Transform Bochin {  get { return _bochin; } set { _bochin = value; } }
+
     public void BochinStopped()
     {
 
