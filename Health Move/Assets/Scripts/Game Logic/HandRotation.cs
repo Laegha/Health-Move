@@ -22,7 +22,7 @@ public class HandRotation : MonoBehaviour
         ControllerHelper.PSMoveButton requiredButtons = ControllerHelper.PSMoveButton.Cross | ControllerHelper.PSMoveButton.Trigger;
         if (PlayerIdentifier.ControllerData.pressedButtons == requiredButtons && PlayerIdentifier.ControllerData.prevPressedButtons != PlayerIdentifier.ControllerData.pressedButtons)
         {
-            ControllerHelper.psmove_reset_orientation(PlayerIdentifier.AssignedController);
+            ControllerHelper.psmove_reset_orientation(ControllersManager.controllersManager.Controller.Key);
         }
 
         Quaternion orientation = PlayerIdentifier.ControllerData.orientation;

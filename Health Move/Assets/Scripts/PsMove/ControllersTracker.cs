@@ -13,48 +13,45 @@ public class ControllersTracker
     {
         ControllerHelper.psmove_tracker_update_image(ControllersManager.controllersManager.Camera);
 
-        foreach (var controller in ControllersManager.controllersManager.Controllers)
+        if (ControllerHelper.psmove_tracker_update(ControllersManager.controllersManager.Camera, ControllersManager.controllersManager.Controller.Key) == 0)
         {
-            if (ControllerHelper.psmove_tracker_update(ControllersManager.controllersManager.Camera, controller.Key) == 0)
-            {
-                Debug.Log("Tracking Update failed");
-                controller.Value.trackingSuccesful = false;
-                return;
-            }
-            Debug.Log("Tracking Update succesfull");
-            controller.Value.trackingSuccesful = true;
-
-            #region Position Tracking
-            float posX = 0;
-            float posY = 0;
-            float radius = 0;
-
-            ControllerHelper.psmove_tracker_get_position(ControllersManager.controllersManager.Camera, controller.Key, ref posX, ref posY, ref radius);
-            float posZ = ControllerHelper.psmove_tracker_distance_from_radius(ControllersManager.controllersManager.Camera, radius);
-            posZ = TruncateDecimals(0, posZ);
-
-            Vector3 newControllerPosition = new Vector3(posX, posY, posZ);
-
-            if(_firstExecution)
-            {
-                _firstExecution = false;
-                controller.Value.position = newControllerPosition;
-
-            }
-            Vector3 movement = newControllerPosition - controller.Value.position;
-            
-            if (Math.Abs(movement.x) < minMovement)
-                movement.x = 0;
-            if (Math.Abs(movement.y) < minMovement)
-                movement.y = 0;
-            if (Math.Abs(movement.z) < minMovement)
-                movement.z = 0;
-
-            controller.Value.movement = movement;
-            controller.Value.position = newControllerPosition;
-
-            #endregion
+            Debug.Log("Tracking Update failed");
+            ControllersManager.controllersManager.Controller.Value.trackingSuccesful = false;
+            return;
         }
+        Debug.Log("Tracking Update succesfull");
+        ControllersManager.controllersManager.Controller.Value.trackingSuccesful = true;
+
+        #region Position Tracking
+        float posX = 0;
+        float posY = 0;
+        float radius = 0;
+
+        ControllerHelper.psmove_tracker_get_position(ControllersManager.controllersManager.Camera, ControllersManager.controllersManager.Controller.Key, ref posX, ref posY, ref radius);
+        float posZ = ControllerHelper.psmove_tracker_distance_from_radius(ControllersManager.controllersManager.Camera, radius);
+        posZ = TruncateDecimals(0, posZ);
+
+        Vector3 newControllerPosition = new Vector3(posX, posY, posZ);
+
+        if (_firstExecution)
+        {
+            _firstExecution = false;
+            ControllersManager.controllersManager.Controller.Value.position = newControllerPosition;
+
+        }
+        Vector3 movement = newControllerPosition - ControllersManager.controllersManager.Controller.Value.position;
+
+        if (Math.Abs(movement.x) < minMovement)
+            movement.x = 0;
+        if (Math.Abs(movement.y) < minMovement)
+            movement.y = 0;
+        if (Math.Abs(movement.z) < minMovement)
+            movement.z = 0;
+
+        ControllersManager.controllersManager.Controller.Value.movement = movement;
+        ControllersManager.controllersManager.Controller.Value.position = newControllerPosition;
+
+        #endregion
     }
 
     float TruncateDecimals(int numberOfDecimals, float input)

@@ -134,6 +134,9 @@ namespace PsMoveAPI
         public static extern int psmove_tracker_enable(IntPtr tracker, IntPtr move);
 
         [DllImport("psmoveapi_tracker.dll")]
+        public static extern int psmove_tracker_enable_with_color(IntPtr tracker, IntPtr move, byte r, byte g, byte b);
+
+        [DllImport("psmoveapi_tracker.dll")]
         public static extern void psmove_tracker_disable(IntPtr tracker, IntPtr move);
 
         [DllImport("psmoveapi_tracker.dll")]
@@ -159,10 +162,8 @@ namespace PsMoveAPI
         
         [DllImport("psmoveapi_tracker.dll")]
         public static extern int psmove_tracker_enable_deinterlace(IntPtr tracker, bool enabled);
-
         
-
-
-
+        [DllImport("psmoveapi_tracker.dll")]
+        public static extern void psmove_tracker_set_auto_update_leds(IntPtr tracker, IntPtr move, bool enabled);
     }
 }

@@ -7,17 +7,16 @@ using UnityEngine;
 public class PlayerIdentifier : MonoBehaviour
 {
     public int playerID;
-    IntPtr _assignedController;
     ControllerData _controllerData;
 
-    public IntPtr AssignedController {  get { return _assignedController; } set { _assignedController = value; } }
+    [SerializeField] Renderer[] _braceletRenderers;
+
     public ControllerData ControllerData {  get { return _controllerData; } set { _controllerData = value; } }
+    public Renderer[] BraceletRenderers {  get { return _braceletRenderers; } set { _braceletRenderers = value; } }
 
     private void Start()
     {
-        while(AssignedController == null) { }
-
-        ControllerData = ControllersManager.controllersManager.Controllers[AssignedController];
+        ControllerData = ControllersManager.controllersManager.Controller.Value;
 
         HandRotation handRotation = GetComponent<HandRotation>();
         HandMovement handMovement = GetComponent<HandMovement>();

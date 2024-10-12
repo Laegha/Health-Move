@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ControllersManager : MonoBehaviour
 {
-    Dictionary<IntPtr, ControllerData> _controllers = new Dictionary<IntPtr, ControllerData>();
+    KeyValuePair<IntPtr, ControllerData> _controller = new KeyValuePair<IntPtr, ControllerData>(IntPtr.Zero, null);
     IntPtr _camera;
 
     [SerializeField] Color _leds;
@@ -14,7 +14,7 @@ public class ControllersManager : MonoBehaviour
     ControllersHandler _controllersHandler;
     ControllersTracker _controllersTracker;
 
-    public Dictionary<IntPtr, ControllerData> Controllers { get { return _controllers; } }
+    public KeyValuePair<IntPtr, ControllerData> Controller { get { return _controller; } set { _controller = value; } }
     public IntPtr Camera { get { return _camera; } }
 
     static ControllersManager instance;
@@ -48,49 +48,25 @@ public class ControllersManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(ControllerCalibration.controllerCalibration.StartCalibration());
-        
-    }
-
-    void Calibrate()
-    {
-        print("Calibrating...");
-        int connectedControllers = ControllerHelper.psmove_count_connected();
-
-        for (int i = 0; i < connectedControllers; i++)
-        {
-            _controllers.Add(ControllerHelper.psmove_connect_by_id(i), new ControllerData());
-        }
-
-        foreach (var controller in _controllers)
-        {
-            ControllerHelper.psmove_enable_orientation(controller.Key, true);
-            while (ControllerHelper.psmove_tracker_enable(_camera, controller.Key) != 2) ;
-        }
-
-        if (_controllers.Count <= 0)
-            return;
-
-        StartCoroutine(UpdateHandler());
-        StartCoroutine(UpdateTracker());
     }
 
     public void CalibrateController(IntPtr controller)
     {
         ControllerHelper.psmove_enable_orientation(controller, true);
-        while (ControllerHelper.psmove_tracker_enable(_camera, controller) != 2) ;
+        while (ControllerHelper.psmove_tracker_enable_with_color(_camera, controller, (byte)(GameManager.gm.CurrPlayerColor.r * 255), (byte)(GameManager.gm.CurrPlayerColor.g * 255), (byte)(GameManager.gm.CurrPlayerColor.b * 255)) != 2) ;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
-            Calibrate();
+        if(Controller.Key != IntPtr.Zero)
+            ControllerHelper.psmove_update_leds(Controller.Key);
     }
 
     public IEnumerator UpdateHandler()
     {
         while (true)
         {
-            if (Controllers.Count <= 0)
+            if (Controller.Key != IntPtr.Zero)
                 continue;
 
             _controllersHandler.Update();
@@ -103,7 +79,7 @@ public class ControllersManager : MonoBehaviour
     {
         while (true)
         {
-            if (Controllers.Count <= 0)
+            if (Controller.Key != null)
                 continue;
 
             _controllersTracker.Update();
@@ -111,6 +87,8 @@ public class ControllersManager : MonoBehaviour
             yield return null;
         }
     }
+
+    public void SetLeds(IntPtr move, int red, int green, int blue) => ControllerHelper.psmove_set_leds(move, (byte)(red), (byte)(green), (byte)(blue));
 
     private void OnDestroy() => ControllerHelper.psmove_tracker_free(Camera);
 }

@@ -1,3 +1,4 @@
+using PsMoveAPI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,66 +27,105 @@ public class GameManager : MonoBehaviour
 
     }
     
-    MinigameManager currMinigameManager;
+    [SerializeField] GameObject _cursorPrefab;
 
-    [SerializeField] GameObject cursorPrefab;
+    MinigameManager _currMinigameManager;
+
+    GameObject _activeHand;
+
+    Color _currPlayerColor;
+
+    int _currPlayerId;
+
+    public MinigameManager CurrMinigameManager { get { return _currMinigameManager; } set { _currMinigameManager = value; } }
+    
+    public Color CurrPlayerColor { get { return _currPlayerColor; } set { _currPlayerColor = value; } }
 
     public void OnScored(PlayerIdentifier scorer) //Is called by elements on scene
     {
-        currMinigameManager.OnScored(scorer);
+        CurrMinigameManager.OnScored(scorer);
 
         List<PointScoreReciever> scoredRecievers = FindObjectsOfType<PointScoreReciever>().ToList();
         foreach (PointScoreReciever reciever in scoredRecievers)
-            reciever.OnScored(currMinigameManager);
+            reciever.OnScored(CurrMinigameManager);
     }
 
     public void EndMinigame()
     {
         Debug.Log("Minigame Ended");
         SceneManager.LoadScene("MainMenu");
-        currMinigameManager = null;
+        CurrMinigameManager = null;
     }
 
     public void StartMinigame(string minigameManagerType)
     {
         Type type = Type.GetType(minigameManagerType, false, true);
-        currMinigameManager = (MinigameManager) Activator.CreateInstance(type);
+        CurrMinigameManager = (MinigameManager) Activator.CreateInstance(type);
     }
 
     public void UpdateHandsRotation()
     {
-        foreach (HandRotation hand in FindObjectsOfType<HandRotation>())
-            hand.RotationUpdate();
+        HandRotation handRotation = _activeHand.GetComponent<HandRotation>();
+        if(handRotation != null)
+            handRotation.RotationUpdate();
         
-        foreach (CursorMovement cursor in FindObjectsOfType<CursorMovement>())
-            cursor.CursorUpdate();
+        CursorMovement cursorMovement = _activeHand.GetComponent<CursorMovement>();
+        if(cursorMovement != null)
+            cursorMovement.CursorUpdate();
 
     }
 
     public void UpdateHandsPosition()
     {
-        foreach(HandMovement hand in FindObjectsOfType<HandMovement>())
-            hand.MovementUpdate();
+        _activeHand.GetComponent<HandMovement>().MovementUpdate();
         
+    }
+
+    public void RecalibrateControllers()
+    {
+        //remove current controller from ControllerCalibration.calibratedControllers
+
+    }
+
+    public void ResetHands()
+    {
+        Destroy(_activeHand);
+        //display calibration screen
     }
 
     public void GenerateHands()
     {
         List<NeedsPlayerReference> needsPlayerReferences = FindObjectsOfType<NeedsPlayerReference>().ToList();
-        foreach (var controller in ControllersManager.controllersManager.Controllers)
+        
+        _activeHand = Instantiate(CurrMinigameManager != null ? CurrMinigameManager.minigameHandPrefab : _cursorPrefab, transform.position, Quaternion.identity);
+        
+        PlayerIdentifier playerIdentifier = _activeHand.GetComponent<PlayerIdentifier>();
+        playerIdentifier.playerID = _currPlayerId;
+        
+        if (CurrMinigameManager == null)
         {
-            GameObject hand = Instantiate(currMinigameManager != null ? currMinigameManager.minigameHandPrefab : cursorPrefab, transform.position, Quaternion.identity);
-            hand.GetComponent<PlayerIdentifier>().AssignedController = controller.Key;
-            if(currMinigameManager == null)
+            _activeHand.transform.SetParent(GameObject.Find("Canvas").transform);
+            _activeHand.GetComponent<RectTransform>().localPosition = Vector3.zero;
+        }
+        
+        else
+        {
+            _activeHand.transform.position = GameObject.Find("HandSpawner").transform.position;
+            foreach (var renderer in playerIdentifier.BraceletRenderers)
             {
-                hand.transform.SetParent(GameObject.Find("Canvas").transform);
-                hand.GetComponent<RectTransform>().localPosition = Vector3.zero;
+                renderer.material = new Material(renderer.material);
+                renderer.material.color = _currPlayerColor;
             }
-            else
-                hand.transform.position = GameObject.Find("HandSpawner").transform.position;
-            needsPlayerReferences.ForEach(x => x.players.Add(hand));
 
         }
 
+        needsPlayerReferences.ForEach(x => x.players.Add(_activeHand));
+
+    }
+
+    public void ChangePlayer(Color playerColor, int playerId)
+    {
+        _currPlayerColor = playerColor;
+        _currPlayerId = playerId;
     }
 }

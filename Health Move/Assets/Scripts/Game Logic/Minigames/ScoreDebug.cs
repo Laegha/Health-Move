@@ -9,7 +9,7 @@ public class ScoreDebug : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        controllerData = ControllersManager.controllersManager.Controllers.First().Value;
+        //controllerData = ControllersManager.controllersManager.Controller.First().Value;
     }
 
     // Update is called once per frame
