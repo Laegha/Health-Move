@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerID: 0
+  _braceletRenderers: []
 --- !u!1 &3631359551263720995
 GameObject:
   m_ObjectHideFlags: 0
