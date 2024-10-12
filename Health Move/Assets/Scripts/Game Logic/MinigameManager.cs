@@ -10,5 +10,5 @@ public class MinigameManager
     public GameObject minigameHandPrefab;
 
     public virtual void OnScored(PlayerIdentifier scorer) { } //Is called by GM OnScored
-    public virtual void OnRecieved() { }
+    public virtual void OnTurnEnded() { }
 }
