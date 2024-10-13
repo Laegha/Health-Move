@@ -56,12 +56,6 @@ public class ControllersManager : MonoBehaviour
         while (ControllerHelper.psmove_tracker_enable_with_color(_camera, controller, (byte)(GameManager.gm.CurrPlayerColor.r * 255), (byte)(GameManager.gm.CurrPlayerColor.g * 255), (byte)(GameManager.gm.CurrPlayerColor.b * 255)) != 2) ;
     }
 
-    void Update()
-    {
-        if(Controller.Key != IntPtr.Zero)
-            ControllerHelper.psmove_update_leds(Controller.Key);
-    }
-
     public IEnumerator UpdateHandler()
     {
         while (true)
@@ -88,7 +82,7 @@ public class ControllersManager : MonoBehaviour
         }
     }
 
-    public void SetLeds(IntPtr move, int red, int green, int blue) => ControllerHelper.psmove_set_leds(move, (byte)(red), (byte)(green), (byte)(blue));
+    public void EmptyCamera() => ControllerHelper.psmove_tracker_free(Camera);
 
-    private void OnDestroy() => ControllerHelper.psmove_tracker_free(Camera);
+    private void OnDestroy() => EmptyCamera();
 }

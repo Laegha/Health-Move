@@ -9,6 +9,9 @@ public class MinigameManager
 
     public GameObject minigameHandPrefab;
 
+    public Team[] teams;
+
+    public virtual void Start() { }
     public virtual void OnScored(PlayerIdentifier scorer) { } //Is called by GM OnScored
     public virtual void OnTurnEnded() { }
 }

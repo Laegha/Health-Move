@@ -3,9 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ControllerCalibration : MonoBehaviour
 {
@@ -49,26 +47,17 @@ public class ControllerCalibration : MonoBehaviour
 
         bool stillCalibrating = true;
 
-        while(stillCalibrating)//this loop calibrates with camera all controllers willing to connect
+        while(stillCalibrating)//this loop waits for input in order to calibrate controller
         {
-                if (ControllersManager.controllersManager.Controller.Value.pressedButtons != ((ControllerHelper.PSMoveButton.Up - ControllerHelper.PSMoveButton.Up) | ControllerHelper.PSMoveButton.Trigger) && ControllersManager.controllersManager.Controller.Value.pressedButtons != ControllersManager.controllersManager.Controller.Value.prevPressedButtons)//if willing to connect, call CalibrateController and keep track of it
-                {
-                    if (_controllerCalibrated)//if connection was ended, end loop
-                    {
-                        stillCalibrating = false;
-                        print("Ended calibration");
-                    }
+            if (ControllersManager.controllersManager.Controller.Value.pressedButtons != ((ControllerHelper.PSMoveButton.Up - ControllerHelper.PSMoveButton.Up) | ControllerHelper.PSMoveButton.Trigger) && ControllersManager.controllersManager.Controller.Value.pressedButtons != ControllersManager.controllersManager.Controller.Value.prevPressedButtons)//if willing to connect, call CalibrateController and keep track of it
+            {
+                stillCalibrating = false;
+                ControllersManager.controllersManager.CalibrateController(ControllersManager.controllersManager.Controller.Key);
+                _controllerCalibrated = true;
+                ControllerHelper.psmove_tracker_update_image(ControllersManager.controllersManager.Camera);
+                ControllerHelper.psmove_tracker_update(ControllersManager.controllersManager.Camera, ControllersManager.controllersManager.Controller.Key);
+            }
 
-                    else
-                    {
-                        ControllersManager.controllersManager.CalibrateController(ControllersManager.controllersManager.Controller.Key);
-                        _controllerCalibrated = true;
-                        ControllerHelper.psmove_tracker_update_image(ControllersManager.controllersManager.Camera);
-                        ControllerHelper.psmove_tracker_update(ControllersManager.controllersManager.Camera, ControllersManager.controllersManager.Controller.Key);
-
-                    }
-
-                }
             yield return new WaitForEndOfFrame();
         }
         ControllerHelper.psmove_reset_orientation(ControllersManager.controllersManager.Controller.Key);
@@ -76,12 +65,9 @@ public class ControllerCalibration : MonoBehaviour
 
         StartCoroutine(ControllersManager.controllersManager.UpdateTracker());
 
-
-        ControllerHelper.psmove_tracker_set_auto_update_leds(ControllersManager.controllersManager.Camera, ControllersManager.controllersManager.Controller.Key, true);
-
         print("Ended Calibration");
         calibrationScreen.SetActive(false);
-        GameManager.gm.GenerateHands();
+        FindObjectOfType<PositionCalibrationScreen>().gameObject.SetActive(true);
 
         yield return new WaitForEndOfFrame();
 

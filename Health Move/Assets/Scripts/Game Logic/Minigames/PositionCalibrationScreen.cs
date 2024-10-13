@@ -5,7 +5,7 @@ using PsMoveAPI;
 using UnityEngine.UI;
 using TMPro;
 
-public class MinigameInitScreen : MonoBehaviour
+public class PositionCalibrationScreen : MonoBehaviour
 {
     void Update()
     {
