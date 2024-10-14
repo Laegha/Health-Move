@@ -86,7 +86,11 @@ public class GameManager : MonoBehaviour
         if(ActiveHand == null) 
             return;
         
-        ActiveHand.GetComponent<HandMovement>().MovementUpdate();
+        HandMovement handMovement = ActiveHand.GetComponent<HandMovement>();
+        if (handMovement == null)
+            return;
+
+        handMovement.MovementUpdate();
         
     }
 
