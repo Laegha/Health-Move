@@ -1208,7 +1208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d057a3cd046bf564e8cff06d666d16a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players: []
+  player: {fileID: 0}
   handPushDir: {x: 0, y: 0, z: 0}
   min: {fileID: 1768896154}
   max: {fileID: 1640177899}
@@ -1659,6 +1659,7 @@ GameObject:
   - component: {fileID: 659149713}
   - component: {fileID: 659149712}
   - component: {fileID: 659149711}
+  - component: {fileID: 659149714}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -1752,6 +1753,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 659149709}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &659149714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659149709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 339aa51c3f9b6794e8f33cd392587632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collisionTag: BasquetBall
 --- !u!1 &686196945
 GameObject:
   m_ObjectHideFlags: 0
@@ -2051,6 +2065,7 @@ GameObject:
   - component: {fileID: 807402077}
   - component: {fileID: 807402076}
   - component: {fileID: 807402075}
+  - component: {fileID: 807402078}
   m_Layer: 0
   m_Name: Roof
   m_TagString: Untagged
@@ -2144,6 +2159,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 807402073}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &807402078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807402073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 339aa51c3f9b6794e8f33cd392587632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collisionTag: BasquetBall
 --- !u!1001 &816337493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2907,7 +2935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe0e8ca94fee0b044bf051a989759d38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players: []
+  player: {fileID: 0}
 --- !u!4 &1150760610
 Transform:
   m_ObjectHideFlags: 0
@@ -2984,6 +3012,7 @@ GameObject:
   - component: {fileID: 1159692991}
   - component: {fileID: 1159692990}
   - component: {fileID: 1159692989}
+  - component: {fileID: 1159692992}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -3077,6 +3106,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1159692987}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1159692992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159692987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 339aa51c3f9b6794e8f33cd392587632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collisionTag: BasquetBall
 --- !u!1 &1296264213
 GameObject:
   m_ObjectHideFlags: 0
@@ -4249,7 +4291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2694572c7f4339348838c92fbe882b5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxBalls: 2
+  maxBalls: 1
 --- !u!1 &1768896153
 GameObject:
   m_ObjectHideFlags: 0

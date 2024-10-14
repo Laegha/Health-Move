@@ -12,6 +12,9 @@ public class BallCounter : MonoBehaviour
     {
         balls.Add(ball);
         if (balls.Count > maxBalls)
+        {
             Destroy(balls[0]);
+            balls.RemoveAt(0);
+        }
     }
 }
