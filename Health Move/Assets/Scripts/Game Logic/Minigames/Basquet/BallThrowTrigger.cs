@@ -53,10 +53,10 @@ public class BallThrowTrigger : MonoBehaviour
         if (!Physics.Raycast(player.position, throwDirection, ~raycastIncludeLayerMask))
         {
             print("Tiro acertado");
-            return throwDirection;
+            Vector3 accurateDirection = optimalHitPoint.position - player.position;
+            return accurateDirection.normalized;
         }
-        
-        Vector3 accurateDirection = optimalHitPoint.position - player.position;
-        return accurateDirection.normalized;
+
+        return throwDirection;
     }
 }

@@ -7,7 +7,6 @@ using System.Linq;
 public class BallGenerator : MonoBehaviour
 {
     [SerializeField] GameObject ballPrefab;
-    [SerializeField] ControllerHelper.PSMoveButton interactButton;
 
     BallThrowTrigger ballThrowTrigger;
 

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class NeedsPlayerReference : MonoBehaviour
 {
-    public GameObject player;
+    [HideInInspector]public GameObject player;
 }
