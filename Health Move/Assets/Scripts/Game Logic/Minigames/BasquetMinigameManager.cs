@@ -9,10 +9,11 @@ public class BasquetMinigameManager : MinigameManager
 {
     Dictionary<string, int> _scored = new Dictionary<string, int>();
     int _neededScore = 3;
-    public int scored = 0;
     string _currentTeam = "Azul";
 
     TextMeshProUGUI _teamNameText;
+
+    public Dictionary<string, int> Scored {  get { return _scored; } }
 
     public BasquetMinigameManager()
     {
