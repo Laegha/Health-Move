@@ -21,6 +21,7 @@ public class PositionCalibrationScreen : MonoBehaviour
                 yield return null;
         }
 
+        ControllerHelper.psmove_reset_orientation(ControllersManager.controllersManager.Controller.Key);
         //Start minigame
         Debug.Log("Generadas las hands");
         GameManager.gm.GenerateHands();
