@@ -15,6 +15,8 @@ public class ControllersManager : MonoBehaviour
     ControllersHandler _controllersHandler;
     ControllersTracker _controllersTracker;
 
+    bool _tracking = true;
+
     public KeyValuePair<IntPtr, ControllerData> Controller { get { return _controller; } set { _controller = value; } }
     public IntPtr Camera { get { return _camera; } }
 
@@ -62,6 +64,9 @@ public class ControllersManager : MonoBehaviour
     {
         while (true)
         {
+            if(!_tracking)
+                yield break;
+
             yield return null;
 
             if (Controller.Key == IntPtr.Zero)
@@ -76,6 +81,9 @@ public class ControllersManager : MonoBehaviour
     {
         while (true)
         {
+            if (!_tracking)
+                yield break;
+
             yield return null;
             if (Controller.Key == IntPtr.Zero)
                 continue;
@@ -83,6 +91,14 @@ public class ControllersManager : MonoBehaviour
             _controllersTracker.Update();
             GameManager.gm.UpdateHandsPosition();
         }
+    }
+
+    public IEnumerator KillTracking()
+    {
+        _tracking = false;
+        yield return new WaitForEndOfFrame();
+        _tracking = true;
+
     }
 
     public void EmptyCamera() => ControllerHelper.psmove_tracker_free(Camera);

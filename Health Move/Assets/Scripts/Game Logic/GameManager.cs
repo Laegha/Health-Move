@@ -99,8 +99,8 @@ public class GameManager : MonoBehaviour
         if(ActiveHand != null) 
             Destroy(ActiveHand);
 
-        StopCoroutine("UpdateHandler");
-        StopCoroutine("UpdateTracker");
+        StartCoroutine(ControllersManager.controllersManager.KillTracking());
+
         //ControllersManager.controllersManager.EmptyCamera();
 
         //display controller calibration screen
