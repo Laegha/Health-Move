@@ -33,6 +33,7 @@ public class BallThrowTrigger : MonoBehaviour
         Rigidbody rb = ball.GetComponent<Rigidbody>();
         rb.useGravity = true;
         ball.GetComponent<Collider>().isTrigger = false;
+        StartCoroutine(ball.GetComponent<EndTurnWhenStopped>().CheckSpeed());
 
         rb.AddForce(CalculateThrowDirection(player.transform) * throwForce, ForceMode.Impulse);
 

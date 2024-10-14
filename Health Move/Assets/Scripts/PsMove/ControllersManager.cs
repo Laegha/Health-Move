@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ControllersManager : MonoBehaviour
 {
@@ -53,6 +54,7 @@ public class ControllersManager : MonoBehaviour
     public void CalibrateController(IntPtr controller)
     {
         ControllerHelper.psmove_enable_orientation(controller, true);
+        //while (ControllerHelper.psmove_tracker_enable(_camera, controller) != 2) ;
         while (ControllerHelper.psmove_tracker_enable_with_color(_camera, controller, (byte)(GameManager.gm.CurrPlayerColor.r * 255), (byte)(GameManager.gm.CurrPlayerColor.g * 255), (byte)(GameManager.gm.CurrPlayerColor.b * 255)) != 2) ;
     }
 
@@ -60,12 +62,13 @@ public class ControllersManager : MonoBehaviour
     {
         while (true)
         {
-            if (Controller.Key != IntPtr.Zero)
+            yield return null;
+
+            if (Controller.Key == IntPtr.Zero)
                 continue;
 
             _controllersHandler.Update();
             GameManager.gm.UpdateHandsRotation();
-            yield return null;
         }
     }
 
@@ -73,12 +76,12 @@ public class ControllersManager : MonoBehaviour
     {
         while (true)
         {
-            if (Controller.Key != null)
+            yield return null;
+            if (Controller.Key == IntPtr.Zero)
                 continue;
 
             _controllersTracker.Update();
             GameManager.gm.UpdateHandsPosition();
-            yield return null;
         }
     }
 

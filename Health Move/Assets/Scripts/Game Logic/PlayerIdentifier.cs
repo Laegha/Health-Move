@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerIdentifier : MonoBehaviour
 {
-    public int playerID;
+    public string playerTeam;
     ControllerData _controllerData;
 
     [SerializeField] Renderer[] _braceletRenderers;

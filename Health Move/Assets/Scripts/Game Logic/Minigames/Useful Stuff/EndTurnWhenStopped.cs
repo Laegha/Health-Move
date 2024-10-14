@@ -10,12 +10,17 @@ public class EndTurnWhenStopped : MonoBehaviour
         rb = GetComponent<Rigidbody>();    
     }
 
-    void Update()
+    public IEnumerator CheckSpeed()
     {
-        if(rb.velocity.magnitude <= 0)
+        while(true)
         {
-            GameManager.gm.CurrMinigameManager.OnTurnEnded();
-            Destroy(this);
+            yield return null;
+
+            if (rb.velocity.magnitude <= 0)
+            {
+                GameManager.gm.CurrMinigameManager.OnTurnEnded();
+                Destroy(this);
+            }
         }
     }
 }

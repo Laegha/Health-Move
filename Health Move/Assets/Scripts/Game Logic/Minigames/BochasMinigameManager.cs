@@ -48,7 +48,7 @@ public class BochasMinigameManager : MinigameManager
                 _currTeam = 1;
             else
                 _currTeam = 0;
-            GameManager.gm.ChangePlayer(teams[_currTeam].teamColor, teams[_currTeam].teamIndex);
+            GameManager.gm.ChangePlayer(teams[_currTeam].teamColor, teams[_currTeam].teamName);
             GameManager.gm.RecalibrateControllers();
 
         }
@@ -72,11 +72,11 @@ public class BochasMinigameManager : MinigameManager
 
     public void RoundEnded()
     {
-        Dictionary<int, float> bochasDistances = new Dictionary<int, float>();
+        Dictionary<string, float> bochasDistances = new Dictionary<string, float>();
         foreach(Transform bocha in ThrownBochas)
         {
             float distance = Vector3.Distance(_bochin.position, bocha.position);
-            bochasDistances.Add(bocha.GetComponent<PlayerIdentifier>().playerID, distance);
+            bochasDistances.Add(bocha.GetComponent<PlayerIdentifier>().playerTeam, distance);
         }
     }
 

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class PlayerCollisionIdentifier : MonoBehaviour
 {
-    public PlayerIdentifier PlayerIdentifier;
+    [HideInInspector] public PlayerIdentifier PlayerIdentifier;
 }

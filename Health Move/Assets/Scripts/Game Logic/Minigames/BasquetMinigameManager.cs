@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BasquetMinigameManager : MinigameManager
 {
-    Dictionary<int, int> _scored = new Dictionary<int, int>();
+    Dictionary<string, int> _scored = new Dictionary<string, int>();
     int _neededScore = 3;
     public int scored = 0;
-    int _currentPlayer = 0;
+    string _currentTeam = "Azul";
+
+    TextMeshProUGUI _teamNameText;
 
     public BasquetMinigameManager()
     {
@@ -20,16 +23,25 @@ public class BasquetMinigameManager : MinigameManager
     {
         base.Start();
 
-        foreach (Team team in teams)
-            _scored.Add(team.teamIndex, 0);
+        foreach (Team x in teams)
+        {
+            _scored.Add(x.teamName, 0);
+
+        }
+
+        Team team = teams.Where(x => x.teamName == _currentTeam).ToList()[0];
+        GameManager.gm.ChangePlayer(team.teamColor, team.teamName);
+
+        _teamNameText = GameObject.FindObjectOfType<PositionCalibrationScreen>().transform.Find("GFX").transform.Find("TeamTxt").GetComponent<TextMeshProUGUI>();
+        _teamNameText.color = team.teamColor;
     }
 
     public override void OnScored(PlayerIdentifier scorer)
     {
         base.OnScored(scorer);
 
-        _scored[scorer.playerID]++;
-        if (_scored[scorer.playerID] == _neededScore)
+        _scored[scorer.playerTeam]++;
+        if (_scored[scorer.playerTeam] == _neededScore)
             GameManager.gm.EndMinigame();
     }
 
@@ -37,13 +49,16 @@ public class BasquetMinigameManager : MinigameManager
     {
         base.OnTurnEnded();
 
-        if (_currentPlayer == 0)
-            _currentPlayer = 1;
+        if (_currentTeam == "Azul")
+            _currentTeam = "Rojo";
         
         else 
-            _currentPlayer = 0;
-        
-        GameManager.gm.ChangePlayer(teams[_currentPlayer].teamColor, teams[_currentPlayer].teamIndex);
+            _currentTeam = "Azul";
+
+        Team team = teams.Where(x => x.teamName == _currentTeam).ToList()[0];
+        GameManager.gm.ChangePlayer(team.teamColor, team.teamName);
+        _teamNameText.text = team.teamName;
+        _teamNameText.color = team.teamColor;
         GameManager.gm.RecalibrateControllers();
     }
 }

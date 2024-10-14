@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9103119578404424770}
   - component: {fileID: -5280632778238284523}
   - component: {fileID: -7569947378964120851}
+  - component: {fileID: 6642040574556065457}
   m_Layer: 0
   m_Name: Pelota_Basquet
   m_TagString: BasquetBall
@@ -147,3 +148,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerIdentifier: {fileID: 0}
+--- !u!114 &6642040574556065457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6096990371429455603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c54b949afaead954a82a69013771acf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

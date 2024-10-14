@@ -10,5 +10,6 @@ public class MinigameStartConfig : MonoBehaviour
     {
         GameManager.gm.AddTeams(teams);
         GameManager.gm.CurrMinigameManager.Start();
+        StartCoroutine(ControllerCalibration.controllerCalibration.StartCalibration());
     }
 }

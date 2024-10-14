@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class NeedsPlayerReference : MonoBehaviour
 {
-    public List<GameObject> players = new List<GameObject>();
+    public GameObject player;
 }

@@ -33,11 +33,11 @@ public class GameManager : MonoBehaviour
 
     GameObject _activeHand;
 
-    Color _currPlayerColor;
+    Color _currPlayerColor = Color.red;
 
-    int _currPlayerId;
+    string _currPlayerTeam = "";
 
-    public Action minigameStartEvent;
+    public event Action minigameStartEvent = delegate { };
 
     public MinigameManager CurrMinigameManager { get { return _currMinigameManager; } set { _currMinigameManager = value; } }
     public GameObject ActiveHand { get { return _activeHand; } set { _activeHand = value; } }
@@ -68,6 +68,9 @@ public class GameManager : MonoBehaviour
 
     public void UpdateHandsRotation()
     {
+        if (ActiveHand == null)
+            return;
+
         HandRotation handRotation = ActiveHand.GetComponent<HandRotation>();
         if(handRotation != null)
             handRotation.RotationUpdate();
@@ -80,6 +83,9 @@ public class GameManager : MonoBehaviour
 
     public void UpdateHandsPosition()
     {
+        if(ActiveHand == null) 
+            return;
+        
         ActiveHand.GetComponent<HandMovement>().MovementUpdate();
         
     }
@@ -91,19 +97,20 @@ public class GameManager : MonoBehaviour
 
         StopCoroutine("UpdateHandler");
         StopCoroutine("UpdateTracker");
-        ControllersManager.controllersManager.EmptyCamera();
+        //ControllersManager.controllersManager.EmptyCamera();
 
         //display controller calibration screen
-        ControllerCalibration.controllerCalibration.StartCalibration();
+        StartCoroutine(ControllerCalibration.controllerCalibration.StartCalibration());
     }
 
     public void ResetHands()
     {
         if(ActiveHand != null)
             Destroy(ActiveHand);
-        //display position calibration screen
-        FindObjectOfType<PositionCalibrationScreen>().gameObject.SetActive(true);
         
+        //display position calibration screen
+        PositionCalibrationScreen positionCalibrationScreen = FindObjectOfType<PositionCalibrationScreen>();
+        StartCoroutine(positionCalibrationScreen.WaitForInput());
     }
 
     public void GenerateHands()
@@ -113,7 +120,7 @@ public class GameManager : MonoBehaviour
         ActiveHand = Instantiate(CurrMinigameManager != null ? CurrMinigameManager.minigameHandPrefab : _cursorPrefab, transform.position, Quaternion.identity);
         
         PlayerIdentifier playerIdentifier = ActiveHand.GetComponent<PlayerIdentifier>();
-        playerIdentifier.playerID = _currPlayerId;
+        playerIdentifier.playerTeam = _currPlayerTeam;
         
         if (CurrMinigameManager == null)
         {
@@ -132,15 +139,15 @@ public class GameManager : MonoBehaviour
 
         }
 
-        needsPlayerReferences.ForEach(x => x.players.Add(ActiveHand));
+        needsPlayerReferences.ForEach(x => x.player = ActiveHand);
         minigameStartEvent.Invoke();
 
     }
 
-    public void ChangePlayer(Color playerColor, int playerId)
+    public void ChangePlayer(Color playerColor, string playerTeam)
     {
         _currPlayerColor = playerColor;
-        _currPlayerId = playerId;
+        _currPlayerTeam = playerTeam;
     }
 
     public void AddTeams(Team[] teams)
