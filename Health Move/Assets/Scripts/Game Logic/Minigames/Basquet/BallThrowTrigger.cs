@@ -30,15 +30,19 @@ public class BallThrowTrigger : MonoBehaviour
         if (player.PlayerIdentifier.ControllerData.accel.magnitude < speedThreshold)
             return;
 
+        //throw ball
         Rigidbody rb = ball.GetComponent<Rigidbody>();
         rb.useGravity = true;
-        ball.GetComponent<Collider>().isTrigger = false;
-        StartCoroutine(ball.GetComponent<EndTurnWhenStopped>().CheckSpeed());
-
+        ball.GetComponent<Collider>().enabled = true;
         rb.AddForce(CalculateThrowDirection(player.transform) * throwForce, ForceMode.Impulse);
-
         ball.transform.parent = null;
 
+        Destroy(player.PlayerIdentifier.GetComponent<HandMovement>());
+        Destroy(player.PlayerIdentifier.GetComponent<HandRotation>());
+        
+        StartCoroutine(ball.GetComponent<EndTurnWhenStopped>().CheckSpeed());
+
+        //register ball throw
         ballCounter.BallThrown(ball);
         ball = null;
     }
