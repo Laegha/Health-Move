@@ -31,6 +31,7 @@ public class ControllerCalibration : MonoBehaviour
     {
         if(_calibrating)
             yield break;
+
         _calibrating = true;
         FindObjectsOfType<PsmoveButton>().ToList().ForEach(button => { button.isInteractable = false; });
 
@@ -68,7 +69,6 @@ public class ControllerCalibration : MonoBehaviour
 
             yield return null;
         }
-        ControllerHelper.psmove_reset_orientation(ControllersManager.controllersManager.Controller.Key);
 
 
         StartCoroutine(ControllersManager.controllersManager.UpdateTracker());
