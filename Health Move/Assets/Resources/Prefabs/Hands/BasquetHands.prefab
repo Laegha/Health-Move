@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820e4c650715b394282b54d23bb68534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handSpeed: 2.5
+  handSpeed: 1
 --- !u!114 &3011102036439341809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8305eda4df40b3e4381fd571d53d5be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 0
+  playerTeam: 
   _braceletRenderers: []
 --- !u!1 &3631359551263720995
 GameObject:
