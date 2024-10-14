@@ -1556,7 +1556,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 6096990371429455603, guid: 9ae1ff2e83b4f1145bc529509a5f88e4, type: 3}
-  interactButton: 32
 --- !u!65 &539362102
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1677,9 +1676,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ball: {fileID: 0}
   speedThreshold: 0
-  throwForce: 3
-  optimalHitPoint: {fileID: 0}
-  playerFollowerTarget: {fileID: 0}
+  throwForce: 20
+  optimalHitPoint: {fileID: 1148645757}
+  playerFollowerTarget: {fileID: 1150760610}
   raycastIncludeLayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -1886,8 +1885,8 @@ Transform:
   m_GameObject: {fileID: 650935709}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.153, y: 3.4652, z: -0.011}
-  m_LocalScale: {x: 0.3535654, y: 3.1186407, z: 5.226323}
+  m_LocalPosition: {x: 1.153, y: 3.4973, z: -0.011}
+  m_LocalScale: {x: 0.2786095, y: 2.508199, z: 4.1183424}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1605006058}
@@ -3344,7 +3343,7 @@ Transform:
   m_GameObject: {fileID: 1148645756}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071078, z: 0, w: 0.70710576}
-  m_LocalPosition: {x: 1.782083, y: 4.05, z: -0.0212816}
+  m_LocalPosition: {x: 1.61, y: 4.152, z: -0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3822,6 +3821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1407245552}
+  team: Azul
 --- !u!114 &1407245552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4108,6 +4108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1457964539}
+  team: Rojo
 --- !u!114 &1457964539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4928,7 +4929,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 6096990371429455603, guid: 9ae1ff2e83b4f1145bc529509a5f88e4, type: 3}
-  interactButton: 32
 --- !u!65 &1785807238
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5328,8 +5328,8 @@ Transform:
   m_GameObject: {fileID: 2044315432}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1375, y: 3.4635, z: -0.0132}
-  m_LocalScale: {x: 0.47285834, y: 1.7664697, z: 3.0436513}
+  m_LocalPosition: {x: 1.1375, y: 4.2172, z: -0.0132}
+  m_LocalScale: {x: 0.47285834, y: 3.273975, z: 3.8891776}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1605006058}
@@ -5432,6 +5432,7 @@ SceneRoots:
   - {fileID: 1150760610}
   - {fileID: 1068333815}
   - {fileID: 1837063741}
+  - {fileID: 547228389}
   - {fileID: 1407245554}
   - {fileID: 1457964541}
   - {fileID: 110798902}
@@ -5440,4 +5441,3 @@ SceneRoots:
   - {fileID: 740346193}
   - {fileID: 163385356}
   - {fileID: 1156052280}
-  - {fileID: 547228389}
