@@ -11,6 +11,7 @@ public class OnCollisionSpeedCheck : MonoBehaviour
             return;
         EndTurnWhenStopped endTurnWhenStopped = collision.collider.GetComponent<EndTurnWhenStopped>();
 
-        StartCoroutine(endTurnWhenStopped.CheckSpeed());
+        if(endTurnWhenStopped != null )
+            StartCoroutine(endTurnWhenStopped.CheckSpeed());
     }
 }
