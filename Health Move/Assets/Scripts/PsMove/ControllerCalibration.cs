@@ -11,6 +11,8 @@ public class ControllerCalibration : MonoBehaviour
     [SerializeField] GameObject _calibrationScreenPrefab;
 
     static ControllerCalibration instance;
+
+    bool _calibrating = false;
     public static ControllerCalibration controllerCalibration { get { return instance; } }
 
     private void Awake()
@@ -27,6 +29,9 @@ public class ControllerCalibration : MonoBehaviour
 
     public IEnumerator StartCalibration()
     {
+        if(_calibrating)
+            yield break;
+        _calibrating = true;
         FindObjectsOfType<PsmoveButton>().ToList().ForEach(button => { button.isInteractable = false; });
 
         GameObject calibrationScreen = Instantiate(_calibrationScreenPrefab, FindObjectOfType<Canvas>().transform);
@@ -40,7 +45,10 @@ public class ControllerCalibration : MonoBehaviour
         }
 
         while (ControllerHelper.psmove_count_connected() <= 0)
+        {
+            Debug.Log("No connected controllers");
             yield return null;
+        }
 
         yield return new WaitForEndOfFrame();
         ControllersManager.controllersManager.Controller = new KeyValuePair<IntPtr, ControllerData>(ControllerHelper.psmove_connect_by_id(0), new ControllerData());
@@ -58,7 +66,7 @@ public class ControllerCalibration : MonoBehaviour
                 ControllerHelper.psmove_tracker_update(ControllersManager.controllersManager.Camera, ControllersManager.controllersManager.Controller.Key);
             }
 
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
         ControllerHelper.psmove_reset_orientation(ControllersManager.controllersManager.Controller.Key);
 
@@ -73,5 +81,6 @@ public class ControllerCalibration : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         FindObjectsOfType<PsmoveButton>().ToList().ForEach(button => { button.isInteractable = true; });
+        _calibrating = false;
     }
 }
