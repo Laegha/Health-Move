@@ -10,5 +10,9 @@ public class OnTriggerScore : MonoBehaviour
 
         if (player != null)
             GameManager.gm.OnScored(player.PlayerIdentifier);
+
+        EndTurnWhenStopped endTurnWhenStopped = player.GetComponent<EndTurnWhenStopped>();
+        if(endTurnWhenStopped != null)
+            Destroy(endTurnWhenStopped);
     }
 }

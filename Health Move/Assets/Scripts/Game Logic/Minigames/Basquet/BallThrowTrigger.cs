@@ -39,8 +39,6 @@ public class BallThrowTrigger : MonoBehaviour
 
         Destroy(player.PlayerIdentifier.GetComponent<HandMovement>());
         Destroy(player.PlayerIdentifier.GetComponent<HandRotation>());
-        
-        StartCoroutine(ball.GetComponent<EndTurnWhenStopped>().CheckSpeed());
 
         //register ball throw
         ballCounter.BallThrown(ball);

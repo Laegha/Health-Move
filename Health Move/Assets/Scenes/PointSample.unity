@@ -4276,13 +4276,14 @@ GameObject:
   - component: {fileID: 1479293178}
   - component: {fileID: 1479293177}
   - component: {fileID: 1479293176}
+  - component: {fileID: 1479293179}
   m_Layer: 5
   m_Name: ScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1479293175
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4343,7 +4344,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\xA1\xA1\xA1DOBLE!!!"
+  m_text: "\xA1\xA1\xA1CANASTA!!!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b06444e616bd64e42a85f0800675bf4c, type: 2}
   m_sharedMaterial: {fileID: 8142851475653846869, guid: b06444e616bd64e42a85f0800675bf4c, type: 2}
@@ -4353,7 +4354,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4282107391
-  m_fontColor: {r: 1, g: 0.77176523, b: 0.23113209, a: 1}
+  m_fontColor: {r: 1, g: 0.77176523, b: 0.23113209, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4370,8 +4371,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 120
-  m_fontSizeBase: 120
+  m_fontSize: 101.51
+  m_fontSizeBase: 101.51
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4420,6 +4421,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1479293174}
   m_CullTransparentMesh: 1
+--- !u!114 &1479293179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1479293174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14187bd61c4679a4fb0eb1d5700e0152, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1488780953
 PrefabInstance:
   m_ObjectHideFlags: 0

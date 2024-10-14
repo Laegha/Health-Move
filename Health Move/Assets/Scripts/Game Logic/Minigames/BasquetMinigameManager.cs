@@ -13,6 +13,8 @@ public class BasquetMinigameManager : MinigameManager
 
     TextMeshProUGUI _teamNameText;
 
+    Animator _textAnimator;
+
     public Dictionary<string, int> Scored {  get { return _scored; } }
 
     public BasquetMinigameManager()
@@ -33,6 +35,8 @@ public class BasquetMinigameManager : MinigameManager
         Team team = teams.Where(x => x.teamName == _currentTeam).ToList()[0];
         GameManager.gm.ChangePlayer(team.teamColor, team.teamName);
 
+        _textAnimator = GameObject.Find("Canvas").transform.Find("ScoreText").GetComponent<Animator>();
+
         _teamNameText = GameObject.FindObjectOfType<PositionCalibrationScreen>().transform.Find("GFX").transform.Find("TeamTxt").GetComponent<TextMeshProUGUI>();
         _teamNameText.color = team.teamColor;
     }
@@ -40,6 +44,8 @@ public class BasquetMinigameManager : MinigameManager
     public override void OnScored(PlayerIdentifier scorer)
     {
         base.OnScored(scorer);
+
+        _textAnimator.Play("Scored");
 
         _scored[scorer.playerTeam]++;
         if (_scored[scorer.playerTeam] == _neededScore)
