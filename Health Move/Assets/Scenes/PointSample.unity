@@ -1645,8 +1645,8 @@ Transform:
   m_GameObject: {fileID: 547228382}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.70710576, z: -0, w: 0.7071078}
-  m_LocalPosition: {x: -2.89, y: 2.6484, z: 3.09}
-  m_LocalScale: {x: 1, y: 0.8016882, z: 11.5376}
+  m_LocalPosition: {x: -2.89, y: 2.6484, z: 2.9911}
+  m_LocalScale: {x: 1.1978538, y: 0.8016882, z: 11.5376}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1741,8 +1741,8 @@ Transform:
   m_GameObject: {fileID: 650935709}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.153, y: 3.4973, z: -0.011}
-  m_LocalScale: {x: 0.20626305, y: 1.8568956, z: 3.0489335}
+  m_LocalPosition: {x: 10.45, y: 3.4629, z: -0.0041}
+  m_LocalScale: {x: 0.06891181, y: 0.57360595, z: 0.99521}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1605006058}
@@ -3290,8 +3290,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teams:
-  - teamColor: {r: 1, g: 0, b: 0, a: 1}
-    teamName: Rojo
+  - teamColor: {r: 0.021979094, g: 1, b: 0, a: 1}
+    teamName: Verde
   - teamColor: {r: 0, g: 0, b: 1, a: 1}
     teamName: Azul
 --- !u!4 &1156052280
@@ -3984,7 +3984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1457964539}
-  team: Rojo
+  team: Verde
 --- !u!114 &1457964539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4016,8 +4016,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190335
-  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
+    rgba: 4278255371
+  m_fontColor: {r: 0.04431629, g: 1, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
