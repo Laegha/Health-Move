@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Minigame Ended");
         SceneManager.LoadScene("MainMenu");
         CurrMinigameManager = null;
-        minigameStartEvent = null;
+        minigameStartEvent = delegate { };
     }
 
     public void StartMinigame(string minigameManagerType)
