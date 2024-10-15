@@ -16,7 +16,7 @@ public class BasquetMinigameManager : MinigameManager
 
     Animator _textAnimator;
 
-    readonly float _endScreenSeconds = 2;
+    readonly float _endScreenSeconds = 1.5f;
 
     public Dictionary<string, int> Scored {  get { return _scored; } }
 
@@ -35,7 +35,7 @@ public class BasquetMinigameManager : MinigameManager
 
         }
 
-        _currentTeam = _scored.Keys.ToList()[0];
+        _currentTeam = _scored.Keys.ToList()[Random.Range(0, 2)];
 
         Team team = teams.Where(x => x.teamName == _currentTeam).ToList()[0];
         GameManager.gm.ChangePlayer(team.teamColor, team.teamName);
