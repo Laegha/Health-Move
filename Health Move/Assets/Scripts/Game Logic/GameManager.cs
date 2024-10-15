@@ -158,4 +158,24 @@ public class GameManager : MonoBehaviour
     {
         CurrMinigameManager.teams = teams;
     }
+
+    public void RoutineRunner(IEnumerator routine)
+    {
+        StartCoroutine(routine);
+    }
+
+    public Transform FindInChildren(Transform parent, string name)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.name == name)
+                return child;
+
+            // Búsqueda recursiva en los hijos del hijo
+            Transform result = FindInChildren(child, name);
+            if (result != null)
+                return result;
+        }
+        return null;
+    }
 }

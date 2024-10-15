@@ -15,11 +15,11 @@ public class ControllersTracker
 
         if (ControllerHelper.psmove_tracker_update(ControllersManager.controllersManager.Camera, ControllersManager.controllersManager.Controller.Key) == 0)
         {
-            Debug.Log("Tracking Update failed");
+            //Debug.Log("Tracking Update failed");
             ControllersManager.controllersManager.Controller.Value.trackingSuccesful = false;
             return;
         }
-        Debug.Log("Tracking Update succesfull");
+        //Debug.Log("Tracking Update succesfull");
         ControllersManager.controllersManager.Controller.Value.trackingSuccesful = true;
 
         #region Position Tracking

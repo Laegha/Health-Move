@@ -79,6 +79,7 @@ public class ControllersManager : MonoBehaviour
 
     public IEnumerator UpdateTracker()
     {
+        Debug.Log("Started UpdateTracker");
         while (true)
         {
             if (!_tracking)
