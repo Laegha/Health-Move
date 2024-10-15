@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fed484024eb86244a90469c2b1d6b5a6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5230feb6b79a5694b8d9cfdb37f7bd2a, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -366,7 +366,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8305eda4df40b3e4381fd571d53d5be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 0
+  playerTeam: 
+  _braceletRenderers: []
 --- !u!114 &6488704035358355023
 MonoBehaviour:
   m_ObjectHideFlags: 0

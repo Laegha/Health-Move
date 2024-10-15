@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
 
     GameObject _activeHand;
 
-    Color _currPlayerColor = Color.red;
+    Color _currPlayerColor = Color.blue;
 
     string _currPlayerTeam = "";
 
