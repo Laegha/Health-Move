@@ -94,13 +94,15 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void RecalibrateControllers()
+    public IEnumerator RecalibrateControllers()
     {
         if(ActiveHand != null) 
             Destroy(ActiveHand);
 
         StartCoroutine(ControllersManager.controllersManager.KillTracking());
 
+        while (!ControllersManager.controllersManager.Tracking) { print("Waiting for killtracking"); yield return null; }
+        print("Recalibrated");
         //ControllersManager.controllersManager.EmptyCamera();
 
         //display controller calibration screen

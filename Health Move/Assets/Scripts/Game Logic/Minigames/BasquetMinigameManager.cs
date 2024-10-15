@@ -76,7 +76,7 @@ public class BasquetMinigameManager : MinigameManager
         GameManager.gm.ChangePlayer(team.teamColor, team.teamName);
         _teamNameText.text = team.teamName;
         _teamNameText.color = team.teamColor;
-        GameManager.gm.RecalibrateControllers();
+        GameManager.gm.RoutineRunner(GameManager.gm.RecalibrateControllers());
     }
 
     IEnumerator EndMinigame()

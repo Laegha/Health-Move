@@ -6,7 +6,6 @@ public class ScoreText : MonoBehaviour
 {
     public void EndTurn()
     {
-        Debug.Log("End turn scored");
         GameManager.gm.CurrMinigameManager.OnTurnEnded();
     }
 }

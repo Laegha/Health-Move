@@ -16,9 +16,12 @@ public class ControllersManager : MonoBehaviour
     ControllersTracker _controllersTracker;
 
     bool _tracking = true;
+    bool _handlerKilled = false;
+    bool _trackerKilled = false;
 
     public KeyValuePair<IntPtr, ControllerData> Controller { get { return _controller; } set { _controller = value; } }
     public IntPtr Camera { get { return _camera; } }
+    public bool Tracking { get { return _tracking; } }
 
     static ControllersManager instance;
     public static ControllersManager controllersManager { get { return instance; } }
@@ -62,11 +65,8 @@ public class ControllersManager : MonoBehaviour
 
     public IEnumerator UpdateHandler()
     {
-        while (true)
+        while (_tracking)
         {
-            if(!_tracking)
-                yield break;
-
             yield return null;
 
             if (Controller.Key == IntPtr.Zero)
@@ -75,16 +75,14 @@ public class ControllersManager : MonoBehaviour
             _controllersHandler.Update();
             GameManager.gm.UpdateHandsRotation();
         }
+        _handlerKilled = true;
     }
 
     public IEnumerator UpdateTracker()
     {
         Debug.Log("Started UpdateTracker");
-        while (true)
+        while (_tracking)
         {
-            if (!_tracking)
-                yield break;
-
             yield return null;
             if (Controller.Key == IntPtr.Zero)
                 continue;
@@ -92,13 +90,19 @@ public class ControllersManager : MonoBehaviour
             _controllersTracker.Update();
             GameManager.gm.UpdateHandsPosition();
         }
+        _trackerKilled = true;
     }
 
     public IEnumerator KillTracking()
     {
         _tracking = false;
-        yield return new WaitForEndOfFrame();
+        
+        while(!_trackerKilled || !_handlerKilled)
+            yield return new WaitForEndOfFrame();
+    
         _tracking = true;
+        _trackerKilled = false;
+        _handlerKilled = false;
 
     }
 

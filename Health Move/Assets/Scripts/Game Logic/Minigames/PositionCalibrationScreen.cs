@@ -23,7 +23,6 @@ public class PositionCalibrationScreen : MonoBehaviour
 
         ControllerHelper.psmove_reset_orientation(ControllersManager.controllersManager.Controller.Key);
         //Start minigame
-        Debug.Log("Generadas las hands");
         GameManager.gm.GenerateHands();
         gfx.SetActive(false);
     }
