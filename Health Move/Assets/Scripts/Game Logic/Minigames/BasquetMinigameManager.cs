@@ -16,7 +16,7 @@ public class BasquetMinigameManager : MinigameManager
 
     Animator _textAnimator;
 
-    readonly float _endScreenSeconds = 3;
+    readonly float _endScreenSeconds = 2;
 
     public Dictionary<string, int> Scored {  get { return _scored; } }
 
