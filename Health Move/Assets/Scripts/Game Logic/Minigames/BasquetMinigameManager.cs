@@ -18,6 +18,8 @@ public class BasquetMinigameManager : MinigameManager
 
     readonly float _endScreenSeconds = 1.5f;
 
+    BallGenerator _ballGenerator;
+
     public Dictionary<string, int> Scored {  get { return _scored; } }
 
     public BasquetMinigameManager()
@@ -46,8 +48,17 @@ public class BasquetMinigameManager : MinigameManager
         _teamNameText.color = team.teamColor;
         _teamNameText.text = team.teamName;
 
+        _ballGenerator = GameObject.FindObjectOfType<BallGenerator>();
+        GameManager.gm.generatedHandsEvent += OnTurnStart;
 
         Debug.Log(_teamNameText);
+    }
+
+    public override void OnTurnStart()
+    {
+        base.OnTurnStart();
+
+        _ballGenerator.GenerateBall();
     }
 
     public override void OnScored(PlayerIdentifier scorer)

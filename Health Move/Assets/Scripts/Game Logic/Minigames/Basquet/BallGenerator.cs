@@ -15,16 +15,15 @@ public class BallGenerator : MonoBehaviour
         ballThrowTrigger = FindObjectOfType<BallThrowTrigger>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void GenerateBall()
     {
-        PlayerCollisionIdentifier player = other.GetComponent<PlayerCollisionIdentifier>();
-        if (player == null || ballThrowTrigger.ball != null)
+        if (ballThrowTrigger.ball != null)
             return;
 
         Transform ballHolder = GameObject.Find("BallHolder").transform;
         GameObject ball = Instantiate(ballPrefab, ballHolder.position, Quaternion.identity);
         ball.transform.parent = ballHolder;
-        ball.GetComponent<PlayerCollisionIdentifier>().PlayerIdentifier = player.PlayerIdentifier;
+        ball.GetComponent<PlayerCollisionIdentifier>().PlayerIdentifier = FindObjectOfType<PlayerIdentifier>();
         ballThrowTrigger.ball = ball;
     }
 }
