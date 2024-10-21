@@ -8,11 +8,14 @@ public class PlayerIdentifier : MonoBehaviour
 {
     public string playerTeam;
     ControllerData _controllerData;
+    Profile _profile;
 
     [SerializeField] Renderer[] _braceletRenderers;
 
     public ControllerData ControllerData {  get { return _controllerData; } set { _controllerData = value; } }
     public Renderer[] BraceletRenderers {  get { return _braceletRenderers; } set { _braceletRenderers = value; } }
+
+    public Profile Profile { get { return _profile; } set { _profile = value; } }
 
     private void Start()
     {
