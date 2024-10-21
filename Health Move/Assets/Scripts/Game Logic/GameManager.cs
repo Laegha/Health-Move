@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     string _currPlayerTeam = "";
 
-    public event Action minigameStartEvent = delegate { };
+    public event Action generatedHandsEvent = delegate { };
 
     public MinigameManager CurrMinigameManager { get { return _currMinigameManager; } set { _currMinigameManager = value; } }
     public GameObject ActiveHand { get { return _activeHand; } set { _activeHand = value; } }
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Minigame Ended");
         SceneManager.LoadScene("MainMenu");
         CurrMinigameManager = null;
-        minigameStartEvent = delegate { };
+        generatedHandsEvent = delegate { };
     }
 
     public void StartMinigame(string minigameManagerType)
@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
         }
 
         needsPlayerReferences.ForEach(x => x.player = ActiveHand);
-        minigameStartEvent.Invoke();
+        generatedHandsEvent.Invoke();
 
     }
 
