@@ -39,6 +39,7 @@ public class BallThrowTrigger : MonoBehaviour
 
         Destroy(player.PlayerIdentifier.GetComponent<HandMovement>());
         Destroy(player.PlayerIdentifier.GetComponent<HandRotation>());
+        Destroy(player.PlayerIdentifier.transform.Find("Collider").gameObject);
 
         //register ball throw
         ballCounter.BallThrown(ball);
