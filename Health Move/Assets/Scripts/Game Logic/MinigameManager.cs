@@ -13,5 +13,8 @@ public class MinigameManager
 
     public virtual void Start() { }
     public virtual void OnScored(PlayerIdentifier scorer) { } //Is called by GM OnScored
+    
+    public virtual void OnTurnStart() { }
+    
     public virtual void OnTurnEnded() { }
 }
