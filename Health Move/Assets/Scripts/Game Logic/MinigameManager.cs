@@ -11,10 +11,19 @@ public class MinigameManager
 
     public Team[] teams;
 
+    public Profile currPlayerProfile;
+
     public virtual void Start() { }
     public virtual void OnScored(PlayerIdentifier scorer) { } //Is called by GM OnScored
-    
-    public virtual void OnTurnStart() { }
+
+    public virtual void OnTurnStart() 
+    {
+        if(!currPlayerProfile.calibrated)
+        {
+            currPlayerProfile.calibrated = true;
+            //Calibrate profile
+        }
+    }
     
     public virtual void OnTurnEnded() { }
 }
