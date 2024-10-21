@@ -25,7 +25,7 @@ public class HandMovement : MonoBehaviour
         Vector3 pixelMovement = PlayerIdentifier.ControllerData.movement;
         pixelMovement = new Vector3(pixelMovement.x * positionZ * pixelToUnit, pixelMovement.y * positionZ * pixelToUnit, pixelMovement.z * cmToPixel * pixelToUnit);
 
-        Vector3 processedMovement = pixelMovement * Time.deltaTime * handSpeed /** sensitivity */;
+        Vector3 processedMovement = pixelMovement * Time.deltaTime * handSpeed /** _playerIdentifier.Profile.sensitivity*/;
 
         var rectTransform = GetComponent<RectTransform>();
 
