@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class ProfileManagerMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    string composingName;
+    public void AddProfile()
     {
-        
+        //display keyboard
+        //
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddCharToName(string newChar)
     {
-        
+        composingName += newChar;
+    }
+
+    public void CancelAddProfile()
+    {
+        composingName = "";
     }
 }

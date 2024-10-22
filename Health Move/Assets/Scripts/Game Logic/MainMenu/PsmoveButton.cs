@@ -10,7 +10,7 @@ public class PsmoveButton : MonoBehaviour
 {
     [HideInInspector] public bool isInteractable = true;
 
-    [SerializeField] UnityEvent onInteractedEvents;
+    public UnityEvent onInteractedEvents;
 
     float fillAmount = 0;
 
