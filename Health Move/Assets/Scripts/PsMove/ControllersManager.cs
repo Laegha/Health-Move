@@ -10,8 +10,6 @@ public class ControllersManager : MonoBehaviour
     KeyValuePair<IntPtr, ControllerData> _controller = new KeyValuePair<IntPtr, ControllerData>(IntPtr.Zero, null);
     IntPtr _camera;
 
-    [SerializeField] Color _leds;
-
     ControllersHandler _controllersHandler;
     ControllersTracker _controllersTracker;
 
@@ -80,7 +78,6 @@ public class ControllersManager : MonoBehaviour
 
     public IEnumerator UpdateTracker()
     {
-        Debug.Log("Started UpdateTracker");
         while (_tracking)
         {
             yield return null;

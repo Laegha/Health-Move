@@ -32,6 +32,7 @@ public class PsmoveButton : MonoBehaviour
         if(fillAmount >= 1)
         {
             onInteractedEvents.Invoke();
+            fillAmount = 0;
         }
     }
 

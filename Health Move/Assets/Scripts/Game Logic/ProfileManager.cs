@@ -21,10 +21,12 @@ public class ProfileManager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
     }
-    [SerializedDictionary("Minigame", "Teams")]
     [SerializeField] SerializedDictionary<string, Team[]> _teamsByMinigame;
+    [SerializeField] SerializedDictionary<string, GameObject> _profileManagerMenusByMinigame;
 
     Dictionary<string, Profile> _profiles = new Dictionary<string, Profile>();
+
+    public SerializedDictionary<string, GameObject> ProfileManagerMenusByMinigame { get { return _profileManagerMenusByMinigame;} }
     
     void Start()
     {
