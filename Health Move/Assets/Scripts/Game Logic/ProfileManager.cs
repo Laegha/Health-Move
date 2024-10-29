@@ -21,10 +21,9 @@ public class ProfileManager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
     }
-    [SerializeField] SerializedDictionary<string, Team[]> _teamsByMinigame;
     [SerializeField] SerializedDictionary<string, GameObject> _profileManagerMenusByMinigame;
 
-    Dictionary<string, Profile> _profiles = new Dictionary<string, Profile>();
+    List<Profile> _profiles = new List<Profile>();
 
     ProfileManagerMenu _activeMenu;
 
@@ -50,7 +49,7 @@ public class ProfileManager : MonoBehaviour
 
     public void AddProfileToTeam(string name, string teamName)
     {
-        _profiles.Add(name, new Profile(name, teamName));
+        _profiles.Add(new Profile(name, teamName));
         //Show on UI
         Instantiate(_activeMenu.CreatedProfileBoxPrefab, _activeMenu.ProfilesGrids[name].transform);
     }
