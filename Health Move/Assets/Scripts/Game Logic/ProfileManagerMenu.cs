@@ -20,6 +20,10 @@ public class ProfileManagerMenu : MonoBehaviour
     [SerializeField] GameObject playBtn;
     [SerializeField] GameObject createdProfileBoxPrefab;
 
+    public SerializedDictionary<string, GridLayoutGroup> ProfilesGrids { get { return profilesGrids; } }
+
+    public GameObject CreatedProfileBoxPrefab { get { return createdProfileBoxPrefab; } }
+
     public void AddProfile(string team)
     {
         currAddingTeam = team;

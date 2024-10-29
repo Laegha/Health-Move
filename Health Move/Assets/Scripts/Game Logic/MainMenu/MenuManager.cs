@@ -21,7 +21,7 @@ public class MenuManager : MonoBehaviour
         {
             button.isInteractable = false;
         }
-        Instantiate(ProfileManager.pm.ProfileManagerMenusByMinigame[_loadingMinigame], GameObject.Find("Canvas").transform);
+        ProfileManager.pm.CreateMenu(_loadingMinigame);
         FindObjectOfType<HandMovement>().transform.SetAsLastSibling();
     }
 
