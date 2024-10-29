@@ -37,7 +37,7 @@ public class BasquetMinigameManager : MinigameManager
 
         }
 
-        _currentTeam = _scored.Keys.ToList()[Random.Range(0, 2)];
+        _currentTeam = Scored.Keys.ToList()[Random.Range(0, Scored.Count)];
 
         Team team = teams.Where(x => x.teamName == _currentTeam).ToList()[0];
         GameManager.gm.ChangePlayer(team.teamColor, team.teamName);

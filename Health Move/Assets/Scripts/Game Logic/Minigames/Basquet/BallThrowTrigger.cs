@@ -49,13 +49,13 @@ public class BallThrowTrigger : MonoBehaviour
     Vector3 CalculateThrowDirection(Transform player)
     {
         Vector3 throwDirection = playerFollowerTarget.position - player.position;
-        if (!Physics.Raycast(player.position, throwDirection, ~raycastIncludeLayerMask))
+        if (Physics.Raycast(player.position, throwDirection, Mathf.Infinity, ~raycastIncludeLayerMask))
         {
             print("Tiro acertado");
             Vector3 accurateDirection = optimalHitPoint.position - player.position;
             return accurateDirection.normalized;
         }
 
-        return throwDirection;
+        return throwDirection.normalized;
     }
 }
