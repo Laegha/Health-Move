@@ -7,7 +7,7 @@ public class TeamsHandler : MonoBehaviour
 {
     static TeamsHandler instance;
 
-    public TeamsHandler tm { get { return instance; } }
+    public static TeamsHandler tm { get { return instance; } }
 
     private void Awake()
     {
@@ -22,5 +22,5 @@ public class TeamsHandler : MonoBehaviour
     }
 
     [SerializedDictionary("Minigame", "Teams")]
-    [SerializeField] SerializedDictionary<string, Team[]> _teamsByMinigame;
+    public SerializedDictionary<string, Team[]> teamsByMinigame;
 }
