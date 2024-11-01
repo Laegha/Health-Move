@@ -28,6 +28,7 @@ public class ProfileManager : MonoBehaviour
     ProfileManagerMenu _activeMenu;
 
     public SerializedDictionary<string, GameObject> ProfileManagerMenusByMinigame { get { return _profileManagerMenusByMinigame;} }
+    public List<Profile> Profiles { get { return _profiles; } }
     
     void Start()
     {
