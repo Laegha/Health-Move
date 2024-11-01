@@ -11,6 +11,7 @@ public class ProfileManagerMenu : MonoBehaviour
 {
     string composingName;
     string currAddingTeam;
+    [SerializeField] string menuMinigame;
     [SerializeField] TextMeshProUGUI nameDisplay;
 
     [SerializeField] Vector2 profileBoxCellSize;
@@ -53,9 +54,10 @@ public class ProfileManagerMenu : MonoBehaviour
     public void ConfirmProfileCreation()
     {
         ProfileManager.pm.AddProfileToTeam(composingName, currAddingTeam);
-        
-        profilesGrids[currAddingTeam].cellSize = new Vector2(profileBoxCellSize.x, profileBoxCellSize.y / profilesGrids[currAddingTeam].transform.childCount);
-        //profilesGrids[currAddingTeam].transform.Find("AddPlayerBtn").GetComponent<Collider>().size
+
+        Vector2 newBoxSize = new Vector2(profileBoxCellSize.x, profileBoxCellSize.y / profilesGrids[currAddingTeam].transform.childCount);
+        profilesGrids[currAddingTeam].cellSize = newBoxSize;
+        profilesGrids[currAddingTeam].transform.Find("AddPlayerBtn").GetComponent<BoxCollider>().size = newBoxSize;
         Instantiate(createdProfileBoxPrefab, profilesGrids[currAddingTeam].transform).transform.Find("ProfileName").GetComponent<TextMeshProUGUI>().text = composingName;
 
         CloseNameCreateMenu();
@@ -71,5 +73,13 @@ public class ProfileManagerMenu : MonoBehaviour
         playBtn.SetActive(true);
     }
 
-    public void LoadMinigame() => MenuManager.loadMinigame();
+    public void LoadMinigame() 
+    {
+        foreach(var team in TeamsHandler.tm.teamsByMinigame[menuMinigame])
+        {
+            if(!ProfileManager.pm.Profiles.Where(x => x.teamName == team.teamName).Any())
+                return;
+        }
+        MenuManager.loadMinigame();
+    }
 }
