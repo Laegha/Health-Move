@@ -18,11 +18,21 @@ public class MinigameManager
 
     public virtual void OnTurnStart() 
     {
-        if(!currPlayerProfile.calibrated)
+        GameManager.gm.RoutineRunner(GameManager.gm.KillControllerTracking(() =>
         {
-            currPlayerProfile.calibrated = true;
-            //Calibrate profile
-        }
+            GameManager.gm.RoutineRunner(ControllerCalibration.controllerCalibration.StartCalibration(() =>
+            {
+                if (!currPlayerProfile.calibrated)
+                {
+                    currPlayerProfile.calibrated = true;
+                    //Calibrate profile
+                }
+                GameManager.gm.ResetHands();
+            }));
+        }));
+
+
+        
     }
     
     public virtual void OnTurnEnded() { }

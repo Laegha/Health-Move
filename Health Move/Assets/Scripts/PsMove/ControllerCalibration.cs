@@ -27,7 +27,7 @@ public class ControllerCalibration : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public IEnumerator StartCalibration()
+    public IEnumerator StartCalibration(Action onComplete)
     {
         if(_calibrating)
             yield break;
@@ -76,7 +76,7 @@ public class ControllerCalibration : MonoBehaviour
         print("Ended Calibration");
         Destroy(calibrationScreen);
 
-        GameManager.gm.ResetHands();
+        onComplete?.Invoke();
 
         yield return new WaitForEndOfFrame();
 

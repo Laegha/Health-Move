@@ -4,7 +4,6 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BasquetMinigameManager : MinigameManager
 {
@@ -58,6 +57,9 @@ public class BasquetMinigameManager : MinigameManager
     {
         base.OnTurnStart();
 
+        
+
+
         _ballGenerator.GenerateBall();
     }
 
@@ -87,7 +89,7 @@ public class BasquetMinigameManager : MinigameManager
         GameManager.gm.ChangePlayer(team.teamColor, team.teamName);
         _teamNameText.text = team.teamName;
         _teamNameText.color = team.teamColor;
-        GameManager.gm.RoutineRunner(GameManager.gm.RecalibrateControllers());
+        
     }
 
     IEnumerator EndMinigame()

@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public IEnumerator RecalibrateControllers()
+    public IEnumerator KillControllerTracking(Action onComplete)
     {
         if(ActiveHand != null) 
             Destroy(ActiveHand);
@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
         //ControllersManager.controllersManager.EmptyCamera();
 
         //display controller calibration screen
-        StartCoroutine(ControllerCalibration.controllerCalibration.StartCalibration());
+        onComplete?.Invoke();
     }
 
     public void ResetHands()
