@@ -15,7 +15,10 @@ public class CalibrateOnStart : MonoBehaviour
         {
             instantiatedScreen = Instantiate(screenPrefab, GameObject.Find("Canvas").transform);
             instantiatedScreen.SetActive(true);
-            StartCoroutine(ControllerCalibration.controllerCalibration.StartCalibration());
+            StartCoroutine(ControllerCalibration.controllerCalibration.StartCalibration(() =>
+            {
+                GameManager.gm.ResetHands();
+            }));
             StartCoroutine(WaitForInput());
         }
         started = true;

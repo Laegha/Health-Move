@@ -51,7 +51,7 @@ public class ControllersManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(ControllerCalibration.controllerCalibration.StartCalibration());
+        StartCoroutine(ControllerCalibration.controllerCalibration.StartCalibration(() => { GameManager.gm.ResetHands(); }));
     }
 
     public void CalibrateController(IntPtr controller)

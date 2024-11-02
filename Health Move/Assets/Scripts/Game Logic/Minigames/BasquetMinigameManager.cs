@@ -48,17 +48,14 @@ public class BasquetMinigameManager : MinigameManager
         _teamNameText.text = team.teamName;
 
         _ballGenerator = GameObject.FindObjectOfType<BallGenerator>();
-        GameManager.gm.generatedHandsEvent += OnTurnStart;
+        GameManager.gm.generatedHandsEvent += RestartControllers;
 
         Debug.Log(_teamNameText);
     }
 
-    public override void OnTurnStart()
+    public override void RestartControllers()
     {
-        base.OnTurnStart();
-
-        
-
+        base.RestartControllers();
 
         _ballGenerator.GenerateBall();
     }
@@ -89,6 +86,7 @@ public class BasquetMinigameManager : MinigameManager
         GameManager.gm.ChangePlayer(team.teamColor, team.teamName);
         _teamNameText.text = team.teamName;
         _teamNameText.color = team.teamColor;
+        RestartControllers();
         
     }
 
