@@ -8,7 +8,7 @@ public class GridObjectTextAdjuster : MonoBehaviour
     float _prevSize;
     Transform _parent;
     TextMeshProUGUI _thisText;
-    static int _fontScaler = 5;
+    [SerializeField] int _fontScaler = 6;
     
     private void Start()
     {

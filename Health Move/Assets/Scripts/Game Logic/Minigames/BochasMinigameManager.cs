@@ -10,15 +10,20 @@ public class BochasMinigameManager : MinigameManager
     int _team1Points;
     int _team2Points;
 
-    BochasPlayer.BochasThrowingMode _bochasThrowingMode = BochasPlayer.BochasThrowingMode.Arrimador;
+    int _currTeam;
+    BochasPlayer.BochasThrowingMode _currBochasThrowingMode = BochasPlayer.BochasThrowingMode.Arrimador;
 
     int _turnsLapsed = 0;
     int _playerAmmount = 4; //this is intended to be selectable by the player
 
-    int _currTeam;
+
+    Dictionary<string, BochasPlayer.BochasThrowingMode> _playersThrowingModes = new Dictionary<string, BochasPlayer.BochasThrowingMode>(); //if needed, the key could be changed to Profile
 
     public Transform Bochin { get { return _bochin; } set { _bochin = value; } }
+
     public List<Transform> ThrownBochas { get { return _thrownBochas; } set { _thrownBochas = value; } }
+
+    public Dictionary<string, BochasPlayer.BochasThrowingMode> PlayerThrowingModes { get { return _playersThrowingModes; } }
 
     public BochasMinigameManager()
     {
@@ -33,7 +38,7 @@ public class BochasMinigameManager : MinigameManager
 
     void SetThrowerMode()
     {
-        GameManager.gm.ActiveHand.GetComponent<BochasPlayer>().throwingMode = _bochasThrowingMode;
+        GameManager.gm.ActiveHand.GetComponent<BochasPlayer>().throwingMode = _currBochasThrowingMode;
     }
 
     public override void OnTurnEnded()
@@ -66,13 +71,13 @@ public class BochasMinigameManager : MinigameManager
 
         if(_turnsLapsed % 4 == 0)//throwing mode change
         {
-            switch (_bochasThrowingMode)
+            switch (_currBochasThrowingMode)
             {
                 case BochasPlayer.BochasThrowingMode.Bochador:
-                    _bochasThrowingMode = BochasPlayer.BochasThrowingMode.Arrimador;
+                    _currBochasThrowingMode = BochasPlayer.BochasThrowingMode.Arrimador;
                     break;
                 case BochasPlayer.BochasThrowingMode.Arrimador:
-                    _bochasThrowingMode = BochasPlayer.BochasThrowingMode.Bochador;
+                    _currBochasThrowingMode = BochasPlayer.BochasThrowingMode.Bochador;
                     break;
             }
 

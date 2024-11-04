@@ -8502,6 +8502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9be5cf93cfe9b9478ae06b3b8317f7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuMinigame: BasquetMinigame
   nameDisplay: {fileID: 5702074550240702660}
   profileBoxCellSize: {x: 350, y: 250}
   profilesGrids:
