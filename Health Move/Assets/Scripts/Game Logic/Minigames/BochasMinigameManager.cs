@@ -24,7 +24,6 @@ public class BochasMinigameManager : MinigameManager
     {
         minigameHandPrefab = Resources.Load("Prefabs/Hands/BochasHands", typeof(GameObject)) as GameObject;
 
-        GameManager.gm.generatedHandsEvent += SetThrowerMode;
     }
 
     void SetThrowerMode()
