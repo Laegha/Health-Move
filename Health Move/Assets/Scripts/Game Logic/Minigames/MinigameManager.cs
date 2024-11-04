@@ -35,5 +35,6 @@ public class MinigameManager
         
     }
     
+    public virtual void OnTurnStarted() { }
     public virtual void OnTurnEnded() { }
 }
