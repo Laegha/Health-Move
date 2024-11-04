@@ -26,6 +26,11 @@ public class BochasMinigameManager : MinigameManager
 
     }
 
+    public override void Start()
+    {
+        base.Start();
+    }
+
     void SetThrowerMode()
     {
         GameManager.gm.ActiveHand.GetComponent<BochasPlayer>().throwingMode = _bochasThrowingMode;
@@ -41,12 +46,19 @@ public class BochasMinigameManager : MinigameManager
             RoundEnded();
         }
 
+    }
+
+    public override void OnTurnStarted()
+    {
+        base.OnTurnStarted();
+
         if (_turnsLapsed % 2 == 0)//team change
         {
             if (_currTeam == 0)
                 _currTeam = 1;
             else
                 _currTeam = 0;
+
             GameManager.gm.ChangePlayer(teams[_currTeam].teamColor, teams[_currTeam].teamName);
             base.RestartControllers();
 

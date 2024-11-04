@@ -8,8 +8,5 @@ public class MinigameStartConfig : MonoBehaviour
 
     private void Start()
     {
-        GameManager.gm.AddTeams(teams);
-        GameManager.gm.CurrMinigameManager.Start();
-        StartCoroutine(ControllersManager.controllersManager.KillTracking());
     }
 }

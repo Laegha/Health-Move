@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
@@ -48,6 +49,8 @@ public class BasquetMinigameManager : MinigameManager
         _teamNameText.text = team.teamName;
 
         _ballGenerator = GameObject.FindObjectOfType<BallGenerator>();
+
+        OnTurnStarted();
     }
 
     public override void OnTurnStarted()

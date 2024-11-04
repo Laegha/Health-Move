@@ -41,6 +41,11 @@ public class GameManager : MonoBehaviour
     public GameObject ActiveHand { get { return _activeHand; } set { _activeHand = value; } }
     public Color CurrPlayerColor { get { return _currPlayerColor; } set { _currPlayerColor = value; } }
 
+    private void Start()
+    {
+        SceneManager.sceneLoaded += MinigameStart;
+    }
+
     public void OnScored(PlayerIdentifier scorer) //Is called by elements on scene
     {
         CurrMinigameManager.OnScored(scorer);
@@ -99,8 +104,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ControllersManager.controllersManager.KillTracking());
 
         while (!ControllersManager.controllersManager.Tracking) { print("Waiting for killtracking"); yield return null; }
-        print("Recalibrated");
-        //ControllersManager.controllersManager.EmptyCamera();
 
         //display controller calibration screen
         onComplete?.Invoke();
@@ -152,11 +155,6 @@ public class GameManager : MonoBehaviour
         _currPlayerTeam = playerTeam;
     }
 
-    public void AddTeams(Team[] teams)
-    {
-        CurrMinigameManager.teams = teams;
-    }
-
     public void RoutineRunner(IEnumerator routine)
     {
         StartCoroutine(routine);
@@ -175,5 +173,13 @@ public class GameManager : MonoBehaviour
                 return result;
         }
         return null;
+    }
+
+    void MinigameStart(Scene scene, LoadSceneMode loadSceneMode)
+    {
+        if (_currMinigameManager == null)
+            return;
+
+        _currMinigameManager.Start();
     }
 }

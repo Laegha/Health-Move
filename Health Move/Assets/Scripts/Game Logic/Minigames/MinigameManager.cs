@@ -13,7 +13,11 @@ public class MinigameManager
 
     public Profile currPlayerProfile;
 
-    public virtual void Start() { }
+    public virtual void Start() 
+    {
+        GameManager.gm.RoutineRunner(ControllersManager.controllersManager.KillTracking());
+        teams = TeamsHandler.tm.teamsByMinigame[GetType().ToString()];
+    }
     public virtual void OnScored(PlayerIdentifier scorer) { } //Is called by GM OnScored
 
     public virtual void RestartControllers() 
@@ -30,11 +34,9 @@ public class MinigameManager
                 GameManager.gm.ResetHands();
             }));
         }));
-
-
         
     }
     
-    public virtual void OnTurnStarted() { }
     public virtual void OnTurnEnded() { }
+    public virtual void OnTurnStarted() { }
 }
