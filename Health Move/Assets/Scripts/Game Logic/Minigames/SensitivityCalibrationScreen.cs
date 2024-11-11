@@ -34,22 +34,24 @@ public class SensitivityCalibrationScreen : MonoBehaviour
                 if(!firstInputRecieved)
                 {
                     firstInputRecieved = true;
+                    firstControllerPosition = ControllersManager.controllersManager.Controller.Value.position;
                     firstGfx.SetActive(false);
                     secondGfx.SetActive(true);
-                    firstControllerPosition = ControllersManager.controllersManager.Controller.Value.position;
                 }
-                secondInputRecieved = true;
-                secondControllerPosition = ControllersManager.controllersManager.Controller.Value.position;
+                else
+                {
+                    secondInputRecieved = true;
+                    secondControllerPosition = ControllersManager.controllersManager.Controller.Value.position;
+
+                }
             }
 
             yield return null;
         }
 
-        float obtainedSensitivity = firstControllerPosition.magnitude - secondControllerPosition.magnitude;
-        obtainedSensitivity += 1 + obtainedSensitivity - Profile.sensitivityStandard; //this is intended for the sensitivity to be one when it matches the standard
+        float positionDif = firstControllerPosition.z - secondControllerPosition.z;
+        float obtainedSensitivity = 1 + positionDif - Profile.sensitivityStandard; //this is intended for the sensitivity to be one when it matches the standard
         editingProfile.sensitivity = obtainedSensitivity;
-
-        firstGfx.SetActive(false);
         secondGfx.SetActive(false);
 
         callbackOnEnded?.Invoke();

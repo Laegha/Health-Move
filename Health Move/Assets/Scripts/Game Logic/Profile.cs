@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Profile
 {
-    public static float sensitivityStandard;
+    public static float sensitivityStandard = 44;
     public string name;
     public string teamName;
     public float sensitivity;
