@@ -25,13 +25,18 @@ public class HandMovement : MonoBehaviour
         Vector3 pixelMovement = PlayerIdentifier.ControllerData.movement;
         pixelMovement = new Vector3(pixelMovement.x * positionZ * pixelToUnit, pixelMovement.y * positionZ * pixelToUnit, pixelMovement.z * cmToPixel * pixelToUnit);
 
-        Vector3 processedMovement = pixelMovement * Time.deltaTime * handSpeed /** _playerIdentifier.Profile.sensitivity*/;
 
         var rectTransform = GetComponent<RectTransform>();
 
         if(rectTransform != null )
+        {
+            Vector3 processedMovement = pixelMovement * Time.deltaTime * handSpeed;
             rectTransform.position -= new Vector3(processedMovement.x, processedMovement.y, 0);
+        }
         else
+        {
+            Vector3 processedMovement = pixelMovement * Time.deltaTime * handSpeed * PlayerIdentifier.Profile.sensitivity;
             transform.position -= processedMovement;
+        }
     }
 }
