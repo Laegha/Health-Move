@@ -145,6 +145,7 @@ public class GameManager : MonoBehaviour
         {
             PlayerIdentifier playerIdentifier = ActiveHand.GetComponent<PlayerIdentifier>();
             playerIdentifier.playerTeam = CurrMinigameManager.currPlayerProfile.teamName;
+            playerIdentifier.Profile = CurrMinigameManager.currPlayerProfile;
 
             ActiveHand.transform.position = GameObject.Find("HandSpawner").transform.position;
             foreach (var renderer in playerIdentifier.BraceletRenderers)
