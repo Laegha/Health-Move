@@ -10,7 +10,7 @@ public class BallGenerator : MonoBehaviour
 
     BallThrowTrigger ballThrowTrigger;
 
-    private void Start()
+    public void Initiate()
     {
         ballThrowTrigger = FindObjectOfType<BallThrowTrigger>();
     }

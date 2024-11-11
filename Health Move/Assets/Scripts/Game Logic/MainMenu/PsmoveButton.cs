@@ -14,7 +14,7 @@ public class PsmoveButton : MonoBehaviour
 
     float fillAmount = 0;
 
-    [SerializeField] float timeToInteract;
+    [SerializeField] float timeToInteract = 2;
 
     private void OnTriggerStay(Collider other)
     {
@@ -31,8 +31,9 @@ public class PsmoveButton : MonoBehaviour
 
         if(fillAmount >= 1)
         {
-            onInteractedEvents.Invoke();
             fillAmount = 0;
+            other.transform.parent.Find("Elipse").GetComponent<Image>().fillAmount = fillAmount;
+            onInteractedEvents.Invoke();
         }
     }
 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,81 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &359686143
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 359686144}
-  - component: {fileID: 359686148}
-  - component: {fileID: 359686147}
-  m_Layer: 5
-  m_Name: Image (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &359686144
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359686143}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 721610165}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 296, y: -114}
-  m_SizeDelta: {x: -661, y: -293.6318}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &359686147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359686143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 328fa0fd0d4bfcd4c82fce092b6d77f6, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &359686148
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359686143}
-  m_CullTransparentMesh: 1
 --- !u!1 &389794564
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,10 +197,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1ec3b1275c3ba43aae4423f4ef67e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _teamsByMinigame:
+  teamsByMinigame:
     _serializedList:
-    - Key: 
-      Value: []
+    - Key: BasquetMinigame
+      Value:
+      - teamColor: {r: 0.8962264, g: 0.004227493, b: 0.004227493, a: 1}
+        teamName: Rojo
+      - teamColor: {r: 0.017577427, g: 0.12103529, b: 0.745283, a: 1}
+        teamName: Azul
+    - Key: BochasMinigame
+      Value:
+      - teamColor: {r: 1, g: 1, b: 1, a: 1}
+        teamName: Blancas
+      - teamColor: {r: 0.8962264, g: 0.89147615, b: 0.012682426, a: 1}
+        teamName: Amarillas
 --- !u!4 &394962321
 Transform:
   m_ObjectHideFlags: 0
@@ -327,7 +262,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -296, y: 114}
+  m_AnchoredPosition: {x: -296, y: 3}
   m_SizeDelta: {x: -661, y: -293.63184}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!65 &438616170
@@ -382,6 +317,18 @@ MonoBehaviour:
       - m_Target: {fileID: 721610161}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: DisplayProfileManagerMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: PointSample
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 721610161}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: SetMinigameMangager
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -565,81 +512,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 748234823}
-  m_CullTransparentMesh: 1
---- !u!1 &938627894
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 938627895}
-  - component: {fileID: 938627899}
-  - component: {fileID: 938627898}
-  m_Layer: 5
-  m_Name: Image (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &938627895
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 938627894}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 721610165}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -296, y: -114}
-  m_SizeDelta: {x: -661, y: -293.6318}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &938627898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 938627894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 328fa0fd0d4bfcd4c82fce092b6d77f6, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &938627899
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 938627894}
   m_CullTransparentMesh: 1
 --- !u!1 &1087498229
 GameObject:
@@ -1014,7 +886,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1744780587
+--- !u!1 &1723464653
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1022,23 +894,25 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1744780588}
-  - component: {fileID: 1744780592}
-  - component: {fileID: 1744780591}
+  - component: {fileID: 1723464654}
+  - component: {fileID: 1723464658}
+  - component: {fileID: 1723464657}
+  - component: {fileID: 1723464656}
+  - component: {fileID: 1723464655}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: BochasBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &1744780588
+--- !u!224 &1723464654
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1744780587}
+  m_GameObject: {fileID: 1723464653}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -1048,16 +922,90 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 296, y: 114}
+  m_AnchoredPosition: {x: 294, y: 3}
   m_SizeDelta: {x: -661, y: -293.63184}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1744780591
+--- !u!65 &1723464655
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723464653}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 211, y: 202.66147, z: 113.5}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1723464656
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1744780587}
+  m_GameObject: {fileID: 1723464653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59bbf8e02873ea14280e90cbf4300128, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInteractable: 1
+  onInteractedEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 721610161}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: SetMinigame
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BochasMinigame
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 721610161}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: DisplayProfileManagerMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: PointSample
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 721610161}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: SetMinigameMangager
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: PointSample
+          m_BoolArgument: 0
+        m_CallState: 2
+  timeToInteract: 2
+--- !u!114 &1723464657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723464653}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -1071,7 +1019,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 328fa0fd0d4bfcd4c82fce092b6d77f6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3bbf76e45f16ffd47a7b0cda76cf0d17, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1081,13 +1029,13 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!222 &1744780592
+--- !u!222 &1723464658
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1744780587}
+  m_GameObject: {fileID: 1723464653}
   m_CullTransparentMesh: 1
 --- !u!1 &1936096662
 GameObject:
@@ -1172,6 +1120,8 @@ MonoBehaviour:
     _serializedList:
     - Key: BasquetMinigame
       Value: {fileID: 8896919651531908931, guid: 0deeea4068b1172498033bc53cae5ede, type: 3}
+    - Key: BochasMinigame
+      Value: {fileID: 8896919651531908931, guid: 0b268e290efd47a4e9b3bc6815e03f52, type: 3}
 --- !u!4 &2068704622
 Transform:
   m_ObjectHideFlags: 0
@@ -1216,7 +1166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7c9e4ef7eea6eb49815663e933b8cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenPrefab: {fileID: 5615119255630016758, guid: 270fa1fcc5346cc4cbf899eaf8e587fb, type: 3}
 --- !u!4 &2080823848
 Transform:
   m_ObjectHideFlags: 0
@@ -1335,13 +1284,7 @@ PrefabInstance:
       addedObject: {fileID: 438616169}
     - targetCorrespondingSourceObject: {fileID: 4607413910728431104, guid: 09878ae0a435f5743bcb36a790244c99, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 938627895}
-    - targetCorrespondingSourceObject: {fileID: 4607413910728431104, guid: 09878ae0a435f5743bcb36a790244c99, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 359686144}
-    - targetCorrespondingSourceObject: {fileID: 4607413910728431104, guid: 09878ae0a435f5743bcb36a790244c99, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1744780588}
+      addedObject: {fileID: 1723464654}
     - targetCorrespondingSourceObject: {fileID: 4607413910728431104, guid: 09878ae0a435f5743bcb36a790244c99, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1936096663}

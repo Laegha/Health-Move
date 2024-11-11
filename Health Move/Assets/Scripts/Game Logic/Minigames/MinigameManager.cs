@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.Windows;
 
 //Handles logic of a minigame
 public class MinigameManager
@@ -16,7 +18,8 @@ public class MinigameManager
     public virtual void Start() 
     {
         GameManager.gm.RoutineRunner(ControllersManager.controllersManager.KillTracking());
-        teams = TeamsHandler.tm.teamsByMinigame[GetType().ToString()];
+        teams = TeamsHandler.tm.teamsByMinigame[Regex.Replace(GetType().ToString(), "Manager", "", RegexOptions.IgnoreCase)];
+        
     }
     public virtual void OnScored(PlayerIdentifier scorer) { } //Is called by GM OnScored
 
@@ -30,8 +33,13 @@ public class MinigameManager
                 {
                     currPlayerProfile.calibrated = true;
                     //Calibrate profile
+                    GameManager.gm.GetProfileSensitivity(currPlayerProfile, () =>
+                    {
+                        GameManager.gm.ResetHands();
+                    });
                 }
-                GameManager.gm.ResetHands();
+                else
+                    GameManager.gm.ResetHands();
             }));
         }));
         

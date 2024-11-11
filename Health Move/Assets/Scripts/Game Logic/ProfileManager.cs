@@ -51,7 +51,5 @@ public class ProfileManager : MonoBehaviour
     public void AddProfileToTeam(string name, string teamName)
     {
         _profiles.Add(new Profile(name, teamName));
-        //Show on UI
-        Instantiate(_activeMenu.CreatedProfileBoxPrefab, _activeMenu.ProfilesGrids[name].transform);
     }
 }

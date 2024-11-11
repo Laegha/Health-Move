@@ -64,7 +64,7 @@ public class BochasMinigameManager : MinigameManager
             else
                 _currTeam = 0;
 
-            GameManager.gm.ChangePlayer(teams[_currTeam].teamColor, teams[_currTeam].teamName);
+            GameManager.gm.ChangePlayer(teams[_currTeam].teamColor);
             base.RestartControllers();
 
         }

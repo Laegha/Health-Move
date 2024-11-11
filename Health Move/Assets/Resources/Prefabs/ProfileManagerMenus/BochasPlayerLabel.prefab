@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9063101899190853234}
   - component: {fileID: 4361711609270385326}
   m_Layer: 5
-  m_Name: Text
+  m_Name: ProfileName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3458f40367fc26d41874b64c3fcb57f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _target: {fileID: 8186234583542535983}
   _fontScaler: 6
 --- !u!1 &4955009577245844240
 GameObject:
@@ -159,6 +160,7 @@ GameObject:
   - component: {fileID: 8186234583542535983}
   - component: {fileID: 2898886800597471245}
   - component: {fileID: 4844857964913052055}
+  - component: {fileID: 1717691863574013977}
   m_Layer: 5
   m_Name: BochasPlayerLabel
   m_TagString: Untagged
@@ -225,6 +227,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1717691863574013977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4955009577245844240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 895bffe70394f7e41b52a6629317590b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _profileNameText: {fileID: 9063101899190853234}
+  _setThrowingModeBtnText: {fileID: 6398716227505428806}
 --- !u!1 &6406340770609913921
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,8 +253,10 @@ GameObject:
   - component: {fileID: 2222585194814182023}
   - component: {fileID: 1182729099859526481}
   - component: {fileID: 644363358600437682}
+  - component: {fileID: 8969641838525705312}
+  - component: {fileID: 5622728845811133624}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ChangeModeBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -262,7 +280,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 87.5, y: 0}
-  m_SizeDelta: {x: 175, y: 100}
+  m_SizeDelta: {x: 175, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2222585194814182023
 CanvasRenderer:
@@ -323,6 +341,50 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8969641838525705312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6406340770609913921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59bbf8e02873ea14280e90cbf4300128, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInteractable: 1
+  onInteractedEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1717691863574013977}
+        m_TargetAssemblyTypeName: BochasProfileLabel, Assembly-CSharp
+        m_MethodName: ChangeThrowingMode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  timeToInteract: 2
+--- !u!114 &5622728845811133624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6406340770609913921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8936a0e1ab1b85346a262ea7950be9fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 8186234583542535983}
+  _rectTransform: {fileID: 0}
+  _resizeDivider: 2
 --- !u!1 &8705572177677476517
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,4 +532,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3458f40367fc26d41874b64c3fcb57f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _target: {fileID: 2156894007144212155}
   _fontScaler: 6

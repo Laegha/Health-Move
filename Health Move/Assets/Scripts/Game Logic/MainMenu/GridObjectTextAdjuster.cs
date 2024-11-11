@@ -6,22 +6,21 @@ using UnityEngine;
 public class GridObjectTextAdjuster : MonoBehaviour
 {
     float _prevSize;
-    Transform _parent;
+    [SerializeField] RectTransform _target;
     TextMeshProUGUI _thisText;
     [SerializeField] int _fontScaler = 6;
     
     private void Start()
-    {
-        _parent = transform.parent;    
+    { 
         _thisText = GetComponent<TextMeshProUGUI>();
     }
     
     void Update()
     {
-        if(_prevSize != _parent.localScale.x)
+        if(_prevSize != _target.rect.size.y)
         {
-            _prevSize = _parent.localScale.x;
-            _thisText.fontSize = _parent.localScale.x / _fontScaler;
+            _prevSize = _target.rect.size.y;
+            _thisText.fontSize = _target.rect.size.y / _fontScaler;
         }
     }
 }

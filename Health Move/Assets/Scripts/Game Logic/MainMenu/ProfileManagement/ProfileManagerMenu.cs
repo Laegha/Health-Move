@@ -16,10 +16,10 @@ public class ProfileManagerMenu : MonoBehaviour
 
     [SerializeField] Vector2 profileBoxCellSize;
     [SerializeField] SerializedDictionary<string, GridLayoutGroup> profilesGrids;
-
-    [SerializeField] GameObject nameCreateMenu;
-    [SerializeField] GameObject playBtn;
     [SerializeField] GameObject createdProfileBoxPrefab;
+
+    public GameObject defaultLayout;
+    [SerializeField] GameObject nameCreateLayout;
 
     public SerializedDictionary<string, GridLayoutGroup> ProfilesGrids { get { return profilesGrids; } }
 
@@ -29,12 +29,8 @@ public class ProfileManagerMenu : MonoBehaviour
     {
         currAddingTeam = team;
 
-        foreach(var grid in profilesGrids)
-        {
-            grid.Value.transform.parent.gameObject.SetActive(false);
-        }
-        nameCreateMenu.SetActive(true);
-        playBtn.SetActive(false);
+        defaultLayout.SetActive(false);
+        nameCreateLayout.SetActive(true);
 
         nameDisplay.text = composingName;
     }
@@ -47,7 +43,6 @@ public class ProfileManagerMenu : MonoBehaviour
 
     public void CancelAddProfile()
     {
-        composingName = "";
         CloseNameCreateMenu();
     }
 
@@ -55,22 +50,22 @@ public class ProfileManagerMenu : MonoBehaviour
     {
         ProfileManager.pm.AddProfileToTeam(composingName, currAddingTeam);
 
+        ProfileLabel profileLabel = Instantiate(createdProfileBoxPrefab, profilesGrids[currAddingTeam].transform).GetComponent<ProfileLabel>();
+        profileLabel.ProfileName = composingName;
+        profileLabel.Initiate();
+
         Vector2 newBoxSize = new Vector2(profileBoxCellSize.x, profileBoxCellSize.y / profilesGrids[currAddingTeam].transform.childCount);
         profilesGrids[currAddingTeam].cellSize = newBoxSize;
-        profilesGrids[currAddingTeam].transform.Find("AddPlayerBtn").GetComponent<BoxCollider>().size = newBoxSize;
-        Instantiate(createdProfileBoxPrefab, profilesGrids[currAddingTeam].transform).transform.Find("ProfileName").GetComponent<TextMeshProUGUI>().text = composingName;
+        profilesGrids[currAddingTeam].transform.GetChild(0).GetComponent<BoxCollider>().size = newBoxSize;
 
         CloseNameCreateMenu();
     }
 
     void CloseNameCreateMenu()
     {
-        foreach (var grid in profilesGrids)
-        {
-            grid.Value.transform.parent.gameObject.SetActive(true);
-        }
-        nameCreateMenu.SetActive(false);
-        playBtn.SetActive(true);
+        composingName = "";
+        defaultLayout.SetActive(true);
+        nameCreateLayout.SetActive(false);
     }
 
     public void LoadMinigame() 

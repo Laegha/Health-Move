@@ -6,10 +6,19 @@ using UnityEngine;
 public class BochasProfileLabel : ProfileLabel
 {
     [SerializeField] TextMeshProUGUI _setThrowingModeBtnText;
-    public override void Start()
+    BochasProfileManagerMenu _bochasProfileMenu;
+
+    public override void Initiate()
     {
-        base.Start();
+        base.Initiate();
         (GameManager.gm.CurrMinigameManager as BochasMinigameManager).PlayerThrowingModes.Add(ProfileName, BochasPlayer.BochasThrowingMode.Arrimador);
+        _bochasProfileMenu = BelongingMenu as BochasProfileManagerMenu;
+    }
+
+    public void ChangeThrowingMode()
+    {
+        _bochasProfileMenu.SelectThrowingModeStart(ProfileName);
+        _bochasProfileMenu.callbackOnModeChange = SetProfileThrowingMode;
     }
 
     public void SetProfileThrowingMode(BochasPlayer.BochasThrowingMode bochasThrowingMode)

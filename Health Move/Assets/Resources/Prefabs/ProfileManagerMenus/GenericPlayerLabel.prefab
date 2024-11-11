@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9063101899190853234}
   - component: {fileID: 4361711609270385326}
   m_Layer: 5
-  m_Name: Text
+  m_Name: ProfileName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,6 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3458f40367fc26d41874b64c3fcb57f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _target: {fileID: 8186234583542535983}
+  _fontScaler: 6
 --- !u!1 &4955009577245844240
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,6 +160,7 @@ GameObject:
   - component: {fileID: 8186234583542535983}
   - component: {fileID: 2898886800597471245}
   - component: {fileID: 4844857964913052055}
+  - component: {fileID: 1808548265945397732}
   m_Layer: 5
   m_Name: GenericPlayerLabel
   m_TagString: Untagged
@@ -223,3 +226,16 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1808548265945397732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4955009577245844240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b3e76169fa82434c85a2f743ba98d89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _profileNameText: {fileID: 9063101899190853234}

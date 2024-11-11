@@ -12,13 +12,15 @@ public class BasquetMinigameManager : MinigameManager
     int _neededScore = 3;
     string _currentTeam;
 
-    TextMeshProUGUI _teamNameText;
+    TextMeshProUGUI _playingPlayerText;
 
     Animator _textAnimator;
 
     readonly float _endScreenSeconds = 1.5f;
 
     BallGenerator _ballGenerator;
+
+    List<Profile> _profilesNotPlayedInTurn;
 
     public Dictionary<string, int> Scored {  get { return _scored; } }
 
@@ -31,6 +33,7 @@ public class BasquetMinigameManager : MinigameManager
     {
         base.Start();
 
+        _profilesNotPlayedInTurn = new List<Profile>(ProfileManager.pm.Profiles);
         foreach (Team x in teams)
         {
             _scored.Add(x.teamName, 0);
@@ -38,25 +41,28 @@ public class BasquetMinigameManager : MinigameManager
         }
 
         _currentTeam = Scored.Keys.ToList()[Random.Range(0, Scored.Count)];
+        Profile[] possibleProfiles = _profilesNotPlayedInTurn.Where(x => x.teamName == _currentTeam).ToArray();
+        currPlayerProfile = possibleProfiles[Random.Range(0, possibleProfiles.Length -1)];
+        _profilesNotPlayedInTurn.Remove(currPlayerProfile);
 
         Team team = teams.Where(x => x.teamName == _currentTeam).ToList()[0];
-        GameManager.gm.ChangePlayer(team.teamColor, team.teamName);
+        GameManager.gm.ChangePlayer(team.teamColor);
 
         _textAnimator = GameObject.Find("Canvas").transform.Find("ScoreText").GetComponent<Animator>();
 
-        _teamNameText = GameObject.FindObjectOfType<PositionCalibrationScreen>().transform.Find("GFX").transform.Find("TeamTxt").GetComponent<TextMeshProUGUI>();
-        _teamNameText.color = team.teamColor;
-        _teamNameText.text = team.teamName;
+        _playingPlayerText = GameObject.FindObjectOfType<PositionCalibrationScreen>().transform.Find("GFX").transform.Find("TeamTxt").GetComponent<TextMeshProUGUI>();
+        _playingPlayerText.color = team.teamColor;
+        _playingPlayerText.text = currPlayerProfile.name;
 
         _ballGenerator = GameObject.FindObjectOfType<BallGenerator>();
-
-        OnTurnStarted();
+        _ballGenerator.Initiate();
+        
+        GameManager.gm.GeneratedHands += OnTurnStarted;
+        RestartControllers();
     }
 
     public override void OnTurnStarted()
     {
-        base.RestartControllers();
-
         _ballGenerator.GenerateBall();
     }
 
@@ -82,12 +88,27 @@ public class BasquetMinigameManager : MinigameManager
             _currentTeam = _scored.Keys.ToList()[0];
 
         Team team = teams.Where(x => x.teamName == _currentTeam).ToList()[0];
-        
-        GameManager.gm.ChangePlayer(team.teamColor, team.teamName);
-        _teamNameText.text = team.teamName;
-        _teamNameText.color = team.teamColor;
-        OnTurnStarted();
-        
+
+        List<Profile> possibleProfiles = _profilesNotPlayedInTurn.Where(x => x.teamName == _currentTeam).ToList();
+        if(possibleProfiles.Count == 0)
+        {
+            foreach(Profile profile in ProfileManager.pm.Profiles) 
+            {
+                if (profile.teamName == _currentTeam)
+                {
+                    _profilesNotPlayedInTurn.Add(profile);
+                    possibleProfiles.Add(profile);
+                }
+            }
+        }
+        currPlayerProfile = possibleProfiles[Random.Range(0, possibleProfiles.Count - 1)];
+        _profilesNotPlayedInTurn.Remove(currPlayerProfile);
+
+        GameManager.gm.ChangePlayer(team.teamColor);
+        _playingPlayerText.text = currPlayerProfile.name;
+        _playingPlayerText.color = team.teamColor;
+
+        RestartControllers();
     }
 
     IEnumerator EndMinigame()

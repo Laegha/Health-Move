@@ -35,11 +35,12 @@ public class GameManager : MonoBehaviour
 
     Color _currPlayerColor = Color.blue;
 
-    string _currPlayerTeam = "";
+    Action generatedHands = delegate { };
 
     public MinigameManager CurrMinigameManager { get { return _currMinigameManager; } set { _currMinigameManager = value; } }
     public GameObject ActiveHand { get { return _activeHand; } set { _activeHand = value; } }
     public Color CurrPlayerColor { get { return _currPlayerColor; } set { _currPlayerColor = value; } }
+    public Action GeneratedHands {  get { return generatedHands; } set { generatedHands = value; } }
 
     private void Start()
     {
@@ -64,8 +65,9 @@ public class GameManager : MonoBehaviour
 
     public void StartMinigame(string minigameManagerType)
     {
-        Type type = Type.GetType(minigameManagerType, false, true);
+        Type type = Type.GetType(minigameManagerType, true, true);
         CurrMinigameManager = (MinigameManager) Activator.CreateInstance(type);
+        print(CurrMinigameManager);
     }
 
     public void UpdateHandsRotation()
@@ -109,6 +111,12 @@ public class GameManager : MonoBehaviour
         onComplete?.Invoke();
     }
 
+    public void GetProfileSensitivity(Profile profile, Action callback)
+    {
+        SensitivityCalibrationScreen sensitivityCalibrationScreen = FindObjectOfType<SensitivityCalibrationScreen>();
+        sensitivityCalibrationScreen.SetProfileSensitivity(profile, callback);
+    }
+
     public void ResetHands()
     {
         if(ActiveHand != null)
@@ -125,8 +133,7 @@ public class GameManager : MonoBehaviour
         
         ActiveHand = Instantiate(CurrMinigameManager != null ? CurrMinigameManager.minigameHandPrefab : _cursorPrefab, transform.position, Quaternion.identity);
         
-        PlayerIdentifier playerIdentifier = ActiveHand.GetComponent<PlayerIdentifier>();
-        playerIdentifier.playerTeam = _currPlayerTeam;
+        
         
         if (CurrMinigameManager == null)
         {
@@ -136,6 +143,9 @@ public class GameManager : MonoBehaviour
         
         else
         {
+            PlayerIdentifier playerIdentifier = ActiveHand.GetComponent<PlayerIdentifier>();
+            playerIdentifier.playerTeam = CurrMinigameManager.currPlayerProfile.teamName;
+
             ActiveHand.transform.position = GameObject.Find("HandSpawner").transform.position;
             foreach (var renderer in playerIdentifier.BraceletRenderers)
             {
@@ -147,12 +157,12 @@ public class GameManager : MonoBehaviour
 
         needsPlayerReferences.ForEach(x => x.player = ActiveHand);
 
+        generatedHands?.Invoke();
     }
 
-    public void ChangePlayer(Color playerColor, string playerTeam)
+    public void ChangePlayer(Color playerColor)
     {
         _currPlayerColor = playerColor;
-        _currPlayerTeam = playerTeam;
     }
 
     public void RoutineRunner(IEnumerator routine)

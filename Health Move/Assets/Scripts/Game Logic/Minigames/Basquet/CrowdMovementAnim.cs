@@ -16,7 +16,7 @@ public class CrowdMovementAnim : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector3.up * speed * direction);
+        transform.Translate(Vector3.up * speed * direction * Time.deltaTime);
 
         if (transform.position.y > originalPosition + maxMove || transform.position.y < originalPosition - maxMove)
             direction *= -1;
