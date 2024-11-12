@@ -22,6 +22,8 @@ public class BasquetMinigameManager : MinigameManager
 
     List<Profile> _profilesNotPlayedInTurn;
 
+    bool _hasEnded = false;
+
     public Dictionary<string, int> Scored {  get { return _scored; } }
 
     public BasquetMinigameManager()
@@ -79,6 +81,8 @@ public class BasquetMinigameManager : MinigameManager
 
     public override void OnTurnEnded()
     {
+        if (_hasEnded)
+            return;
         base.OnTurnEnded();
 
         if (_currentTeam == _scored.Keys.ToList()[0])
@@ -113,6 +117,7 @@ public class BasquetMinigameManager : MinigameManager
 
     IEnumerator EndMinigame()
     {
+        _hasEnded = true;
         Transform endScreen = GameManager.gm.FindInChildren(GameObject.Find("Canvas").transform, "EndMinigameScreen");
         endScreen.gameObject.SetActive(true);
         string winnerTeam = _scored[_scored.Keys.ToList()[0]] > _scored[_scored.Keys.ToList()[1]] ? _scored.Keys.ToList()[0] : _scored.Keys.ToList()[1];

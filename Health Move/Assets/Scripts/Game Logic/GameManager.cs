@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Minigame Ended");
         SceneManager.LoadScene("MainMenu");
         CurrMinigameManager = null;
+        GeneratedHands = delegate { };
     }
 
     public void StartMinigame(string minigameManagerType)
