@@ -31,7 +31,7 @@ public class SensitivityCalibrationScreen : MonoBehaviour
         {
             if (ControllersManager.controllersManager.Controller.Value.pressedButtons != ((ControllerHelper.PSMoveButton.Up - ControllerHelper.PSMoveButton.Up) | ControllerHelper.PSMoveButton.Trigger) && ControllersManager.controllersManager.Controller.Value.pressedButtons != ControllersManager.controllersManager.Controller.Value.prevPressedButtons)
             {
-                if(!firstInputRecieved)
+                if (!firstInputRecieved)
                 {
                     firstInputRecieved = true;
                     firstControllerPosition = ControllersManager.controllersManager.Controller.Value.position;
@@ -49,8 +49,21 @@ public class SensitivityCalibrationScreen : MonoBehaviour
             yield return null;
         }
 
-        float positionDif = firstControllerPosition.z - secondControllerPosition.z;
-        float obtainedSensitivity = 1 + positionDif - Profile.sensitivityStandard; //this is intended for the sensitivity to be one when it matches the standard
+        float positionDif = Math.Abs(firstControllerPosition.z - secondControllerPosition.z);
+        float obtainedSensitivity = 0;
+        if (positionDif < 10)
+            obtainedSensitivity = 2;
+        else if (positionDif < 20)
+            obtainedSensitivity = 1.75f;
+        else if (positionDif < 30)
+            obtainedSensitivity = 1.5f;
+        else if (positionDif < 40)
+            obtainedSensitivity = 1.25f;
+        else if (positionDif < 50)
+            obtainedSensitivity = 1;
+        else
+            obtainedSensitivity = .75f;
+
         editingProfile.sensitivity = obtainedSensitivity;
         secondGfx.SetActive(false);
 
