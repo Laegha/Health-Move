@@ -11,7 +11,7 @@ public class BochasProfileLabel : ProfileLabel
     public override void Initiate()
     {
         base.Initiate();
-        (GameManager.gm.CurrMinigameManager as BochasMinigameManager).PlayerThrowingModes.Add(ProfileName, BochasPlayer.BochasThrowingMode.Arrimador);
+        (GameManager.gm.CurrMinigameManager as BochasMinigameManager).PlayerThrowingModes.Add(ProfileName, BochasMinigameManager.BochasThrowingMode.Arrimador);
         _bochasProfileMenu = BelongingMenu as BochasProfileManagerMenu;
     }
 
@@ -21,7 +21,7 @@ public class BochasProfileLabel : ProfileLabel
         _bochasProfileMenu.callbackOnModeChange = SetProfileThrowingMode;
     }
 
-    public void SetProfileThrowingMode(BochasPlayer.BochasThrowingMode bochasThrowingMode)
+    public void SetProfileThrowingMode(BochasMinigameManager.BochasThrowingMode bochasThrowingMode)
     {
         (GameManager.gm.CurrMinigameManager as BochasMinigameManager).PlayerThrowingModes[ProfileName] = bochasThrowingMode;
         _setThrowingModeBtnText.text = bochasThrowingMode.ToString();
