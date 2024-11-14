@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Bochin : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Transform justThrownBocha;
+    [SerializeField] float pushForce;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if(justThrownBocha == null)
+            return;
+        Vector3 pushDirection = (justThrownBocha.position - transform.position).normalized;
+        justThrownBocha.GetComponent<Rigidbody>().AddForce(new Vector3(pushDirection.x, 0, pushDirection.z) * Time.deltaTime * pushForce, ForceMode.Acceleration);
     }
 }
