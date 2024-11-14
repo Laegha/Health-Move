@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerIdentifier : MonoBehaviour
 {
-    public string playerTeam;
+    [HideInInspector] public string playerTeam;
     ControllerData _controllerData;
     Profile _profile;
 
