@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class BochasMinigameManager : MinigameManager
@@ -13,7 +14,7 @@ public class BochasMinigameManager : MinigameManager
     }
 
     Bochin _bochin;
-    List<Transform> _thrownBochas = new List<Transform>();
+    List<Bocha> _thrownBochas = new List<Bocha>();
 
 
     int _turnsLapsed = 0;
@@ -28,7 +29,7 @@ public class BochasMinigameManager : MinigameManager
 
     public Bochin Bochin { get { return _bochin; } set { _bochin = value; } }
 
-    public List<Transform> ThrownBochas { get { return _thrownBochas; } set { _thrownBochas = value; } }
+    public List<Bocha> ThrownBochas { get { return _thrownBochas; } set { _thrownBochas = value; } }
 
     public Dictionary<string, BochasThrowingMode> PlayerThrowingModes { get { return _playersThrowingModes; } }
 
@@ -91,7 +92,7 @@ public class BochasMinigameManager : MinigameManager
 
     public void ThrownBocha(Transform bocha)
     {
-        _thrownBochas.Add(bocha);
+        _thrownBochas.Add(bocha.GetComponent<Bocha>());
         Bochin.justThrownBocha = bocha;
     }
 
@@ -109,12 +110,32 @@ public class BochasMinigameManager : MinigameManager
 
     public void RoundEnded()
     {
-        Dictionary<string, float> bochasDistances = new Dictionary<string, float>();
-        foreach(Transform bocha in ThrownBochas)
+        KeyValuePair<string, float> closestBocha = new KeyValuePair<string, float>(_thrownBochas[0].bochaTeam, GetDistBocha(_thrownBochas[0].transform));
+        List<Bocha> bochas = new List<Bocha>(){ _thrownBochas[0] };
+        for(int i = 1; i < _thrownBochas.Count; i++)
         {
-            float distance = Vector3.Distance(Bochin.transform.position, bocha.position);
-            bochasDistances.Add(bocha.GetComponent<PlayerIdentifier>().playerTeam, distance);
+            float bochaDist = GetDistBocha(_thrownBochas[i].transform);
+            if (_thrownBochas[i].bochaTeam == closestBocha.Key)
+            {
+                bochas.Add(_thrownBochas[i]);
+                if (bochaDist < closestBocha.Value)
+                    closestBocha = new KeyValuePair<string, float>(closestBocha.Key, bochaDist);
+            }
+            else
+            {
+                if (bochaDist < closestBocha.Value)
+                {
+                    bochas.Clear();
+                    closestBocha = new KeyValuePair<string, float>(_thrownBochas[i].bochaTeam, bochaDist);
+
+                }
+            }
         }
+    }
+
+    float GetDistBocha(Transform bocha)
+    {
+        return Mathf.Abs((bocha.transform.position - Bochin.transform.position).magnitude);
     }
 
     void ChangeCurrProfile(BochasThrowingMode bochasThrowingMode, string newPlayerTeam)
