@@ -4,22 +4,20 @@ using UnityEngine;
 
 public class BochasMinigameManager : MinigameManager
 {
-    Transform _bochin;
+    Bochin _bochin;
     List<Transform> _thrownBochas = new List<Transform>();
 
-    int _team1Points;
-    int _team2Points;
-
-    int _currTeam;
     BochasPlayer.BochasThrowingMode _currBochasThrowingMode = BochasPlayer.BochasThrowingMode.Arrimador;
 
     int _turnsLapsed = 0;
-    int _playerAmmount = 4; //this is intended to be selectable by the player
 
+    bool _newRound = true;
 
     Dictionary<string, BochasPlayer.BochasThrowingMode> _playersThrowingModes = new Dictionary<string, BochasPlayer.BochasThrowingMode>(); //if needed, the key could be changed to Profile
 
-    public Transform Bochin { get { return _bochin; } set { _bochin = value; } }
+    BochaGenerator _bochaGenerator;
+
+    public Bochin Bochin { get { return _bochin; } set { _bochin = value; } }
 
     public List<Transform> ThrownBochas { get { return _thrownBochas; } set { _thrownBochas = value; } }
 
@@ -34,6 +32,7 @@ public class BochasMinigameManager : MinigameManager
     public override void Start()
     {
         base.Start();
+        _bochaGenerator = GameObject.FindObjectOfType<BochaGenerator>();
     }
 
     void SetThrowerMode()
@@ -45,31 +44,22 @@ public class BochasMinigameManager : MinigameManager
     {
         base.OnTurnEnded();
 
-        if (_turnsLapsed > _playerAmmount * 2)//round ended
+        if(_newRound)
+        {
+            //do bochin stuff
+            _newRound = false;
+            OnTurnStarted();
+            Bochin = GameObject.FindObjectOfType<Bochin>();
+            return;
+        }
+
+        if (_turnsLapsed > ProfileManager.pm.Profiles.Count * 2)//round ended
         {
             _turnsLapsed = 0;
             RoundEnded();
         }
 
-    }
-
-    public override void OnTurnStarted()
-    {
-        base.OnTurnStarted();
-
-        if (_turnsLapsed % 2 == 0)//team change
-        {
-            if (_currTeam == 0)
-                _currTeam = 1;
-            else
-                _currTeam = 0;
-
-            GameManager.gm.ChangePlayer(teams[_currTeam].teamColor);
-            base.RestartControllers();
-
-        }
-
-        if(_turnsLapsed % 4 == 0)//throwing mode change
+        if (_turnsLapsed % 4 == 0)//throwing mode change
         {
             switch (_currBochasThrowingMode)
             {
@@ -82,8 +72,32 @@ public class BochasMinigameManager : MinigameManager
             }
 
         }
+
+        if (_turnsLapsed % 2 == 0)//team change
+        {
+            ChangeCurrProfile();
+
+            //GameManager.gm.ChangePlayer(teams[_currTeam].teamColor);
+
+        }
+    }
+
+    public void ThrownBocha(Transform bocha)
+    {
+        _thrownBochas.Add(bocha);
+        Bochin.justThrownBocha = bocha;
+    }
+
+    public override void OnTurnStarted()
+    {
+        base.OnTurnStarted();
+
+        //recalibrate controllers
+        GameManager.gm.KillControllerTracking(base.RestartControllers);
+
         //give a bocha to the player
-        //display position calibrate screen
+        _bochaGenerator.GenerateBocha(_newRound ? "bochin" : currPlayerProfile.teamName);      
+       
     }
 
     public void RoundEnded()
@@ -91,14 +105,13 @@ public class BochasMinigameManager : MinigameManager
         Dictionary<string, float> bochasDistances = new Dictionary<string, float>();
         foreach(Transform bocha in ThrownBochas)
         {
-            float distance = Vector3.Distance(_bochin.position, bocha.position);
+            float distance = Vector3.Distance(Bochin.transform.position, bocha.position);
             bochasDistances.Add(bocha.GetComponent<PlayerIdentifier>().playerTeam, distance);
         }
     }
 
-    public void BochinStopped()
+    void ChangeCurrProfile()
     {
-        //display position indicator message
-        //give a bocha to the thrower
+
     }
 }
