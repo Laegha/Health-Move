@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bochin : MonoBehaviour
 {
-    public Transform justThrownBocha;
+    [HideInInspector] public Transform justThrownBocha;
     [SerializeField] float pushForce;
 
     void Update()
