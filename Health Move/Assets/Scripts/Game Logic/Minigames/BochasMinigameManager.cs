@@ -111,13 +111,13 @@ public class BochasMinigameManager : MinigameManager
     public void RoundEnded()
     {
         KeyValuePair<string, float> closestBocha = new KeyValuePair<string, float>(_thrownBochas[0].bochaTeam, GetDistBocha(_thrownBochas[0].transform));
-        List<Bocha> bochas = new List<Bocha>(){ _thrownBochas[0] };
+        int scoredPoints = 1;
         for(int i = 1; i < _thrownBochas.Count; i++)
         {
             float bochaDist = GetDistBocha(_thrownBochas[i].transform);
             if (_thrownBochas[i].bochaTeam == closestBocha.Key)
             {
-                bochas.Add(_thrownBochas[i]);
+                scoredPoints++;
                 if (bochaDist < closestBocha.Value)
                     closestBocha = new KeyValuePair<string, float>(closestBocha.Key, bochaDist);
             }
@@ -125,12 +125,13 @@ public class BochasMinigameManager : MinigameManager
             {
                 if (bochaDist < closestBocha.Value)
                 {
-                    bochas.Clear();
+                    scoredPoints = 1;
                     closestBocha = new KeyValuePair<string, float>(_thrownBochas[i].bochaTeam, bochaDist);
 
                 }
             }
         }
+        
     }
 
     float GetDistBocha(Transform bocha)
