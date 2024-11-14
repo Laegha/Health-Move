@@ -7,13 +7,13 @@ public class ProfileLabel : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI _profileNameText;
     ProfileManagerMenu _belongingMenu;
-    Profile _profile;
+    string _profileName;
 
-    public Profile Profile {  get { return _profile; } set { _profile = value; } }
+    public string ProfileName {  get { return _profileName; } set { _profileName = value; } }
     public ProfileManagerMenu BelongingMenu {  get { return _belongingMenu; } set { _belongingMenu = value; } }
 
     public virtual void Initiate()
     {
-        _profileNameText.text = Profile.name;   
+        _profileNameText.text = ProfileName;   
     }
 }

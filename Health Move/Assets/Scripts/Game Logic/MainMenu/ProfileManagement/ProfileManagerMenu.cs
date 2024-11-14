@@ -51,7 +51,7 @@ public class ProfileManagerMenu : MonoBehaviour
         ProfileManager.pm.AddProfileToTeam(composingName, currAddingTeam);
 
         ProfileLabel profileLabel = Instantiate(createdProfileBoxPrefab, profilesGrids[currAddingTeam].transform).GetComponent<ProfileLabel>();
-        profileLabel.Profile.name = composingName;
+        profileLabel.ProfileName = composingName;
         profileLabel.Initiate();
 
         Vector2 newBoxSize = new Vector2(profileBoxCellSize.x, profileBoxCellSize.y / profilesGrids[currAddingTeam].transform.childCount);
