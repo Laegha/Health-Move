@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class HandConstrainBox : NeedsPlayerReference
 {
-    public Vector3 handPushDir;
 
     [SerializeField] Transform min;
     [SerializeField] Transform max;
