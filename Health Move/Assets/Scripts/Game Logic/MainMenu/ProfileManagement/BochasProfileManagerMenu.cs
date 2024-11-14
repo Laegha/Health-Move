@@ -9,7 +9,7 @@ public class BochasProfileManagerMenu : ProfileManagerMenu
 
     string _throwingModeSelectProfile;
 
-    public Action<BochasPlayer.BochasThrowingMode> callbackOnModeChange = delegate(BochasPlayer.BochasThrowingMode mode) { };
+    public Action<BochasMinigameManager.BochasThrowingMode> callbackOnModeChange = delegate(BochasMinigameManager.BochasThrowingMode mode) { };
     public void SelectThrowingModeStart(string changingProfile)
     {
         _throwingModeSelectProfile = changingProfile;
@@ -19,8 +19,8 @@ public class BochasProfileManagerMenu : ProfileManagerMenu
 
     public void SelectThrowingModeEnd(string bochasThrowingMode)
     {
-        callbackOnModeChange((BochasPlayer.BochasThrowingMode) Enum.Parse(typeof(BochasPlayer.BochasThrowingMode), bochasThrowingMode));
-        callbackOnModeChange = delegate (BochasPlayer.BochasThrowingMode mode) { };
+        callbackOnModeChange((BochasMinigameManager.BochasThrowingMode) Enum.Parse(typeof(BochasMinigameManager.BochasThrowingMode), bochasThrowingMode));
+        callbackOnModeChange = delegate (BochasMinigameManager.BochasThrowingMode mode) { };
         _throwingModeSelectLayout.SetActive(false);
         defaultLayout.SetActive(true);
     }
