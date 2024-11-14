@@ -45,6 +45,27 @@ public class BochasMinigameManager : MinigameManager
         _bochaGenerator = GameObject.FindObjectOfType<BochaGenerator>();
         _profilesNotPlayedInRound = new List<Profile>(ProfileManager.pm.Profiles);
         ChangeCurrProfile(BochasThrowingMode.Arrimador, teams[Random.Range(0, teams.Length)].teamName);
+        GameManager.gm.GeneratedHands += AddOnTurnStartedToGenerateHands;
+        RestartControllers();
+    }
+
+    void AddOnTurnStartedToGenerateHands()
+    {
+        GameManager.gm.GeneratedHands -= AddOnTurnStartedToGenerateHands;
+        GameManager.gm.GeneratedHands += OnTurnStarted;
+        _bochaGenerator.GenerateBocha(_newRound ? "bochin" : currPlayerProfile.teamName);
+    }
+
+    public override void OnTurnStarted()
+    {
+        base.OnTurnStarted();
+
+        //recalibrate controllers
+        RestartControllers();
+
+        //give a bocha to the player
+        _bochaGenerator.GenerateBocha(_newRound ? "bochin" : currPlayerProfile.teamName);
+
     }
 
     public override void OnTurnEnded()
@@ -94,18 +115,6 @@ public class BochasMinigameManager : MinigameManager
     {
         _thrownBochas.Add(bocha.GetComponent<Bocha>());
         Bochin.justThrownBocha = bocha;
-    }
-
-    public override void OnTurnStarted()
-    {
-        base.OnTurnStarted();
-
-        //recalibrate controllers
-        GameManager.gm.KillControllerTracking(base.RestartControllers);
-
-        //give a bocha to the player
-        _bochaGenerator.GenerateBocha(_newRound ? "bochin" : currPlayerProfile.teamName);      
-       
     }
 
     public void RoundEnded()
