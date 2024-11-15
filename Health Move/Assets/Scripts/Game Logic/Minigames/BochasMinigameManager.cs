@@ -91,14 +91,31 @@ public class BochasMinigameManager : MinigameManager
         {
             _newRound = false;
             ThrownBochin = GameObject.FindObjectOfType<Bochin>();
-            OnTurnStarted();
+            GameManager.gm.RoutineRunner(ThrownBochin.GetComponent<BochaCamera>().FocusBocha(OnTurnStarted));
             return;
         }
         if (_bochasThrown % 2 != 0)
         {
-            _thrownBochas.Last().GetComponent<BochaCamera>().FocusBocha(OnTurnStarted);
+            GameManager.gm.RoutineRunner(_thrownBochas.Last().GetComponent<BochaCamera>().FocusBocha(OnTurnStarted));
             return;
         }
+
+        GameManager.gm.RoutineRunner(_thrownBochas.Last().GetComponent<BochaCamera>().FocusBocha(EndedProfileTurns));
+
+
+    }
+
+    void EndedProfileTurns()
+    {
+        GameManager.gm.RoutineRunner(EndedProfileTurnsRoutine());
+    }
+
+    IEnumerator EndedProfileTurnsRoutine()
+    {
+        _cmBrain.ActiveVirtualCamera.Priority = 0;
+        _playerCam.Priority = 1;
+
+        while(_cmBrain.IsBlending) yield return null;
 
         bool roundEnded = false;
         if (_bochasThrown >= ProfileManager.pm.Profiles.Count * 2)//round ended
@@ -111,10 +128,10 @@ public class BochasMinigameManager : MinigameManager
             _thrownBochas.Clear();
             GameObject.Destroy(ThrownBochin.gameObject);
             _newRound = true;
-            if(gameEnded)
+            if (gameEnded)
             {
                 GameManager.gm.EndMinigame();
-                return;
+                yield break;
             }
         }
 
@@ -202,7 +219,6 @@ public class BochasMinigameManager : MinigameManager
             return;
         }
         int index = Random.Range(0, possibleProfiles.Count);
-        Debug.Log("Index: " + possibleProfiles[0]);
         currPlayerProfile = possibleProfiles[index];
         _profilesNotPlayedInRound.Remove(currPlayerProfile);
     }

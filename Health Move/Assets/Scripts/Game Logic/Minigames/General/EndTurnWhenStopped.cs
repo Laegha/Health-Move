@@ -25,6 +25,7 @@ public class EndTurnWhenStopped : MonoBehaviour
                 yield break;
             if (rb.velocity.magnitude <= 0.2f)
             {
+                rb.velocity = Vector3.zero;
                 GameManager.gm.CurrMinigameManager.OnTurnEnded();
                 checking = false;
                 Destroy(this);

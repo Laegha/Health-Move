@@ -54,6 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8968668000257982393}
   - component: {fileID: 7293009046492210103}
+  - component: {fileID: 7501709260112668431}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -95,8 +96,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 0
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 3917540877344297889}
-  m_Follow: {fileID: 3917540877344297889}
+  m_LookAt: {fileID: 0}
+  m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 40
     OrthographicSize: 10
@@ -116,6 +117,19 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 2257753342461121461}
+--- !u!114 &7501709260112668431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8576178856934334934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 929e4ed7fb99b8d40b2c3714b314229f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 3917540877344297889}
 --- !u!1001 &3591444581210698826
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -235,7 +249,7 @@ Rigidbody:
   m_GameObject: {fileID: 4401765062006376731}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 1
+  m_Drag: 0.5
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
