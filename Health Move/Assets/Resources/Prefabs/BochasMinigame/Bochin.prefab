@@ -93,10 +93,10 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 0
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_LookAt: {fileID: 3917540877344297889}
+  m_Follow: {fileID: 3917540877344297889}
   m_Lens:
     FieldOfView: 40
     OrthographicSize: 10
@@ -180,6 +180,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bochin
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5edf03ffda7a2004083b1e840c68efdd, type: 3}
+      propertyPath: m_TagString
+      value: Bocha
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -199,6 +203,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5edf03ffda7a2004083b1e840c68efdd, type: 3}
       insertIndex: -1
       addedObject: {fileID: -8759984055225940704}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5edf03ffda7a2004083b1e840c68efdd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7734731364359249693}
   m_SourcePrefab: {fileID: 100100000, guid: 5edf03ffda7a2004083b1e840c68efdd, type: 3}
 --- !u!4 &3917540877344297889 stripped
 Transform:
@@ -271,7 +278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   justThrownBocha: {fileID: 0}
-  pushForce: 0
+  pushForce: 4
 --- !u!114 &-8759984055225940704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,3 +291,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c54b949afaead954a82a69013771acf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7734731364359249693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4401765062006376731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3970dfdef7e107b49a14f1be6d814bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bochaVirtualCamera: {fileID: 4013939049564075262}

@@ -1,18 +1,23 @@
+using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BochaCamera : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] CinemachineVirtualCamera _bochaVirtualCamera;
+    float bochaCameraFocusTime = 2.5f;
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerator FocusBocha(Action callback)
     {
+        CinemachineBrain cinemachineBrain = FindObjectOfType<CinemachineBrain>();
+        cinemachineBrain.ActiveVirtualCamera.Priority = 0;
+        _bochaVirtualCamera.Priority = 1;
         
+        while(cinemachineBrain.IsBlending) yield return null;
+        yield return new WaitForSeconds(bochaCameraFocusTime);
+        
+        callback();
     }
 }

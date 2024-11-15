@@ -745,7 +745,7 @@ GameObject:
   - component: {fileID: 271646416}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2092,6 +2092,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5148817236446094103, guid: 158e67b806a62674c8e481c4343ca117, type: 3}
       insertIndex: -1
       addedObject: {fileID: 639389632}
+    - targetCorrespondingSourceObject: {fileID: 5148817236446094103, guid: 158e67b806a62674c8e481c4343ca117, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 639389633}
   m_SourcePrefab: {fileID: 100100000, guid: 158e67b806a62674c8e481c4343ca117, type: 3}
 --- !u!1 &595371807 stripped
 GameObject:
@@ -2283,6 +2286,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 24, y: 0.0000003019916, z: 4}
   m_Center: {x: 0.00000047683716, y: 0, z: 0}
+--- !u!114 &639389633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595371807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 339aa51c3f9b6794e8f33cd392587632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collisionTag: Bocha
 --- !u!1 &658593329
 GameObject:
   m_ObjectHideFlags: 0

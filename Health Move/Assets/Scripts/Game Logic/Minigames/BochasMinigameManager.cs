@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,10 @@ public class BochasMinigameManager : MinigameManager
 
     int _scoreToWin = 6;
 
+    CinemachineVirtualCamera _playerCam;
+
+    CinemachineBrain _cmBrain;
+
 
 
     public Bochin ThrownBochin { get { return _bochin; } set { _bochin = value; } }
@@ -58,6 +63,9 @@ public class BochasMinigameManager : MinigameManager
         Team startingTeam = teams[Random.Range(0, teams.Length - 1)];
         GameManager.gm.ChangePlayer(startingTeam.teamColor);
 
+        _playerCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CinemachineVirtualCamera>();
+        _cmBrain = GameObject.FindObjectOfType<CinemachineBrain>();
+
         ChangeCurrProfile(BochasThrowingMode.Arrimador, startingTeam.teamName);
         GameManager.gm.GeneratedHands += OnTurnStarted;
         RestartControllers();
@@ -69,6 +77,11 @@ public class BochasMinigameManager : MinigameManager
 
         //give a bocha to the player
         _bochaGenerator.GenerateBocha(_newRound ? "bochin" : currPlayerProfile.teamName);
+        if((CinemachineVirtualCamera)(_cmBrain.ActiveVirtualCamera) != _playerCam)
+        {
+            _cmBrain.ActiveVirtualCamera.Priority = 0;
+            _playerCam.Priority = 1;
+        }
 
     }
 
@@ -83,7 +96,7 @@ public class BochasMinigameManager : MinigameManager
         }
         if (_bochasThrown % 2 != 0)
         {
-            OnTurnStarted();
+            _thrownBochas.Last().GetComponent<BochaCamera>().FocusBocha(OnTurnStarted);
             return;
         }
 

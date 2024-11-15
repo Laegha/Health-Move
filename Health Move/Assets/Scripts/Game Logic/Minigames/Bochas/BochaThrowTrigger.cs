@@ -37,14 +37,6 @@ public class BochaThrowTrigger : MonoBehaviour
         {
             bochasMinigameManager.ThrownBocha(bocha);
         }
-        StartCoroutine(ThrownBocha(bocha.GetComponent<EndTurnWhenStopped>()));
         bocha = null;
-    }
-
-    IEnumerator ThrownBocha(EndTurnWhenStopped endTurnWhenStopped)
-    {
-        yield return new WaitForEndOfFrame();
-        
-        StartCoroutine(endTurnWhenStopped.CheckSpeed());
     }
 }
