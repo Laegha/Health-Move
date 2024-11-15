@@ -8,6 +8,7 @@ public class HandMovement : MonoBehaviour
     static readonly float cmToPixel = 200f;
 
     [SerializeField] float handSpeed;
+    public bool isMoving = true;
 
     PlayerIdentifier _playerIdentifier;
 
@@ -33,7 +34,7 @@ public class HandMovement : MonoBehaviour
             Vector3 processedMovement = pixelMovement * Time.deltaTime * handSpeed;
             rectTransform.position -= new Vector3(processedMovement.x, processedMovement.y, 0);
         }
-        else
+        else if(isMoving)
         {
             Vector3 processedMovement = pixelMovement * Time.deltaTime * handSpeed * PlayerIdentifier.Profile.sensitivity;
             transform.position -= processedMovement;

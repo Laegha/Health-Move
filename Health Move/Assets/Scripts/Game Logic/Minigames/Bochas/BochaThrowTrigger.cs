@@ -6,6 +6,8 @@ public class BochaThrowTrigger : MonoBehaviour
 {
     [SerializeField] float arrimadorForceMultiplier;
     [SerializeField] float bochadorForceMultiplier;
+    [SerializeField] LayerMask raycastLayerMask;
+    [SerializeField] Transform targetIfMissed;
 
     [HideInInspector] public Transform bocha;
     private void OnTriggerEnter(Collider other)
@@ -18,7 +20,7 @@ public class BochaThrowTrigger : MonoBehaviour
 
         //apply force based on bochasMinigameManager.PlayerThrowingModes[playerCollisionIdentifier.PlayerIdentifier.Profile.name]
         BochasMinigameManager.BochasThrowingMode bochaThrowingMode = bochasMinigameManager.PlayerThrowingModes[playerCollisionIdentifier.PlayerIdentifier.Profile.name];
-        Vector3 forceToApply = other.transform.forward * Random.Range(.5f, 1.5f); //the random is set to add a little variation to throwing (i'm on a tight schedule, don't want to implement it properly)
+        Vector3 forceToApply = GetThrowDirection(other.transform, other.transform.forward) * Random.Range(.5f, 1.5f); //the random is set to add a little variation to throwing (i'm on a tight schedule, don't want to implement it properly)
         Bochin bochin = bocha.GetComponent<Bochin>();
 
         if (bochaThrowingMode == BochasMinigameManager.BochasThrowingMode.Arrimador || bochin != null)
@@ -38,5 +40,19 @@ public class BochaThrowTrigger : MonoBehaviour
             bochasMinigameManager.ThrownBocha(bocha);
         }
         bocha = null;
+    }
+
+    Vector3 GetThrowDirection(Transform rayEmmiter, Vector3 direction)
+    {
+        if (Physics.Raycast(rayEmmiter.position, direction, Mathf.Infinity, raycastLayerMask))
+            return direction;
+        return (targetIfMissed.position - rayEmmiter.position).normalized;
+    }
+
+    void ResetPlayerPosition(Transform player)
+    {
+        player.position = GameObject.Find("HandSpawner").transform.position;
+        player.rotation = Quaternion.identity;
+        player.GetComponent<HandMovement>().isMoving = false;
     }
 }

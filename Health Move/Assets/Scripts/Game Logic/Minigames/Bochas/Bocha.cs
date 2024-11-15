@@ -5,4 +5,7 @@ using UnityEngine;
 public class Bocha : MonoBehaviour
 {
     [HideInInspector] public string bochaTeam;
+
+    [HideInInspector] public bool scoring;
+
 }

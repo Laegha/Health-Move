@@ -39,6 +39,8 @@ public class BochasMinigameManager : MinigameManager
 
     CinemachineBrain _cmBrain;
 
+    bool _roundEnding = false;
+
 
 
     public Bochin ThrownBochin { get { return _bochin; } set { _bochin = value; } }
@@ -46,6 +48,10 @@ public class BochasMinigameManager : MinigameManager
     public List<Bocha> ThrownBochas { get { return _thrownBochas; } set { _thrownBochas = value; } }
 
     public Dictionary<string, BochasThrowingMode> PlayerThrowingModes { get { return _playersThrowingModes; } }
+
+    public bool RoundEnding{ get { return _roundEnding; } set { _roundEnding = value; } }
+
+    public CinemachineVirtualCamera PlayerCam { get { return _playerCam; } }
 
     public BochasMinigameManager()
     {
@@ -60,7 +66,7 @@ public class BochasMinigameManager : MinigameManager
         _profilesNotPlayedInRound = new List<Profile>(ProfileManager.pm.Profiles);
         _scoreToWin *= ProfileManager.pm.Profiles.Count() / 2;
 
-        Team startingTeam = teams[Random.Range(0, teams.Length - 1)];
+        Team startingTeam = teams[Random.Range(0, teams.Length)];
         GameManager.gm.ChangePlayer(startingTeam.teamColor);
 
         _playerCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CinemachineVirtualCamera>();
@@ -77,7 +83,8 @@ public class BochasMinigameManager : MinigameManager
 
         //give a bocha to the player
         _bochaGenerator.GenerateBocha(_newRound ? "bochin" : currPlayerProfile.teamName);
-        if((CinemachineVirtualCamera)(_cmBrain.ActiveVirtualCamera) != _playerCam)
+        GameManager.gm.ActiveHand.GetComponent<HandMovement>().isMoving = true;
+        if ((CinemachineVirtualCamera)(_cmBrain.ActiveVirtualCamera) != _playerCam)
         {
             _cmBrain.ActiveVirtualCamera.Priority = 0;
             _playerCam.Priority = 1;
@@ -123,17 +130,21 @@ public class BochasMinigameManager : MinigameManager
             _bochasThrown = 0;
             roundEnded = true;
 
-            bool gameEnded = RoundEnded();
-            _thrownBochas.ForEach(x => GameObject.Destroy(x.gameObject));
-            _thrownBochas.Clear();
-            GameObject.Destroy(ThrownBochin.gameObject);
-            _newRound = true;
+            bool gameEnded = RoundEnded(); 
             if (gameEnded)
             {
                 GameManager.gm.EndMinigame();
                 yield break;
             }
+
+            while (RoundEnding) yield return null;
+            _thrownBochas.ForEach(x => GameObject.Destroy(x.gameObject));
+            _thrownBochas.Clear();
+            GameObject.Destroy(ThrownBochin.gameObject);
+            _newRound = true;
+            
         }
+
 
         BochasThrowingMode currThrowingMode = PlayerThrowingModes[currPlayerProfile.name];
         if (_bochasThrown % 4 == 0 && !roundEnded)//throwing mode change
@@ -166,13 +177,13 @@ public class BochasMinigameManager : MinigameManager
     public bool RoundEnded()
     {
         KeyValuePair<string, float> closestBocha = new KeyValuePair<string, float>(_thrownBochas[0].bochaTeam, GetDistBocha(_thrownBochas[0].transform));
-        int scoredPoints = 1;
+        List<Bocha> scoringBochas = new List<Bocha>(){ _thrownBochas[0] };
         for(int i = 1; i < _thrownBochas.Count; i++)
         {
             float bochaDist = GetDistBocha(_thrownBochas[i].transform);
             if (_thrownBochas[i].bochaTeam == closestBocha.Key)
             {
-                scoredPoints++;
+                scoringBochas.Add(_thrownBochas[i]);
                 if (bochaDist < closestBocha.Value)
                     closestBocha = new KeyValuePair<string, float>(closestBocha.Key, bochaDist);
             }
@@ -180,20 +191,22 @@ public class BochasMinigameManager : MinigameManager
             {
                 if (bochaDist < closestBocha.Value)
                 {
-                    scoredPoints = 1;
+                    scoringBochas.Clear();
                     closestBocha = new KeyValuePair<string, float>(_thrownBochas[i].bochaTeam, bochaDist);
 
                 }
             }
         }
 
-        _scored[closestBocha.Key] += scoredPoints;
+        _scored[closestBocha.Key] += scoringBochas.Count;
+        scoringBochas.ForEach(x => x.scoring = true);
+        GameManager.gm.OnScored(GameManager.gm.ActiveHand.GetComponent<PlayerIdentifier>());
+        RoundEnding = true;
 
         if (_scored[closestBocha.Key] > _scoreToWin)
             return true;
 
         return false;
-
     }
 
     float GetDistBocha(Transform bocha)
