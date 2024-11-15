@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Bocha : MonoBehaviour
 {
-    public string bochaTeam;
+    [HideInInspector] public string bochaTeam;
 }

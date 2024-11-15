@@ -8,9 +8,11 @@ public class BochaGenerator : MonoBehaviour
     [SerializeField] GameObject _bochinPrefab;
     [SerializeField] GameObject _bochaPrefab;
 
+    BochaThrowTrigger _bochaThrowTrigger;
     
     private void Start()
     {
+        _bochaThrowTrigger = FindObjectOfType<BochaThrowTrigger>();
     }
     public void GenerateBocha(string bochaToGenerate)
     {
@@ -22,12 +24,13 @@ public class BochaGenerator : MonoBehaviour
         else
         {
             bocha = Instantiate(_bochaPrefab, ballHolder.position, Quaternion.identity);
-            
+            bocha.GetComponent<Bocha>().bochaTeam = GameManager.gm.CurrMinigameManager.currPlayerProfile.teamName;
+
             Renderer renderer = bocha.GetComponent<Renderer>();
             renderer.material = new Material(renderer.material);
             renderer.material.color = TeamsHandler.tm.teamsByMinigame["BochasMinigame"].Where(x => x.teamName == bochaToGenerate).ToList()[0].teamColor;
         }
         bocha.transform.parent = ballHolder;
-        //maybe something with the thrower
+        _bochaThrowTrigger.bocha = bocha.transform;
     }
 }

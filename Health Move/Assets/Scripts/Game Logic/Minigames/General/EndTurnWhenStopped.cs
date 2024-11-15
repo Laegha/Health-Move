@@ -18,7 +18,7 @@ public class EndTurnWhenStopped : MonoBehaviour
 
         checking = true;
         
-        while(true)
+        while(checking)
         {
             yield return null;
             if(rb == null)
@@ -26,6 +26,7 @@ public class EndTurnWhenStopped : MonoBehaviour
             if (rb.velocity.magnitude <= 0.2f)
             {
                 GameManager.gm.CurrMinigameManager.OnTurnEnded();
+                checking = false;
                 Destroy(this);
                 yield break;
             }

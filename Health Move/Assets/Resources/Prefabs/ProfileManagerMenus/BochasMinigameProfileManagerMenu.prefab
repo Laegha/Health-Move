@@ -3309,7 +3309,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Blancas
+          m_StringArgument: Azules
           m_BoolArgument: 0
         m_CallState: 2
   timeToInteract: 1.5
@@ -8971,7 +8971,7 @@ MonoBehaviour:
   profileBoxCellSize: {x: 350, y: 250}
   profilesGrids:
     _serializedList:
-    - Key: Blancas
+    - Key: Azules
       Value: {fileID: 4062442598587832001}
     - Key: Amarillas
       Value: {fileID: 4613110301467737901}
