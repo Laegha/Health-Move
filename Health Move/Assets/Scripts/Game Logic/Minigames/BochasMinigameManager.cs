@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TMPro;
 using UnityEngine;
 
 public class BochasMinigameManager : MinigameManager
@@ -41,6 +42,8 @@ public class BochasMinigameManager : MinigameManager
 
     bool _roundEnding = false;
 
+    TextMeshProUGUI _playingPlayerText;
+
 
 
     public Bochin ThrownBochin { get { return _bochin; } set { _bochin = value; } }
@@ -67,7 +70,22 @@ public class BochasMinigameManager : MinigameManager
         _scoreToWin *= ProfileManager.pm.Profiles.Count() / 2;
 
         Team startingTeam = teams[Random.Range(0, teams.Length)];
+
+        _playingPlayerText = GameObject.FindObjectOfType<PositionCalibrationScreen>().transform.Find("GFX").transform.Find("TeamTxt").GetComponent<TextMeshProUGUI>();
+
         GameManager.gm.ChangePlayer(startingTeam.teamColor);
+        if (currPlayerProfile.name[0] == ':')
+            _playingPlayerText.text = "";
+        else
+        {
+            int cutPosition = currPlayerProfile.name.IndexOf(".");
+            if (cutPosition > 0)
+                _playingPlayerText.text = currPlayerProfile.name.Substring(0, cutPosition);
+            else
+                _playingPlayerText.text = currPlayerProfile.name;
+
+        }
+        _playingPlayerText.color = teams.Where(x => x.teamName == currPlayerProfile.teamName).ToArray()[0].teamColor;
 
         _playerCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CinemachineVirtualCamera>();
         _cmBrain = GameObject.FindObjectOfType<CinemachineBrain>();
@@ -162,8 +180,21 @@ public class BochasMinigameManager : MinigameManager
         }
 
         ChangeCurrProfile(roundEnded ? BochasThrowingMode.Arrimador : currThrowingMode, currPlayerProfile.teamName == teams[0].teamName ? teams[1].teamName : teams[0].teamName);
-        GameManager.gm.ChangePlayer(teams.Where(x => x.teamName == currPlayerProfile.teamName).ToList()[0].teamColor);
+        Team team = teams.Where(x => x.teamName == currPlayerProfile.teamName).ToList()[0];
+        GameManager.gm.ChangePlayer(team.teamColor);
         //recalibrate controllers
+        if (currPlayerProfile.name[0] == ':')
+            _playingPlayerText.text = "";
+        else
+        {
+            int cutPosition = currPlayerProfile.name.IndexOf(".");
+            if (cutPosition > 0)
+                _playingPlayerText.text = currPlayerProfile.name.Substring(0, cutPosition);
+            else
+                _playingPlayerText.text = currPlayerProfile.name;
+
+        }
+        _playingPlayerText.color = team.teamColor;
         RestartControllers();
     }
 
