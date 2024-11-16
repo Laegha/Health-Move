@@ -104,7 +104,7 @@ public class BochasMinigameManager : MinigameManager
 
         //give a bocha to the player
         _bochaGenerator.GenerateBocha(_newRound ? "bochin" : currPlayerProfile.teamName);
-        GameManager.gm.ActiveHand.GetComponent<HandMovement>().isMoving = true;
+        ResetPlayerPosition(GameManager.gm.ActiveHand.transform);
         if ((CinemachineVirtualCamera)(_cmBrain.ActiveVirtualCamera) != _playerCam)
         {
             _cmBrain.ActiveVirtualCamera.Priority = 0;
@@ -113,6 +113,11 @@ public class BochasMinigameManager : MinigameManager
 
     }
 
+    void ResetPlayerPosition(Transform player)
+    {
+        player.position = GameObject.Find("HandSpawner").transform.position;
+        player.rotation = Quaternion.identity;
+    }
 
     public override void OnTurnEnded()
     {

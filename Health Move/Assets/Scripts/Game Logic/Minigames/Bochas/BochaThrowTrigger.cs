@@ -40,7 +40,6 @@ public class BochaThrowTrigger : MonoBehaviour
             bochasMinigameManager.ThrownBocha(bocha);
         }
         bocha = null;
-        ResetPlayerPosition(other.transform);
     }
 
     Vector3 GetThrowDirection(Transform rayEmmiter, Vector3 direction)
@@ -50,10 +49,5 @@ public class BochaThrowTrigger : MonoBehaviour
         return (targetIfMissed.position - rayEmmiter.position).normalized;
     }
 
-    void ResetPlayerPosition(Transform player)
-    {
-        player.position = GameObject.Find("HandSpawner").transform.position;
-        player.rotation = Quaternion.identity;
-        player.GetComponent<HandMovement>().isMoving = false;
-    }
+    
 }
