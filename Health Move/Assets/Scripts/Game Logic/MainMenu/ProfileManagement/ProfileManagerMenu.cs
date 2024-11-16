@@ -28,6 +28,7 @@ public class ProfileManagerMenu : MonoBehaviour
     public void AddProfile(string team)
     {
         currAddingTeam = team;
+        composingName = "";
 
         defaultLayout.SetActive(false);
         nameCreateLayout.SetActive(true);
@@ -48,6 +49,11 @@ public class ProfileManagerMenu : MonoBehaviour
 
     public void ConfirmProfileCreation()
     {
+        if (composingName == "")
+            composingName = ":";
+        int sameNameProfiles = ProfileManager.pm.Profiles.Where(x => x.name.Contains(composingName)).Count();
+        if (sameNameProfiles > 0)
+            composingName += "." + sameNameProfiles;
         ProfileManager.pm.AddProfileToTeam(composingName, currAddingTeam);
 
         ProfileLabel profileLabel = Instantiate(createdProfileBoxPrefab, profilesGrids[currAddingTeam].transform).GetComponent<ProfileLabel>();
