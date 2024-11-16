@@ -44,6 +44,8 @@ public class BochasMinigameManager : MinigameManager
 
     TextMeshProUGUI _playingPlayerText;
 
+    float _winScreenTime = 4;
+
 
 
     public Bochin ThrownBochin { get { return _bochin; } set { _bochin = value; } }
@@ -111,6 +113,7 @@ public class BochasMinigameManager : MinigameManager
 
     }
 
+
     public override void OnTurnEnded()
     {
         if(_newRound)
@@ -152,6 +155,13 @@ public class BochasMinigameManager : MinigameManager
             bool gameEnded = RoundEnded(); 
             if (gameEnded)
             {
+                GameObject endScreen = GameObject.Find("EndScreen");
+                endScreen.SetActive(true);
+                TextMeshProUGUI winnerText = endScreen.transform.Find("WinnerText").GetComponent<TextMeshProUGUI>();
+                winnerText.text = currPlayerProfile.teamName;
+                winnerText.color = teams.Where(x => x.teamName == currPlayerProfile.teamName).ToArray()[0].teamColor;
+
+                yield return new WaitForSeconds(_winScreenTime);
                 GameManager.gm.EndMinigame();
                 yield break;
             }
