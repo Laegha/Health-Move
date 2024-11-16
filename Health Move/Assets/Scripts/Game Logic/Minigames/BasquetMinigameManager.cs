@@ -54,6 +54,7 @@ public class BasquetMinigameManager : MinigameManager
 
         _playingPlayerText = GameObject.FindObjectOfType<PositionCalibrationScreen>().transform.Find("GFX").transform.Find("TeamTxt").GetComponent<TextMeshProUGUI>();
         _playingPlayerText.color = team.teamColor;
+        
         if(currPlayerProfile.name[0] == ':')
             _playingPlayerText.text = "";
         else
@@ -119,7 +120,17 @@ public class BasquetMinigameManager : MinigameManager
         _profilesNotPlayedInTurn.Remove(currPlayerProfile);
 
         GameManager.gm.ChangePlayer(team.teamColor);
-        _playingPlayerText.text = currPlayerProfile.name;
+        if (currPlayerProfile.name[0] == ':')
+            _playingPlayerText.text = "";
+        else
+        {
+            int cutPosition = currPlayerProfile.name.IndexOf(".");
+            if (cutPosition > 0)
+                _playingPlayerText.text = currPlayerProfile.name.Substring(0, cutPosition);
+            else
+                _playingPlayerText.text = currPlayerProfile.name;
+
+        }
         _playingPlayerText.color = team.teamColor;
 
         RestartControllers();
