@@ -73,6 +73,8 @@ public class BochasMinigameManager : MinigameManager
 
         _playingPlayerText = GameObject.FindObjectOfType<PositionCalibrationScreen>().transform.Find("GFX").transform.Find("TeamTxt").GetComponent<TextMeshProUGUI>();
 
+        ChangeCurrProfile(BochasThrowingMode.Arrimador, startingTeam.teamName);
+
         GameManager.gm.ChangePlayer(startingTeam.teamColor);
         if (currPlayerProfile.name[0] == ':')
             _playingPlayerText.text = "";
@@ -90,7 +92,6 @@ public class BochasMinigameManager : MinigameManager
         _playerCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CinemachineVirtualCamera>();
         _cmBrain = GameObject.FindObjectOfType<CinemachineBrain>();
 
-        ChangeCurrProfile(BochasThrowingMode.Arrimador, startingTeam.teamName);
         GameManager.gm.GeneratedHands += OnTurnStarted;
         RestartControllers();
     }

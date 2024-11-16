@@ -207,10 +207,10 @@ MonoBehaviour:
         teamName: Azul
     - Key: BochasMinigame
       Value:
+      - teamColor: {r: 0.8980392, g: 0.003921569, b: 0.003921569, a: 1}
+        teamName: Rojas
       - teamColor: {r: 0.30647027, g: 0.39479825, b: 0.9150943, a: 1}
         teamName: Azules
-      - teamColor: {r: 0.8980392, g: 0.003921569, b: 0.003921569, a: 1}
-        teamName: Amarillas
 --- !u!4 &394962321
 Transform:
   m_ObjectHideFlags: 0
