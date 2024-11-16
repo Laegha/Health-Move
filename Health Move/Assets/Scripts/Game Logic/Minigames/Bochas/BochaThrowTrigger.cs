@@ -40,6 +40,7 @@ public class BochaThrowTrigger : MonoBehaviour
             bochasMinigameManager.ThrownBocha(bocha);
         }
         bocha = null;
+        ResetPlayerPosition(other.transform);
     }
 
     Vector3 GetThrowDirection(Transform rayEmmiter, Vector3 direction)
