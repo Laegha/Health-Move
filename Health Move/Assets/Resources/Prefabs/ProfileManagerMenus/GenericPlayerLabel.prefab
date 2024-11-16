@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6175929747505236060}
   - component: {fileID: 3708029315709075330}
   - component: {fileID: 9063101899190853234}
-  - component: {fileID: 4361711609270385326}
+  - component: {fileID: 344473744667994558}
   m_Layer: 5
   m_Name: ProfileName
   m_TagString: Untagged
@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 171.3, y: 0}
-  m_SizeDelta: {x: 331.7897, y: -0.000022888}
+  m_AnchoredPosition: {x: 175, y: 0}
+  m_SizeDelta: {x: 350, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3708029315709075330
 CanvasRenderer:
@@ -93,12 +93,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35
+  m_fontSize: 59.8
   m_fontSizeBase: 35
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 59.8
   m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &4361711609270385326
+--- !u!114 &344473744667994558
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,11 +144,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1361409100064171544}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3458f40367fc26d41874b64c3fcb57f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 8936a0e1ab1b85346a262ea7950be9fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 8186234583542535983}
-  _fontScaler: 10
+  _resizeDivider: {x: 1, y: 1}
 --- !u!1 &4955009577245844240
 GameObject:
   m_ObjectHideFlags: 0

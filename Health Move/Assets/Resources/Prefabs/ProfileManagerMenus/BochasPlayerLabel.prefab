@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06d5e8c681e17841a8ecced20d60da0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _positionDivider: {x: 0.5, y: 0}
+  _positionMultiplier: {x: 0.5, y: 0}
   _target: {fileID: 8186234583542535983}
 --- !u!1 &4955009577245844240
 GameObject:
@@ -412,7 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06d5e8c681e17841a8ecced20d60da0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _positionDivider: {x: -0.5, y: 0}
+  _positionMultiplier: {x: -0.5, y: 0}
   _target: {fileID: 8186234583542535983}
 --- !u!1 &8705572177677476517
 GameObject:
