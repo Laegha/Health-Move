@@ -58,6 +58,8 @@ public class BochasMinigameManager : MinigameManager
 
     public CinemachineVirtualCamera PlayerCam { get { return _playerCam; } }
 
+    public Dictionary<string, int> Scored{ get { return _scored; } }
+
     public BochasMinigameManager()
     {
         minigameHandPrefab = Resources.Load("Prefabs/Hands/BochasHands", typeof(GameObject)) as GameObject;
