@@ -8,21 +8,12 @@ using UnityEngine;
 
 public class BochasMinigameManager : MinigameManager
 {
-    public enum BochasThrowingMode
-    {
-        Bochador,
-        Arrimador,
-        Medio
-    }
-
     Bochin _bochin;
     List<Bocha> _thrownBochas = new List<Bocha>();
 
     int _bochasThrown = 0;
 
     bool _newRound = true;
-
-    Dictionary<string, BochasThrowingMode> _playersThrowingModes = new Dictionary<string, BochasThrowingMode>(); //if needed, the key could be changed to Profile
 
     List<Profile> _profilesNotPlayedInRound;
 
@@ -46,19 +37,19 @@ public class BochasMinigameManager : MinigameManager
 
     float _winScreenTime = 4;
 
+    string _lastWinner;
+
 
 
     public Bochin ThrownBochin { get { return _bochin; } set { _bochin = value; } }
 
     public List<Bocha> ThrownBochas { get { return _thrownBochas; } set { _thrownBochas = value; } }
 
-    public Dictionary<string, BochasThrowingMode> PlayerThrowingModes { get { return _playersThrowingModes; } }
-
-    public bool RoundEnding{ get { return _roundEnding; } set { _roundEnding = value; } }
+    public bool RoundEnding { get { return _roundEnding; } set { _roundEnding = value; } }
 
     public CinemachineVirtualCamera PlayerCam { get { return _playerCam; } }
 
-    public Dictionary<string, int> Scored{ get { return _scored; } }
+    public Dictionary<string, int> Scored { get { return _scored; } }
 
     public BochasMinigameManager()
     {
@@ -77,7 +68,7 @@ public class BochasMinigameManager : MinigameManager
 
         _playingPlayerText = GameObject.FindObjectOfType<PositionCalibrationScreen>().transform.Find("GFX").transform.Find("TeamTxt").GetComponent<TextMeshProUGUI>();
 
-        ChangeCurrProfile(BochasThrowingMode.Arrimador, startingTeam.teamName);
+        ChangeCurrProfile(startingTeam.teamName);
 
         GameManager.gm.ChangePlayer(startingTeam.teamColor);
         if (currPlayerProfile.name[0] == ':')
@@ -123,7 +114,7 @@ public class BochasMinigameManager : MinigameManager
 
     public override void OnTurnEnded()
     {
-        if(_newRound)
+        if (_newRound)
         {
             _newRound = false;
             ThrownBochin = GameObject.FindObjectOfType<Bochin>();
@@ -151,7 +142,7 @@ public class BochasMinigameManager : MinigameManager
         _cmBrain.ActiveVirtualCamera.Priority = 0;
         _playerCam.Priority = 1;
 
-        while(_cmBrain.IsBlending) yield return null;
+        while (_cmBrain.IsBlending) yield return null;
 
         bool roundEnded = false;
         if (_bochasThrown >= ProfileManager.pm.Profiles.Count * 2)//round ended
@@ -159,7 +150,7 @@ public class BochasMinigameManager : MinigameManager
             _bochasThrown = 0;
             roundEnded = true;
 
-            bool gameEnded = RoundEnded(); 
+            bool gameEnded = RoundEnded();
             if (gameEnded)
             {
                 Transform endScreen = GameManager.gm.FindInChildren(GameObject.Find("Canvas").transform, "EndMinigameScreen");
@@ -178,29 +169,12 @@ public class BochasMinigameManager : MinigameManager
             _thrownBochas.Clear();
             GameObject.Destroy(ThrownBochin.gameObject);
             _newRound = true;
-            
-        }
-
-
-        BochasThrowingMode currThrowingMode = PlayerThrowingModes[currPlayerProfile.name];
-        if (_bochasThrown % 4 == 0 && !roundEnded)//throwing mode change
-        {
-            switch (currThrowingMode)
-            {
-                case BochasThrowingMode.Bochador:
-                    currThrowingMode = BochasThrowingMode.Arrimador;
-                    break;
-                case BochasThrowingMode.Arrimador:
-                    currThrowingMode = BochasThrowingMode.Bochador;
-                    break;
-            }
 
         }
 
-        ChangeCurrProfile(roundEnded ? BochasThrowingMode.Arrimador : currThrowingMode, currPlayerProfile.teamName == teams[0].teamName ? teams[1].teamName : teams[0].teamName);
+        ChangeCurrProfile(currPlayerProfile.teamName == teams[0].teamName ? teams[1].teamName : teams[0].teamName);
         Team team = teams.Where(x => x.teamName == currPlayerProfile.teamName).ToList()[0];
         GameManager.gm.ChangePlayer(team.teamColor);
-        //recalibrate controllers
         if (currPlayerProfile.name[0] == ':')
             _playingPlayerText.text = "";
         else
@@ -213,6 +187,7 @@ public class BochasMinigameManager : MinigameManager
 
         }
         _playingPlayerText.color = team.teamColor;
+        //recalibrate controllers
         RestartControllers();
     }
 
@@ -220,7 +195,7 @@ public class BochasMinigameManager : MinigameManager
     {
         _thrownBochas.Add(bocha.GetComponent<Bocha>());
         ThrownBochin.justThrownBocha = bocha;
-        _bochasThrown ++;
+        _bochasThrown++;
     }
 
     public bool RoundEnded()
@@ -269,6 +244,7 @@ public class BochasMinigameManager : MinigameManager
 
 
         _scored[closestBocha.Key] += scoringBochas.Count;
+        _lastWinner = closestBocha.Key;
         scoringBochas.ForEach(x => x.scoring = true);
         GameManager.gm.OnScored(GameManager.gm.ActiveHand.GetComponent<PlayerIdentifier>());
         RoundEnding = true;
@@ -284,25 +260,22 @@ public class BochasMinigameManager : MinigameManager
         return Mathf.Abs((bocha.transform.position - ThrownBochin.transform.position).magnitude);
     }
 
-    void ChangeCurrProfile(BochasThrowingMode bochasThrowingMode, string newPlayerTeam)
+    Profile ChangeCurrProfile(string newPlayerTeam)
     {
         List<Profile> possibleProfiles = _profilesNotPlayedInRound
-            .Where(x => PlayerThrowingModes[x.name] == bochasThrowingMode && x.teamName == newPlayerTeam)
+            .Where(x => x.teamName == newPlayerTeam)
             .ToList();
-        if(possibleProfiles.Count <= 0)
+        if (possibleProfiles.Count == 0)
         {
             possibleProfiles = ProfileManager.pm.Profiles
-            .Where(x => PlayerThrowingModes[x.name] == bochasThrowingMode && x.teamName == newPlayerTeam)
-            .ToList();
-            possibleProfiles.ForEach(x => _profilesNotPlayedInRound.Add(x));
+                .Where(x => x.teamName == newPlayerTeam)
+                .ToList();
+
+            possibleProfiles.ForEach(profile => _profilesNotPlayedInRound.Add(profile));
+
         }
-        if (possibleProfiles.Count <= 0)
-        {
-            ChangeCurrProfile(bochasThrowingMode == BochasThrowingMode.Arrimador ? BochasThrowingMode.Bochador : BochasThrowingMode.Arrimador, newPlayerTeam);
-            return;
-        }
-        int index = Random.Range(0, possibleProfiles.Count);
-        currPlayerProfile = possibleProfiles[index];
-        _profilesNotPlayedInRound.Remove(currPlayerProfile);
+        return possibleProfiles[Random.Range(0, possibleProfiles.Count)];
     }
 }
+
+
