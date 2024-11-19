@@ -805,7 +805,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 1594028348288087975}
-  _rectTransform: {fileID: 4570407313808489158}
   _resizeDivider: {x: 1, y: 1}
 --- !u!1 &498838266851748734
 GameObject:
@@ -3733,7 +3732,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 4875396595309968494}
-  _rectTransform: {fileID: 352724884678599765}
   _resizeDivider: {x: 1, y: 1}
 --- !u!1 &3214539250929687638
 GameObject:
@@ -6587,7 +6585,7 @@ MonoBehaviour:
       Value: {fileID: 996148239732503670}
     - Key: Azules
       Value: {fileID: 3083804199332833275}
-  createdProfileBoxPrefab: {fileID: 4955009577245844240, guid: 89118f4e87409c94d863c493ab7ba0fe, type: 3}
+  createdProfileBoxPrefab: {fileID: 4955009577245844240, guid: f72aa234c9bcb6e4caec02849a4bf055, type: 3}
   defaultLayout: {fileID: 3481836583889058111}
   nameCreateLayout: {fileID: 7948944407349787874}
   _throwingModeSelectLayout: {fileID: 3630548487052680889}
