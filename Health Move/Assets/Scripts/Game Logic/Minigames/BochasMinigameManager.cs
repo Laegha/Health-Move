@@ -160,8 +160,8 @@ public class BochasMinigameManager : MinigameManager
             bool gameEnded = RoundEnded(); 
             if (gameEnded)
             {
-                GameObject endScreen = GameObject.Find("EndScreen");
-                endScreen.SetActive(true);
+                Transform endScreen = GameManager.gm.FindInChildren(GameObject.Find("Canvas").transform, "EndMinigameScreen");
+                endScreen.gameObject.SetActive(true);
                 TextMeshProUGUI winnerText = endScreen.transform.Find("WinnerText").GetComponent<TextMeshProUGUI>();
                 winnerText.text = currPlayerProfile.teamName;
                 winnerText.color = teams.Where(x => x.teamName == currPlayerProfile.teamName).ToArray()[0].teamColor;
@@ -223,27 +223,48 @@ public class BochasMinigameManager : MinigameManager
 
     public bool RoundEnded()
     {
-        KeyValuePair<string, float> closestBocha = new KeyValuePair<string, float>(_thrownBochas[0].bochaTeam, GetDistBocha(_thrownBochas[0].transform));
-        List<Bocha> scoringBochas = new List<Bocha>(){ _thrownBochas[0] };
-        for(int i = 1; i < _thrownBochas.Count; i++)
+        float firstBochaDist = GetDistBocha(_thrownBochas[0].transform);
+        KeyValuePair<string, float> closestBocha = new KeyValuePair<string, float>(_thrownBochas[0].bochaTeam, firstBochaDist);
+        _thrownBochas[0].bochaDist = firstBochaDist;
+
+        KeyValuePair<string, float> closestBochaRival = new KeyValuePair<string, float>("null", 1000);//this num is so big so the first bochas of the same team can score
+
+        List<Bocha> scoringBochas = new List<Bocha>() { _thrownBochas[0] };
+        for (int i = 1; i < _thrownBochas.Count; i++)
         {
             float bochaDist = GetDistBocha(_thrownBochas[i].transform);
-            if (_thrownBochas[i].bochaTeam == closestBocha.Key)
+            _thrownBochas[i].bochaDist = bochaDist;
+
+            if (_thrownBochas[i].bochaTeam != closestBocha.Key)
+            {
+                Debug.Log("Bocha enemiga: " + _thrownBochas[i].name);
+                scoringBochas
+                    .Where(bocha => bochaDist < bocha.bochaDist)
+                    .ToList()
+                    .ForEach(bocha => scoringBochas
+                    .Remove(bocha));
+                if (bochaDist < closestBocha.Value)
+                {
+                    scoringBochas.Add(_thrownBochas[i]);
+
+                    closestBochaRival = new KeyValuePair<string, float>(closestBocha.Key, closestBocha.Value);
+                    closestBocha = new KeyValuePair<string, float>(_thrownBochas[i].bochaTeam, bochaDist);
+
+                }
+                else if (bochaDist < closestBochaRival.Value)
+                {
+                    closestBochaRival = new KeyValuePair<string, float>(_thrownBochas[i].bochaTeam, bochaDist);
+                }
+            }
+
+            else if (_thrownBochas[i].bochaTeam == closestBocha.Key && bochaDist < closestBochaRival.Value)
             {
                 scoringBochas.Add(_thrownBochas[i]);
                 if (bochaDist < closestBocha.Value)
                     closestBocha = new KeyValuePair<string, float>(closestBocha.Key, bochaDist);
             }
-            else
-            {
-                if (bochaDist < closestBocha.Value)
-                {
-                    scoringBochas.Clear();
-                    closestBocha = new KeyValuePair<string, float>(_thrownBochas[i].bochaTeam, bochaDist);
-
-                }
-            }
         }
+
 
         _scored[closestBocha.Key] += scoringBochas.Count;
         scoringBochas.ForEach(x => x.scoring = true);
