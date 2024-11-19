@@ -6,6 +6,8 @@ public class Bocha : MonoBehaviour
 {
     [HideInInspector] public string bochaTeam;
 
+    [HideInInspector] public float bochaDist;
+
     [HideInInspector] public bool scoring;
 
 }
