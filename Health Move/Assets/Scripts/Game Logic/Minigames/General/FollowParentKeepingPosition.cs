@@ -11,7 +11,7 @@ public class FollowParentKeepingPosition : MonoBehaviour
     void Start()
     {
         verticalDistance = transform.localPosition.y;
-        rotation = transform.rotation;
+        rotation = Quaternion.Euler(90, 0, 0);
     }
 
     // Update is called once per frame
