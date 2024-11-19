@@ -273,7 +273,7 @@ public class BochasMinigameManager : MinigameManager
         GameManager.gm.OnScored(GameManager.gm.ActiveHand.GetComponent<PlayerIdentifier>());
         RoundEnding = true;
 
-        if (_scored[closestBocha.Key] > _scoreToWin)
+        if (_scored[closestBocha.Key] >= _scoreToWin)
             return true;
 
         return false;
