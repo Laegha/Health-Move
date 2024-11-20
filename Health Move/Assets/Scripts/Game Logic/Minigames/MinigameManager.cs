@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -25,26 +26,43 @@ public class MinigameManager
 
     public virtual void RestartControllers() 
     {
-        GameManager.gm.RoutineRunner(GameManager.gm.KillControllerTracking(() =>
+        KillTracking(() =>
         {
-            GameManager.gm.RoutineRunner(ControllerCalibration.controllerCalibration.StartCalibration(() =>
+            CalibrateControllers(() =>
             {
                 if (!currPlayerProfile.calibrated)
-                {
-                    currPlayerProfile.calibrated = true;
-                    //Calibrate profile
-                    GameManager.gm.GetProfileSensitivity(currPlayerProfile, () =>
+                    CalibrateSensitivity(() =>
                     {
-                        GameManager.gm.ResetHands();
+                        CalibratePosition();
                     });
-                }
                 else
-                    GameManager.gm.ResetHands();
-            }));
-        }));
+                    CalibratePosition();
+            });
+        });
         
     }
-    
+
+    public virtual void KillTracking(Action callback)
+    {
+        GameManager.gm.RoutineRunner(GameManager.gm.KillControllerTracking(callback));
+    }
+
+    public virtual void CalibrateControllers(Action callback)
+    {
+        GameManager.gm.RoutineRunner(ControllerCalibration.controllerCalibration.StartCalibration(callback));
+    }
+
+    public virtual void CalibrateSensitivity(Action callback)
+    {
+        currPlayerProfile.calibrated = true;
+        GameManager.gm.GetProfileSensitivity(currPlayerProfile, callback);
+    }
+
+    public virtual void CalibratePosition()
+    {
+        GameManager.gm.ResetHands();
+    }
+
     public virtual void OnTurnEnded() { }
     public virtual void OnTurnStarted() { }
 }
