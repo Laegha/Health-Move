@@ -1,11 +1,12 @@
 using System;
 using TMPro;
+using UnityEngine;
 
 public class ProfileSelectBtn : PsmoveButton
 {
     string _profileName;
     Action<string> _callbackOnPressed;
-    TextMeshProUGUI _text;
+    [SerializeField] TextMeshProUGUI _text;
 
     public string ProfileName {  get { return _profileName; } set { _profileName = value; } }
     public Action<string> CallbackOnPressed { get { return _callbackOnPressed; } set { _callbackOnPressed = value; } }
