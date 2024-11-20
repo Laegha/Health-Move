@@ -40,7 +40,8 @@ public class BochasMinigameManager : MinigameManager
 
     string _lastWinnerTeam;
 
-
+    GameObject _profileSelectScreen;
+    GameObject _cursor;
 
 
 
@@ -78,12 +79,18 @@ public class BochasMinigameManager : MinigameManager
         RestartControllers();
     }
 
-    GameObject _profileSelectScreen;
-    GameObject _cursor;
-    public override void CalibrateProfile()
+
+    public override void CalibrateControllers(System.Action callback)
     {
         Team team = teams.Where(x => x.teamName == _lastWinnerTeam).ToList()[0];
         GameManager.gm.ChangePlayer(team.teamColor);
+
+        base.CalibrateControllers(callback);
+    }
+
+    public override void CalibrateProfile()
+    {
+        Team team = teams.Where(x => x.teamName == _lastWinnerTeam).ToList()[0];
         //Choose profile from team
         _profileSelectScreen = GameManager.gm.GenerateScreen("profileselect");
         ProfileSelectScreen profileSelectScreen = _profileSelectScreen.GetComponent<ProfileSelectScreen>();
