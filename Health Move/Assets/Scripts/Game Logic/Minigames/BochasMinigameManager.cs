@@ -58,6 +58,24 @@ public class BochasMinigameManager : MinigameManager
         minigameHandPrefab = Resources.Load("Prefabs/Hands/BochasHands", typeof(GameObject)) as GameObject;
 
     }
+    public override void Start()
+    {
+        base.Start();
+        _bochaGenerator = GameObject.FindObjectOfType<BochaGenerator>();
+        ProfileManager.pm.Profiles.ForEach(profile => _profilesTimesPlayedInRound.Add(profile, 0));
+
+        //_scoreToWin *= ProfileManager.pm.Profiles.Count() / 2;
+
+        Team startingTeam = teams[Random.Range(0, teams.Length)];
+
+        _playingPlayerText = GameObject.FindObjectOfType<PositionCalibrationScreen>().transform.Find("GFX").transform.Find("TeamTxt").GetComponent<TextMeshProUGUI>();
+
+        _playerCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CinemachineVirtualCamera>();
+        _cmBrain = GameObject.FindObjectOfType<CinemachineBrain>();
+
+        GameManager.gm.GeneratedHands += OnTurnStarted;
+        RestartControllers();
+    }
 
     public override void CalibrateProfile()
     {
@@ -65,8 +83,9 @@ public class BochasMinigameManager : MinigameManager
         GameManager.gm.ChangePlayer(team.teamColor);
         //Choose profile from team
         ProfileSelectScreen profileSelectScreen = GameManager.gm.GenerateScreen("profileselect").GetComponent<ProfileSelectScreen>();
-        
-        foreach(var profile in GetPossibleNextProfiles(_lastWinnerTeam))
+
+        List<Profile> availableProfiles = GetPossibleNextProfiles(_lastWinnerTeam);
+        foreach (var profile in availableProfiles)
         {
             ProfileSelectBtn profileSelectBtn = GameObject.Instantiate(profileSelectScreen.buttonPrefab, profileSelectScreen.grid.transform).GetComponent<ProfileSelectBtn>();
             profileSelectBtn.ProfileName = profile.name;
@@ -93,24 +112,6 @@ public class BochasMinigameManager : MinigameManager
         _playingPlayerText.color = team.teamColor;
     }
 
-    public override void Start()
-    {
-        base.Start();
-        _bochaGenerator = GameObject.FindObjectOfType<BochaGenerator>();
-        ProfileManager.pm.Profiles.ForEach(profile => _profilesTimesPlayedInRound.Add(profile, 0));
-
-        _scoreToWin *= ProfileManager.pm.Profiles.Count() / 2;
-
-        Team startingTeam = teams[Random.Range(0, teams.Length)];
-
-        _playingPlayerText = GameObject.FindObjectOfType<PositionCalibrationScreen>().transform.Find("GFX").transform.Find("TeamTxt").GetComponent<TextMeshProUGUI>();
-
-        _playerCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CinemachineVirtualCamera>();
-        _cmBrain = GameObject.FindObjectOfType<CinemachineBrain>();
-
-        GameManager.gm.GeneratedHands += OnTurnStarted;
-        RestartControllers();
-    }
 
     public override void OnTurnStarted()
     {
@@ -287,6 +288,8 @@ public class BochasMinigameManager : MinigameManager
 
     void SelectedProfile()
     {
-
+        _profilesTimesPlayedInRound[currPlayerProfile]++;
+        if (_profilesTimesPlayedInRound[currPlayerProfile] >= 2)
+            _profilesTimesPlayedInRound.Remove(currPlayerProfile);
     }
 }
