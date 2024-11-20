@@ -17,7 +17,7 @@ public class BochaThrowTrigger : MonoBehaviour
         BochasMinigameManager bochasMinigameManager = GameManager.gm.CurrMinigameManager as BochasMinigameManager;
 
         //apply force based on bochasMinigameManager.PlayerThrowingModes[playerCollisionIdentifier.PlayerIdentifier.Profile.name]
-        Vector3 forceToApply = GetThrowDirection(other.transform, other.transform.forward) * Random.Range(.5f, 1.5f); //the random is set to add a little variation to throwing (i'm on a tight schedule, don't want to implement it properly)
+        Vector3 forceToApply = GetThrowDirection(other.transform, other.transform.forward) * playerCollisionIdentifier.PlayerIdentifier.ControllerData.accel.magnitude * bochasMinigameManager.currPlayerProfile.sensitivity * 20; //accel is usualy a low number, therefore we have to multiply it by a higher one
         Bochin bochin = bocha.GetComponent<Bochin>();
 
         //push bocha
