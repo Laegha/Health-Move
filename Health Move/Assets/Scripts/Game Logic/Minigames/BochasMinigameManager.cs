@@ -38,7 +38,7 @@ public class BochasMinigameManager : MinigameManager
 
     float _winScreenTime = 4;
 
-    string _lastWinnerTeam;
+    string _currPlayingTeam;
 
     GameObject _profileSelectScreen;
     GameObject _cursor;
@@ -68,7 +68,7 @@ public class BochasMinigameManager : MinigameManager
 
         //_scoreToWin *= ProfileManager.pm.Profiles.Count() / 2;
 
-        _lastWinnerTeam = teams[Random.Range(0, teams.Length)].teamName;
+        _currPlayingTeam = teams[Random.Range(0, teams.Length)].teamName;
 
         _playingPlayerText = GameObject.FindObjectOfType<PositionCalibrationScreen>().transform.Find("GFX").transform.Find("TeamTxt").GetComponent<TextMeshProUGUI>();
 
@@ -82,7 +82,7 @@ public class BochasMinigameManager : MinigameManager
 
     public override void CalibrateControllers(System.Action callback)
     {
-        Team team = teams.Where(x => x.teamName == _lastWinnerTeam).ToList()[0];
+        Team team = teams.Where(x => x.teamName == _currPlayingTeam).ToList()[0];
         GameManager.gm.ChangePlayer(team.teamColor);
 
         base.CalibrateControllers(callback);
@@ -90,13 +90,13 @@ public class BochasMinigameManager : MinigameManager
 
     public override void CalibrateProfile()
     {
-        Team team = teams.Where(x => x.teamName == _lastWinnerTeam).ToList()[0];
+        Team team = teams.Where(x => x.teamName == _currPlayingTeam).ToList()[0];
         //Choose profile from team
         _profileSelectScreen = GameManager.gm.GenerateScreen("profileselect");
         ProfileSelectScreen profileSelectScreen = _profileSelectScreen.GetComponent<ProfileSelectScreen>();
         Vector2 cellSize = profileSelectScreen.grid.cellSize;
 
-        List<Profile> availableProfiles = GetPossibleNextProfiles(_lastWinnerTeam);
+        List<Profile> availableProfiles = GetPossibleNextProfiles(_currPlayingTeam);
         int generatedBtns = 0;
         foreach (var profile in availableProfiles)
         {
@@ -133,7 +133,7 @@ public class BochasMinigameManager : MinigameManager
 
     void UpdateGfx()
     {
-        Team team = teams.Where(x => x.teamName == _lastWinnerTeam).ToList()[0];
+        Team team = teams.Where(x => x.teamName == _currPlayingTeam).ToList()[0];
 
         _playingPlayerText.text = ProfileManager.pm.GetProfileTextFromKey(currPlayerProfile.name);
         _playingPlayerText.color = team.teamColor;
@@ -170,31 +170,28 @@ public class BochasMinigameManager : MinigameManager
             GameManager.gm.RoutineRunner(ThrownBochin.GetComponent<BochaCamera>().FocusBocha(OnTurnStarted));
             return;
         }
-        if (_bochasThrown % 2 != 0)
-        {
-            GameManager.gm.RoutineRunner(_thrownBochas.Last().GetComponent<BochaCamera>().FocusBocha(OnTurnStarted));
-            return;
-        }
 
-        GameManager.gm.RoutineRunner(_thrownBochas.Last().GetComponent<BochaCamera>().FocusBocha(EndedProfileTurns));
+        GameManager.gm.RoutineRunner(_thrownBochas.Last().GetComponent<BochaCamera>().FocusBocha(EndedTurn));
 
 
     }
 
-    void EndedProfileTurns()
+    void EndedTurn()
     {
-        GameManager.gm.RoutineRunner(EndedProfileTurnsRoutine());
+        GameManager.gm.RoutineRunner(EndedTurnRoutine());
     }
 
-    IEnumerator EndedProfileTurnsRoutine()
+    IEnumerator EndedTurnRoutine()
     {
         _cmBrain.ActiveVirtualCamera.Priority = 0;
         _playerCam.Priority = 1;
 
         while (_cmBrain.IsBlending) yield return null;
 
+        bool roundEnded = false;
         if (_bochasThrown >= ProfileManager.pm.Profiles.Count * 2)//round ended
         {
+            roundEnded = true;
             _bochasThrown = 0;
 
             bool gameEnded = RoundEnded();
@@ -220,6 +217,10 @@ public class BochasMinigameManager : MinigameManager
         }       
 
         //recalibrate controllers
+        if(_currPlayingTeam == teams[0].teamName && !roundEnded)
+            _currPlayingTeam = teams[1].teamName;
+        else if(_currPlayingTeam == teams[1].teamName && !roundEnded)
+            _currPlayingTeam = teams[0].teamName;
         RestartControllers();
     }
 
@@ -276,7 +277,7 @@ public class BochasMinigameManager : MinigameManager
 
 
         _scored[closestBocha.Key] += scoringBochas.Count;
-        _lastWinnerTeam = closestBocha.Key;
+        _currPlayingTeam = closestBocha.Key;
         scoringBochas.ForEach(x => x.scoring = true);
         GameManager.gm.OnScored(GameManager.gm.ActiveHand.GetComponent<PlayerIdentifier>());
         RoundEnding = true;
