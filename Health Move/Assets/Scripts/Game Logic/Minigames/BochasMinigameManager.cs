@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 public class BochasMinigameManager : MinigameManager
@@ -77,12 +78,15 @@ public class BochasMinigameManager : MinigameManager
         RestartControllers();
     }
 
+    GameObject _profileSelectScreen;
+    GameObject _cursor;
     public override void CalibrateProfile()
     {
         Team team = teams.Where(x => x.teamName == _lastWinnerTeam).ToList()[0];
         GameManager.gm.ChangePlayer(team.teamColor);
         //Choose profile from team
-        ProfileSelectScreen profileSelectScreen = GameManager.gm.GenerateScreen("profileselect").GetComponent<ProfileSelectScreen>();
+        _profileSelectScreen = GameManager.gm.GenerateScreen("profileselect");
+        ProfileSelectScreen profileSelectScreen = _profileSelectScreen.GetComponent<ProfileSelectScreen>();
         Vector2 cellSize = profileSelectScreen.grid.cellSize;
 
         List<Profile> availableProfiles = GetPossibleNextProfiles(_lastWinnerTeam);
@@ -97,6 +101,16 @@ public class BochasMinigameManager : MinigameManager
             profileSelectBtn.CallbackOnPressed = ProfileSelectBtnCallback;
         }
         profileSelectScreen.grid.cellSize = cellSize / generatedBtns;
+
+        _cursor = GameManager.gm.GenerateCursor();
+        GameManager.gm.RoutineRunner(ResetCursorPosition());
+    }
+
+    IEnumerator ResetCursorPosition()//this is SUPER gross
+    {
+        yield return new WaitForSeconds(0.01f);
+
+        _cursor.GetComponent<RectTransform>().localPosition = new Vector2(0, 0);
     }
 
     void ProfileSelectBtnCallback(string selectedProfileName)
@@ -104,6 +118,8 @@ public class BochasMinigameManager : MinigameManager
         currPlayerProfile = _profilesTimesPlayedInRound.Keys.Where(profile => profile.name == selectedProfileName).FirstOrDefault();
         UpdateGfx();
         SelectedProfile();
+        GameObject.Destroy(_profileSelectScreen);
+        GameObject.Destroy(_cursor);
 
         base.CalibrateProfile();
     }

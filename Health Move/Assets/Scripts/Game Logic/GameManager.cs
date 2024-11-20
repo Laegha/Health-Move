@@ -161,15 +161,14 @@ public class GameManager : MonoBehaviour
         generatedHands?.Invoke();
     }
 
-    public void GenerateCursor()
+    public GameObject GenerateCursor()
     {
         if (ActiveHand != null)
             Destroy(ActiveHand);
 
-        ActiveHand = Instantiate(_cursorPrefab, transform.position, Quaternion.identity);
+        ActiveHand = Instantiate(_cursorPrefab, (GameObject.Find("Canvas").transform));
 
-        ActiveHand.transform.SetParent(GameObject.Find("Canvas").transform);
-        ActiveHand.GetComponent<RectTransform>().localPosition = Vector3.zero;
+        return ActiveHand;
     }
 
     public GameObject GenerateScreen(string screenType)
