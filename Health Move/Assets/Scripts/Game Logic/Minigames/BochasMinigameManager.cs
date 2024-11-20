@@ -15,7 +15,7 @@ public class BochasMinigameManager : MinigameManager
 
     bool _newRound = true;
 
-    Dictionary<Profile, int> _profilesTimesPlayedInRound;
+    Dictionary<Profile, int> _profilesTimesPlayedInRound = new Dictionary<Profile, int>();
 
     BochaGenerator _bochaGenerator;
 
@@ -66,7 +66,7 @@ public class BochasMinigameManager : MinigameManager
 
         //_scoreToWin *= ProfileManager.pm.Profiles.Count() / 2;
 
-        Team startingTeam = teams[Random.Range(0, teams.Length)];
+        _lastWinnerTeam = teams[Random.Range(0, teams.Length)].teamName;
 
         _playingPlayerText = GameObject.FindObjectOfType<PositionCalibrationScreen>().transform.Find("GFX").transform.Find("TeamTxt").GetComponent<TextMeshProUGUI>();
 
@@ -83,16 +83,20 @@ public class BochasMinigameManager : MinigameManager
         GameManager.gm.ChangePlayer(team.teamColor);
         //Choose profile from team
         ProfileSelectScreen profileSelectScreen = GameManager.gm.GenerateScreen("profileselect").GetComponent<ProfileSelectScreen>();
+        Vector2 cellSize = profileSelectScreen.grid.cellSize;
 
         List<Profile> availableProfiles = GetPossibleNextProfiles(_lastWinnerTeam);
+        int generatedBtns = 0;
         foreach (var profile in availableProfiles)
         {
+            generatedBtns++;
             ProfileSelectBtn profileSelectBtn = GameObject.Instantiate(profileSelectScreen.buttonPrefab, profileSelectScreen.grid.transform).GetComponent<ProfileSelectBtn>();
             profileSelectBtn.ProfileName = profile.name;
             profileSelectBtn.Text.text = ProfileManager.pm.GetProfileTextFromKey(profile.name);
+            profileSelectBtn.Text.color = team.teamColor;
             profileSelectBtn.CallbackOnPressed = ProfileSelectBtnCallback;
         }
-
+        profileSelectScreen.grid.cellSize = cellSize / generatedBtns;
     }
 
     void ProfileSelectBtnCallback(string selectedProfileName)
@@ -166,11 +170,9 @@ public class BochasMinigameManager : MinigameManager
 
         while (_cmBrain.IsBlending) yield return null;
 
-        bool roundEnded = false;
         if (_bochasThrown >= ProfileManager.pm.Profiles.Count * 2)//round ended
         {
             _bochasThrown = 0;
-            roundEnded = true;
 
             bool gameEnded = RoundEnded();
             if (gameEnded)
@@ -192,9 +194,7 @@ public class BochasMinigameManager : MinigameManager
             GameObject.Destroy(ThrownBochin.gameObject);
             _newRound = true;
 
-        }
-
-        
+        }       
 
         //recalibrate controllers
         RestartControllers();
