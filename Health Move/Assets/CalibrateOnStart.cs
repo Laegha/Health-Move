@@ -13,7 +13,7 @@ public class CalibrateOnStart : MonoBehaviour
         {
             StartCoroutine(ControllerCalibration.controllerCalibration.StartCalibration(() =>
             {
-                GameManager.gm.ResetHands();
+                GameManager.gm.CalibratePosition();
             }));
         }
         started = true;

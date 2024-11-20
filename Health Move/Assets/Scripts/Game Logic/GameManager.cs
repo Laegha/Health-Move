@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     }
     
     [SerializeField] GameObject _cursorPrefab;
+    [SerializeField] GameObject _profileSelectScreenPrefab;
 
     MinigameManager _currMinigameManager;
 
@@ -118,7 +119,7 @@ public class GameManager : MonoBehaviour
         sensitivityCalibrationScreen.SetProfileSensitivity(profile, callback);
     }
 
-    public void ResetHands()
+    public void CalibratePosition()
     {
         if(ActiveHand != null)
             Destroy(ActiveHand);
@@ -132,9 +133,7 @@ public class GameManager : MonoBehaviour
     {
         List<NeedsPlayerReference> needsPlayerReferences = FindObjectsOfType<NeedsPlayerReference>().ToList();
         
-        ActiveHand = Instantiate(CurrMinigameManager != null ? CurrMinigameManager.minigameHandPrefab : _cursorPrefab, transform.position, Quaternion.identity);
-        
-        
+        ActiveHand = Instantiate(CurrMinigameManager != null ? CurrMinigameManager.minigameHandPrefab : _cursorPrefab, transform.position, Quaternion.identity);        
         
         if (CurrMinigameManager == null)
         {
@@ -160,6 +159,29 @@ public class GameManager : MonoBehaviour
         needsPlayerReferences.ForEach(x => x.player = ActiveHand);
 
         generatedHands?.Invoke();
+    }
+
+    public void GenerateCursor()
+    {
+        if (ActiveHand != null)
+            Destroy(ActiveHand);
+
+        ActiveHand = Instantiate(_cursorPrefab, transform.position, Quaternion.identity);
+
+        ActiveHand.transform.SetParent(GameObject.Find("Canvas").transform);
+        ActiveHand.GetComponent<RectTransform>().localPosition = Vector3.zero;
+    }
+
+    public GameObject GenerateScreen(string screenType)
+    {
+        GameObject screen;
+        if (screenType.ToLower() == "profileselect")
+            screen = Instantiate(_profileSelectScreenPrefab, transform.position, Quaternion.identity);
+        else
+            return null;
+        screen.transform.SetParent(GameObject.Find("Canvas").transform);
+        screen.GetComponent<RectTransform>().localPosition = Vector3.zero;
+        return screen;
     }
 
     public void ChangePlayer(Color playerColor)

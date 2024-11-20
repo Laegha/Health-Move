@@ -30,13 +30,7 @@ public class MinigameManager
         {
             CalibrateControllers(() =>
             {
-                if (!currPlayerProfile.calibrated)
-                    CalibrateSensitivity(() =>
-                    {
-                        CalibratePosition();
-                    });
-                else
-                    CalibratePosition();
+                CalibrateProfile();
             });
         });
         
@@ -52,6 +46,17 @@ public class MinigameManager
         GameManager.gm.RoutineRunner(ControllerCalibration.controllerCalibration.StartCalibration(callback));
     }
 
+    public virtual void CalibrateProfile()
+    {
+        if (!currPlayerProfile.calibrated)
+            CalibrateSensitivity(() =>
+            {
+                CalibratePosition();
+            });
+        else
+            CalibratePosition();
+    }
+
     public virtual void CalibrateSensitivity(Action callback)
     {
         currPlayerProfile.calibrated = true;
@@ -60,7 +65,7 @@ public class MinigameManager
 
     public virtual void CalibratePosition()
     {
-        GameManager.gm.ResetHands();
+        GameManager.gm.CalibratePosition();
     }
 
     public virtual void OnTurnEnded() { }

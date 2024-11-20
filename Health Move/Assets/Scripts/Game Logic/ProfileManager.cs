@@ -52,4 +52,19 @@ public class ProfileManager : MonoBehaviour
     {
         _profiles.Add(new Profile(name, teamName));
     }
+
+    public string GetProfileTextFromKey(string key)
+    {
+        if (key[0] == ':')
+            return "";
+        else
+        {
+            int cutPosition = key.IndexOf(".");
+            if (cutPosition > 0)
+                return key.Substring(0, cutPosition);
+            else
+                return key;
+
+        }
+    }
 }
