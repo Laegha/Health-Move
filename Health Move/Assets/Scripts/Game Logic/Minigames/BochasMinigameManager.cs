@@ -110,20 +110,8 @@ public class BochasMinigameManager : MinigameManager
         profileSelectScreen.grid.cellSize = cellSize / generatedBtns;
 
         _cursor = GameManager.gm.GenerateCursor();
-        GameManager.gm.RoutineRunner(ResetCursorPosition());
     }
 
-    IEnumerator ResetCursorPosition()//this is SUPER gross
-    {
-        var transform = _cursor.GetComponent<RectTransform>();
-        float lapsedTime = 0;
-        while (lapsedTime <= 1)
-        {
-            lapsedTime += Time.deltaTime;
-            transform.localPosition = new Vector2(0, 0);
-            yield return new WaitForEndOfFrame();
-        }
-    }
 
     void ProfileSelectBtnCallback(string selectedProfileName)
     {

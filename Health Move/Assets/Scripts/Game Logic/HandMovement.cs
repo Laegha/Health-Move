@@ -32,6 +32,9 @@ public class HandMovement : MonoBehaviour
         if(rectTransform != null )
         {
             Vector3 processedMovement = pixelMovement * Time.deltaTime * handSpeed;
+            print(pixelMovement.magnitude);
+            if(pixelMovement.magnitude > 15f)
+                processedMovement = Vector3.zero;
             rectTransform.position -= new Vector3(processedMovement.x, processedMovement.y, 0);
         }
         else if(isMoving)
