@@ -26,7 +26,7 @@ public class BochasMinigameManager : MinigameManager
         {TeamsHandler.tm.teamsByMinigame["BochasMinigame"][1].teamName, 0 }
     };
 
-    int _scoreToWin = 6;
+    int _scoreToWin = 3;
 
     CinemachineVirtualCamera _playerCam;
 

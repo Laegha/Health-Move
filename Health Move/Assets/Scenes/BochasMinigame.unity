@@ -4701,7 +4701,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: El primer equipo en llegar a 6 puntos gana
+  m_text: El primer equipo en llegar a 3 puntos gana
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b06444e616bd64e42a85f0800675bf4c, type: 2}
   m_sharedMaterial: {fileID: 8142851475653846869, guid: b06444e616bd64e42a85f0800675bf4c, type: 2}
