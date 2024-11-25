@@ -6,6 +6,7 @@ public class BochaThrowTrigger : MonoBehaviour
 {
     [SerializeField] LayerMask raycastLayerMask;
     [SerializeField] Transform targetIfMissed;
+    float _throwForce = 10;
 
     [HideInInspector] public Transform bocha;
     private void OnTriggerEnter(Collider other)
@@ -17,7 +18,7 @@ public class BochaThrowTrigger : MonoBehaviour
         BochasMinigameManager bochasMinigameManager = GameManager.gm.CurrMinigameManager as BochasMinigameManager;
 
         //apply force based on bochasMinigameManager.PlayerThrowingModes[playerCollisionIdentifier.PlayerIdentifier.Profile.name]
-        Vector3 forceToApply = GetThrowDirection(other.transform, other.transform.forward) * playerCollisionIdentifier.PlayerIdentifier.ControllerData.accel.magnitude * bochasMinigameManager.currPlayerProfile.sensitivity * 20; //accel is usualy a low number, therefore we have to multiply it by a higher one
+        Vector3 forceToApply = GetThrowDirection(other.transform, other.transform.forward) * (playerCollisionIdentifier.PlayerIdentifier.ControllerData.accel.magnitude + 1) * bochasMinigameManager.currPlayerProfile.sensitivity * _throwForce;
         Bochin bochin = bocha.GetComponent<Bochin>();
 
         //push bocha

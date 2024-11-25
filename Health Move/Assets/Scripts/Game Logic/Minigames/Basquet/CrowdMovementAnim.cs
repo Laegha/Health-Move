@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CrowdMovementAnim : MonoBehaviour
 {
-    [SerializeField] float speed = .1f;
+    public float speed = .1f;
     int direction = 1;
     [SerializeField] float maxMove = .5f;
     float originalPosition;

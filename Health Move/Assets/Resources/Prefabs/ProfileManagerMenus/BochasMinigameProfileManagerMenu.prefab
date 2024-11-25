@@ -1777,7 +1777,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7076609894449835604}
         m_TargetAssemblyTypeName: ProfileManagerMenu, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: ConfirmProfileCreation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3215,7 +3215,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7076609894449835604}
         m_TargetAssemblyTypeName: ProfileManagerMenu, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: CancelAddProfile
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
